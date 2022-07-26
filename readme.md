@@ -1,6 +1,6 @@
 # JWE's keymap
 
-This is a custom, mostly 36-key keymap specifically for me. With a few extras, such as a zoom-mute button.
+This is a custom, mostly 36-key keymap specifically for me. With a few extra optional side-keys, such as a zoom-mute button.
 
 This repo is designed so that I can work independently of the qmk repo. There is an init script that clones qmk, and sym-links the 'user-config' sub-folders into the relevant places in the qmk_firmware clone.
 
@@ -19,3 +19,7 @@ I've tried to code it so that a wide range of functions can be enabled or disabl
 
 
 I'll try to write this all up in a better manner.
+
+
+## Still to do
+This currently compiles with 90 bytes too much, for the mcu I have. I'll need to optimise something, or return to an older commit of qmk with a smaller compile size.
