@@ -2,7 +2,8 @@
 
 This is a custom, mostly 36-key keymap specifically for me. With a few extras, such as a zoom-mute button.
 
-This repo is designed so that I can work independently of the qmk repo. There is an init script that sym-links these folders to the qmk_firmware home directory. (It assumes that the folders are in same parent dir.)
+This repo is designed so that I can work independently of the qmk repo. There is an init script that clones qmk, and sym-links the 'user-config' sub-folders into the relevant places in the qmk_firmware clone.
+
 It draws on a range of code from multiple users, that I have shamelessly just copied and modified to suit my own purposes.
 
 1. Case modes from here: https://github.com/andrewjrae/kyria-keymap#case-modes
