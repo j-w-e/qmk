@@ -19,7 +19,7 @@
 #define LEADER_DISPLAY_STR
 #endif
 
-#define QWERTY
+//#define QWERTY
 
 #ifdef USERSPACE_CAPS_WORD
 #define USE_XCASE
