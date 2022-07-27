@@ -13,12 +13,12 @@
 
 //Hugh's attempts at combos that suit him
 COMB(ST_ENT,            KC_ENT,              KC_S, KC_T)
-COMB(SYM_ENT, 					KC_ENT, 						 KC_EXLM,    KC_QUES)
+//COMB(SYM_ENT, 					KC_ENT, 						 KC_EXLM,    KC_QUES)
 COMB(CD_BSPC,           KC_BSPC,             KC_C, KC_D)
-COMB(SYM_BSPC,          KC_BSPC,             KC_PERC,    KC_AMPR)
-COMB(XD_DEL,            KC_DEL,              KC_X, KC_D)
-COMB(SYM_DEL,           KC_DEL,              KC_RBRC, KC_AMPR)
-SUBS(HR_H2R, 						"H2R", 							 KC_H, KC_R)
+//COMB(SYM_BSPC,          KC_BSPC,             KC_PERC,    KC_AMPR)
+//COMB(XD_DEL,            KC_DEL,              KC_X, KC_D)
+//COMB(SYM_DEL,           KC_DEL,              KC_RBRC, KC_AMPR)
+//SUBS(HR_H2R, 						"H2R", 							 KC_H, KC_R)
 COMB(FT_ESC, 						KC_ESC, 						 KC_F, KC_T)
 COMB(FP_TAB, 						KC_TAB, 						 KC_F, KC_P)
 #ifdef WINDOWS
@@ -37,8 +37,8 @@ COMB(FP_TAB, 						KC_TAB, 						 KC_F, KC_P)
 	COMB(swap_r,  SH_TG,  KC_L, KC_QUOT)
 #endif
 
-COMB(CTL_COMBO,   OS_CTRL, KC_A, KC_O)
-COMB(ALT_COMBO,   OS_ALT,  KC_R, KC_I)
+//COMB(CTL_COMBO,   OS_CTRL, KC_A, KC_O)
+//COMB(ALT_COMBO,   OS_ALT,  KC_R, KC_I)
 //COMB(GUI_COMBO,   OS_CMD,  KC_S, KC_E)
 //COMB(SFT_COMBO,   OS_SHFT, KC_T, KC_N)
-COMB(ZERO,        KC_0,    KC_SPC, KC_O)
+//COMB(ZERO,        KC_0,    KC_SPC, KC_O)

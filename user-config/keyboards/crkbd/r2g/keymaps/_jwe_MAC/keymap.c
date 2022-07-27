@@ -7,7 +7,10 @@
 #define LAYOUT_wrapper(...) LAYOUT_split_3x6_3(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#ifdef COLEMAK
     [CLMK] = LAYOUT_jwe_wrapper(_ALPHAS_COLEMAK),
+#endif
+    [ENGRAM] = LAYOUT_jwe_wrapper(_ALPHAS_ENGRAM),
 #ifdef QWERTY
     [QWER] = LAYOUT_jwe_wrapper(_ALPHAS_QWERTY),
 #endif

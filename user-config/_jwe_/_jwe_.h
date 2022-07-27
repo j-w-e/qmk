@@ -21,7 +21,13 @@
 extern bool WHICH_OS; // Switch between Mac and Win layouts. Mac is 0, Win is 1
 
 enum userspace_layers {
+    
+#ifdef COLEMAK
     CLMK = 0,
+    ENGRAM,
+#else
+    ENGRAM = 0,
+#endif
 #ifdef QWERTY
     QWER,
 #endif

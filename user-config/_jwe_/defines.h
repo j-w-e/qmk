@@ -113,6 +113,14 @@
 #define _________________COLEMAK_R2________________       KC_M,    KC_N,    KC_E,    KC_I,    KC_O
 #define _________________COLEMAK_R3________________       KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINUS
 
+#define __________________ENGRAM_L1________________       KC_B,    KC_Y,    KC_O,    KC_U,    KC_COMM
+#define __________________ENGRAM_L2________________       KC_C,    KC_I,    KC_E,    KC_A,    KC_BSPC
+#define __________________ENGRAM_L3________________       KC_G,    KC_X,    KC_J,    KC_K,    KC_QUOT
+
+#define __________________ENGRAM_R1________________       KC_DOT,  KC_L,    KC_D,    KC_W,    KC_V
+#define __________________ENGRAM_R2________________       KC_ENT,  KC_H,    KC_T,    KC_S,    KC_N
+#define __________________ENGRAM_R3________________       KC_DQUO, KC_R,    KC_M,    KC_F,    KC_P
+
 #ifdef QWERTY
 #define _________________QWERTY_L1_________________       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #define _________________QWERTY_L2_________________       KC_A,    KC_S,    KC_D,    KC_F,    KC_G
@@ -243,11 +251,15 @@
 #define ___________________FUNC_R3_________________       KC_F10,   KC_F1,      KC_F2,      KC_F3,      SLEEP
 
 
-
 #define _ALPHAS_COLEMAK \
     _________________COLEMAK_L1________________, _________________COLEMAK_R1________________, \
     _________________COLEMAK_L2________________, _________________COLEMAK_R2________________, \
     _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
+
+#define _ALPHAS_ENGRAM \
+    __________________ENGRAM_L1________________, __________________ENGRAM_R1________________, \
+    __________________ENGRAM_L2________________, __________________ENGRAM_R2________________, \
+    __________________ENGRAM_L3________________, __________________ENGRAM_R3________________
 #ifdef QWERTY
 #define _ALPHAS_QWERTY \
     _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, \
@@ -288,7 +300,7 @@
     ) \
     ZM_MUTE,  k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, ZM_MUTE, \
     LEAD,     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, LEAD, \
-    TO(CLMK), k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, TO(CLMK)
+    TO(ENGRAM), k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, TO(ENGRAM)
 #define LAYOUT_5x3_TO_6x3(...) _LAYOUT_5x3_TO_6x3(__VA_ARGS__)
 
 #define _LAYOUT_ADD_THUMBS(...) __VA_ARGS__, ________________CALLUM_THUMBS______________

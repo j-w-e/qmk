@@ -324,9 +324,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
 #ifdef RGBLIGHT_ENABLE
     switch (get_highest_layer(state)) {
-        case CLMK:
+        case ENGRAM:
             rgb_light_layer_helper(HSV_PURPLE);
             break;
+#ifdef COLEMAK
+        case CLMK:
+            rgb_light_layer_helper(HSV_WHITE);
+            break;
+#endif
 #ifdef QWERTY
         case QWER:
             rgb_light_layer_helper(HSV_WHITE);
@@ -373,53 +378,59 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 void oled_render_layer_state_r2g_jwe(void) {
 #ifdef CAPS_WORD_ENABLE
     if (is_caps_word_on()) {
-        oled_write_P(PSTR("CAPS "), false);
+        oled_write_P(PSTR("CAP"), false);
 } else {
-        oled_write_P(PSTR("Layer"), false);
+        oled_write_P(PSTR("Lyr"), false);
 }
 #else
     if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)){
 #ifdef SWAP_HANDS_ENABLE
-        oled_write_P(PSTR("CAPS "), swap_hands);
+        oled_write_P(PSTR("CAP"), swap_hands);
 #endif
 #ifndef SWAP_HANDS_ENABLE
-        oled_write_P(PSTR("CAPS "), false);
+        oled_write_P(PSTR("CAP"), false);
 #endif
     } else {
 #ifdef SWAP_HANDS_ENABLE
-        oled_write_P(PSTR("Layer"), swap_hands);
+        oled_write_P(PSTR("Lyr"), swap_hands);
 #endif
 #ifndef SWAP_HANDS_ENABLE
-        oled_write_P(PSTR("Layer"), false);
+        oled_write_P(PSTR("Lyr"), false);
 #endif
     }
 #endif
+    oled_advance_page(true);
     switch (get_highest_layer(layer_state)) {
-        case CLMK:
-            oled_write_P(PSTR("CLMK"), false);
+        case ENGRAM:
+            oled_write_P(PSTR("EN"), false);
             break;
+#ifdef COLEMAK
+        case CLMK:
+            oled_write_P(PSTR("CL"), false);
+            break;
+#endif
 #ifdef QWERTY
         case QWER:
-            oled_write_P(PSTR("QWER"), false);
+            oled_write_P(PSTR("QW"), false);
             break;
 #endif
         case SYM:
-            oled_write_P(PSTR("Sym"), false);
+            oled_write_P(PSTR("sm"), false);
             break;
         case NAV:
-            oled_write_P(PSTR("Nav"), false);
+            oled_write_P(PSTR("nv"), false);
             break;
         case NUM:
-            oled_write_P(PSTR("Num"), false);
+            oled_write_P(PSTR("nm"), false);
             break;
         case SYM2:
-            oled_write_P(PSTR("Sym2"), false);
+            oled_write_P(PSTR("s2"), false);
             break;
         case MOUSE:
-            oled_write_P(PSTR("MSE"), false);
+            oled_write_P(PSTR("m"), false);
             break;
         case FUNC:
-            oled_write_P(PSTR("Func"), false);
+            oled_write_P(PSTR("f"), false);
             break;
             oled_advance_page(true);
             oled_advance_page(true);
@@ -1006,7 +1017,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifndef USERSPACE_LEADER
         case JWE_PWD:
             if (record->event.pressed) {
-                SEND_STRING("setagergesed");
+                send_secret(0);
             }
             return false;
 #endif
@@ -1366,7 +1377,10 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_keymap(led_min, led_max)) { return; }
     {
         switch (get_highest_layer(layer_state | default_layer_state)) {
+            case ENGRAM:
+#ifdef COLEMAK
             case CLMK:
+#endif
                 rgb_matrix_layer_helper(HSV_PURPLE, led_min, led_max);
                 break;
 #ifdef QWERTY
@@ -1451,10 +1465,14 @@ void matrix_scan_user (void) {
             send_secret(5);
         }
 #endif
-
+        SEQ_TWO_KEYS(KC_L, KC_E) {
+            layer_move(ENGRAM);
+        }
+#ifdef COLEMAK
         SEQ_TWO_KEYS(KC_L, KC_C) {
             layer_move(CLMK);
         }
+#endif
 #ifdef QWERTY
         SEQ_TWO_KEYS(KC_L, KC_Q) {
             layer_move(QWER);
@@ -1514,8 +1532,13 @@ void *leader_layers_func(uint16_t keycode) {
             layer_move(QWER);
             break;
 #endif
+#ifdef COLEMAK
         case KC_C:
             layer_move(CLMK);
+            break;
+#endif
+        case KC_E:
+            layer_move(ENGRAM);
             break;
         case KC_N:
             layer_move(NAV);
