@@ -298,9 +298,9 @@
   k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, \
   k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A \
     ) \
-    ZM_MUTE,  k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, ZM_MUTE, \
-    LEAD,     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, LEAD, \
-    TO(ENGRAM), k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, TO(ENGRAM)
+    ZM_MUTE,  k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, KC_Q, \
+    LEAD,     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, KC_Z, \
+    TO(ENGRAM), k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, TO(CLMK)
 #define LAYOUT_5x3_TO_6x3(...) _LAYOUT_5x3_TO_6x3(__VA_ARGS__)
 
 #define _LAYOUT_ADD_THUMBS(...) __VA_ARGS__, ________________CALLUM_THUMBS______________
