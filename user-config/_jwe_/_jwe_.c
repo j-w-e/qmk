@@ -376,6 +376,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #endif
 
 void oled_render_layer_state_r2g_jwe(void) {
+    oled_write_P(PSTR("Layer"), false);
+    oled_advance_page(true);
     switch (get_highest_layer(layer_state)) {
         case ENGRAM:
             oled_write_P(PSTR("EN"), false);
@@ -417,7 +419,6 @@ void oled_render_layer_state_r2g_jwe(void) {
 #else
         oled_write_P(PSTR("CAPLK"), false);
 #endif
-        oled_advance_page(true);
     }
     else if (is_caps_word_on()) {
         oled_write_P(PSTR("CAP"), false);

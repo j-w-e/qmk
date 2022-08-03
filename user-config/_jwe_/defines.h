@@ -179,8 +179,8 @@
 
 
 #define ___________________NAV_L1__________________       SK_UNDO,  SK_CUT,     SK_COPY,    SK_PSTE,    SK_REDO
-#define ___________________NAV_L2__________________       ________________CALLUM_MODS_L______________,  JWE_NXTAB
-#define ___________________NAV_L3__________________       SW_WIN,    SW_AWIN,    KC_DEL,     KC_BSPC,   JWE_PRVTAB
+#define ___________________NAV_L2__________________       ________________CALLUM_MODS_L______________,  SK_WORDBSPC
+#define ___________________NAV_L3__________________       SW_WIN,    SW_AWIN,    JWE_PRVTAB,JWE_NXTAB,  SK_WORDDEL
 
 #define ___________________NAV_R1__________________       KC_PGUP,  SK_WORDPRV, SK_PARANXT, SK_PARAPRV, SK_WORDNXT
 #define ___________________NAV_R2__________________       KC_PGDN,  KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT
@@ -188,9 +188,9 @@
 
 
 
-#define _________________NUMBERS_L1________________       JWE_LINK, KC_SPACE,   KC_E,       KC_N,       KC_VOLU
-#define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_VOLD
-#define _________________NUMBERS_L3________________       KC_ESC,   KC_TAB,     SK_WORDDEL, SK_WORDBSPC,KC_MUTE
+#define _________________NUMBERS_L1________________       JWE_LINK, KC_SPACE,   KC_E,       KC_N,       KC_NO
+#define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_NO
+#define _________________NUMBERS_L3________________       KC_ESC,   KC_TAB,     KC_VOLD,    KC_VOLU,    KC_MUTE
 
 /* #define _________________NUMBERS_R1________________       KC_SLASH, KC_7,       KC_8,       KC_9,       KC_EQUAL
 #define _________________NUMBERS_R2________________       KC_ASTR,  KC_4,       KC_5,       KC_6,       UK_PLUS
