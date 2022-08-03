@@ -376,30 +376,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #endif
 
 void oled_render_layer_state_r2g_jwe(void) {
-#ifdef CAPS_WORD_ENABLE
-    if (is_caps_word_on()) {
-        oled_write_P(PSTR("CAP"), false);
-} else {
-        oled_write_P(PSTR("Lyr"), false);
-}
-#else
-    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)){
-#ifdef SWAP_HANDS_ENABLE
-        oled_write_P(PSTR("CAP"), swap_hands);
-#endif
-#ifndef SWAP_HANDS_ENABLE
-        oled_write_P(PSTR("CAP"), false);
-#endif
-    } else {
-#ifdef SWAP_HANDS_ENABLE
-        oled_write_P(PSTR("Lyr"), swap_hands);
-#endif
-#ifndef SWAP_HANDS_ENABLE
-        oled_write_P(PSTR("Lyr"), false);
-#endif
-    }
-#endif
-    oled_advance_page(true);
     switch (get_highest_layer(layer_state)) {
         case ENGRAM:
             oled_write_P(PSTR("EN"), false);
@@ -432,10 +408,35 @@ void oled_render_layer_state_r2g_jwe(void) {
         case FUNC:
             oled_write_P(PSTR("f"), false);
             break;
-            oled_advance_page(true);
-            oled_advance_page(true);
-
     }
+    oled_advance_page(true);
+#ifdef CAPS_WORD_ENABLE
+    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)){
+#ifdef SWAP_HANDS_ENABLE
+        oled_write_P(PSTR("CAPLK"), swap_hands);
+#else
+        oled_write_P(PSTR("CAPLK"), false);
+#endif
+        oled_advance_page(true);
+    }
+    else if (is_caps_word_on()) {
+        oled_write_P(PSTR("CAP"), false);
+        oled_advance_page(true);
+    } else {
+        oled_advance_page(true);
+    }
+#else
+    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)){
+#ifdef SWAP_HANDS_ENABLE
+        oled_write_P(PSTR("CAPLK"), swap_hands);
+#else
+        oled_write_P(PSTR("CAPLK"), false);
+#endif
+        oled_advance_page(true);
+    } else {
+        oled_advance_page(true);
+    }
+#endif
 }
 
 void render_bootmagic_status_r2g_jwe(bool status) {
@@ -779,6 +780,12 @@ const key_override_t dot_colon_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, 
 // Shift + comma = ;
 const key_override_t comma_semicolin_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);
 
+// Shift + quote = -
+const key_override_t quote_minus_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_MINUS);
+
+// Shift + dquote = _
+const key_override_t dquote_underscore_override = ko_make_basic(MOD_MASK_SHIFT, KC_DQUO, KC_UNDS);
+
 const key_override_t **key_overrides = (const key_override_t *[]){
     &dot_colon_override,
         &comma_semicolin_override,
@@ -786,9 +793,14 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 };
 #endif
 
+#ifdef USERSPACE_CUSTOM_DOT_COMMA
 bool colon_pressed = false;
 bool semicolon_pressed = false;
-uint8_t mods;
+bool quote_pressed= false;
+bool dquo_pressed = false;
+bool delete_pressed = false;
+#endif
+/* uint8_t mods; */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef USERSPACE_CAPS_WORD
@@ -1011,6 +1023,64 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return true;
+
+        case KC_QUOT: // single quote and hyphen
+            mods = get_mods();
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {
+                    quote_pressed = true;
+                    unregister_code(KC_LSFT);
+                    register_code(KC_MINUS);
+                    return false;
+                }
+            } else {
+                if (quote_pressed) {
+                    unregister_code(KC_MINUS);
+                    quote_pressed = false;
+                    if ((os_shft_state == os_down_used) | (jwe_shft_state == os_down_used)) {
+                        register_code(KC_LSFT);
+                    }
+                    return false;
+                }
+            }
+            return true;
+        case KC_DQUO:
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    dquo_pressed = true;
+                    register_code(KC_MINUS);
+                    return false;
+                }
+            } else {
+                if (dquo_pressed) {
+                    unregister_code(KC_MINUS);
+                    dquo_pressed = false;
+                    return false;
+                }
+            }
+            return true;
+
+        case KC_BSPC:
+            mods = get_mods();
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {
+                    delete_pressed = true;
+                    unregister_code(KC_LSFT);
+                    register_code(KC_DEL);
+                    return false;
+                }
+            } else {
+                if (semicolon_pressed) {
+                    unregister_code(KC_DEL);
+                    delete_pressed = false;
+                    if ((os_shft_state == os_down_used) | (jwe_shft_state == os_down_used)) {
+                        register_code(KC_LSFT);
+                    }
+                    return false;
+                }
+            }
+            return true;
+
 #endif // USERSPACE_CUSTOM_DOT_COMMA
 
 #ifndef LEADER_ENABLE
@@ -1576,7 +1646,6 @@ void *leader_strings_func(uint16_t keycode) {
     return NULL;
 }
 
-
 void *leader_start_func(uint16_t keycode) {
     switch (keycode) {
         case KC_L:
@@ -1588,5 +1657,4 @@ void *leader_start_func(uint16_t keycode) {
     }
     return NULL;
 }
-
 #endif //USERSPACE_LEADER

@@ -6,8 +6,8 @@
 
 #pragma once
 
-// #define MAC
-#define BOTH
+#define MAC
+//#define BOTH
 #define YABAI
 // #define MASTER_LEFT
 #define EE_HANDS

@@ -12,9 +12,9 @@
 
 
 //Hugh's attempts at combos that suit him
-COMB(ST_ENT,            KC_ENT,              KC_S, KC_T)
+//COMB(ST_ENT,            KC_ENT,              KC_S, KC_T)
 //COMB(SYM_ENT, 					KC_ENT, 						 KC_EXLM,    KC_QUES)
-COMB(CD_BSPC,           KC_BSPC,             KC_C, KC_D)
+//COMB(CD_BSPC,           KC_BSPC,             KC_C, KC_D)
 //COMB(SYM_BSPC,          KC_BSPC,             KC_PERC,    KC_AMPR)
 //COMB(XD_DEL,            KC_DEL,              KC_X, KC_D)
 //COMB(SYM_DEL,           KC_DEL,              KC_RBRC, KC_AMPR)
