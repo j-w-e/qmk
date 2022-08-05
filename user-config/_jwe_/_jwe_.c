@@ -1025,42 +1025,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
 
-        case KC_QUOT: // single quote and hyphen
-            mods = get_mods();
-            if (record->event.pressed) {
-                if (mods & MOD_MASK_SHIFT) {
-                    quote_pressed = true;
-                    unregister_code(KC_LSFT);
-                    register_code(KC_MINUS);
-                    return false;
-                }
-            } else {
-                if (quote_pressed) {
-                    unregister_code(KC_MINUS);
-                    quote_pressed = false;
-                    if ((os_shft_state == os_down_used) | (jwe_shft_state == os_down_used)) {
-                        register_code(KC_LSFT);
-                    }
-                    return false;
-                }
-            }
-            return true;
-        case KC_DQUO:
-            if (record->event.pressed) {
-                if (get_mods() & MOD_MASK_SHIFT) {
-                    dquo_pressed = true;
-                    register_code(KC_MINUS);
-                    return false;
-                }
-            } else {
-                if (dquo_pressed) {
-                    unregister_code(KC_MINUS);
-                    dquo_pressed = false;
-                    return false;
-                }
-            }
-            return true;
-
         case KC_BSPC:
             mods = get_mods();
             if (record->event.pressed) {

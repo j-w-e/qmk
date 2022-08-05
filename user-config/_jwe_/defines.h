@@ -119,7 +119,7 @@
 
 #define __________________ENGRAM_R1________________       KC_DOT,  KC_L,    KC_D,    KC_W,    KC_V
 #define __________________ENGRAM_R2________________       KC_ENT,  KC_H,    KC_T,    KC_S,    KC_N
-#define __________________ENGRAM_R3________________       KC_DQUO, KC_R,    KC_M,    KC_F,    KC_P
+#define __________________ENGRAM_R3________________       KC_MINUS,KC_R,    KC_M,    KC_F,    KC_P
 
 #ifdef QWERTY
 #define _________________QWERTY_L1_________________       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
