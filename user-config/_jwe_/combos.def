@@ -1,44 +1,22 @@
-//COMB(PLOVER_QUESTION,       KC_QUES,             KC_R, KC_S, KC_U, KC_Y)
-//COMB(PLOVER_EXCL,           KC_EXLM,             KC_I, KC_E, KC_W, KC_F)
-//COMB(PLOVER_RET,            KC_ENT,              KC_N, KC_T)
-//COMB(HE_SLASH,              KC_SLSH,             KC_H, KC_E)
-//COMB(E_PERIOD_BKSL,         KC_BSLS,             KC_E, KC_DOT)
-//COMB(NH_PIPE,               KC_PIPE,             KC_N, KC_H)
-//COMB(DOT_COMMA_UNDS,        KC_UNDS,             KC_DOT, KC_COMM)
-//COMB(LESS,                  KC_LT,               KC_N, KC_U)
-//COMB(GREATER,               KC_GT,               KC_I, KC_U)
-//COMB(EQULS,                 KC_EQL,              KC_H, KC_DOT)
-//COMB(PLUS,                  KC_PLUS,             KC_H, KC_COMM)
-
-
-//Hugh's attempts at combos that suit him
 //COMB(ST_ENT,            KC_ENT,              KC_S, KC_T)
-//COMB(SYM_ENT, 					KC_ENT, 						 KC_EXLM,    KC_QUES)
+//COMB(SYM_ENT,                     KC_ENT,                          KC_EXLM,    KC_QUES)
 //COMB(CD_BSPC,           KC_BSPC,             KC_C, KC_D)
 //COMB(SYM_BSPC,          KC_BSPC,             KC_PERC,    KC_AMPR)
 //COMB(XD_DEL,            KC_DEL,              KC_X, KC_D)
 //COMB(SYM_DEL,           KC_DEL,              KC_RBRC, KC_AMPR)
-//SUBS(HR_H2R, 						"H2R", 							 KC_H, KC_R)
-COMB(FT_ESC, 						KC_ESC, 						 KC_F, KC_T)
-COMB(FP_TAB, 						KC_TAB, 						 KC_F, KC_P)
+//SUBS(HR_H2R,                         "H2R",                              KC_H, KC_R)
+COMB(FT_ESC,                         KC_ESC,                          KC_F, KC_T)
+COMB(FP_TAB,                         KC_TAB,                          KC_F, KC_P)
 #ifdef WINDOWS
-	COMB(XCD_WORDDEL,       C(KC_BSPC),              KC_X, KC_C, KC_D)
+    COMB(XCD_WORDDEL,       C(KC_BSPC),              KC_X, KC_C, KC_D)
 #endif //WIN
 #ifndef WINDOWS // This is a mac definition, but using ifndef so that it works when I compile "BOTH" too
-	COMB(XCD_WORDDEL,       A(KC_BSPC),              KC_X, KC_C, KC_D)
+    COMB(XCD_WORDDEL,       A(KC_BSPC),              KC_X, KC_C, KC_D)
 #endif // WINDOWS
 
-//#ifdef AMETHYST
-//	COMB(TA_AMETHYST,       MO(AMETH),               KC_T, KC_A)
-//#endif
-
 #ifdef SWAP_HANDS_ENABLE
-	COMB(swap_l,  SH_TG,  KC_Q, KC_P)
-	COMB(swap_r,  SH_TG,  KC_L, KC_QUOT)
+    COMB(swap_l,  SH_TG,  KC_Q, KC_P)
+    COMB(swap_r,  SH_TG,  KC_L, KC_QUOT)
 #endif
 
-//COMB(CTL_COMBO,   OS_CTRL, KC_A, KC_O)
-//COMB(ALT_COMBO,   OS_ALT,  KC_R, KC_I)
-//COMB(GUI_COMBO,   OS_CMD,  KC_S, KC_E)
-//COMB(SFT_COMBO,   OS_SHFT, KC_T, KC_N)
-//COMB(ZERO,        KC_0,    KC_SPC, KC_O)
+COMB(ZERO,        KC_0,    KC_SPC, KC_N)

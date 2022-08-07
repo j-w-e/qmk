@@ -1,8 +1,5 @@
-/*
-  Set any config.h overrides for your specific keymap here.
-  See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
-*/
-
+// Copyright 2021 j-w-e
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #define ERGODOX
 // #undef HSV_PURPLE

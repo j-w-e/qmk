@@ -1,3 +1,5 @@
+// Copyright 2021 j-w-e
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include "_jwe_.h"

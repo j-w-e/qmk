@@ -1,3 +1,5 @@
+// Copyright 2021 j-w-e
+// SPDX-License-Identifier: GPL-2.0-or-later
 #ifndef USERSPACE
 #define USERSPACE
 

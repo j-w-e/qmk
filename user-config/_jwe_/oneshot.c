@@ -1,3 +1,8 @@
+// Copyright 2021 j-w-e
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/* taken from @callum-oakley with tweak from @daliusd */
+
 #include "oneshot.h"
 
 void update_oneshot(

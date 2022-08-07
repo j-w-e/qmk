@@ -34,4 +34,4 @@ fi
 
 qmk setup --yes
 qmk config user.keyboard=crkbd/r2g
-qmk config user.keymap=_jwe_MAC
+qmk config user.keymap=_jwe_
