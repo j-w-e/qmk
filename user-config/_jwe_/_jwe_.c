@@ -781,12 +781,6 @@ const key_override_t dot_colon_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, 
 // Shift + comma = ;
 const key_override_t comma_semicolin_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);
 
-// Shift + quote = -
-const key_override_t quote_minus_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_MINUS);
-
-// Shift + dquote = _
-const key_override_t dquote_underscore_override = ko_make_basic(MOD_MASK_SHIFT, KC_DQUO, KC_UNDS);
-
 const key_override_t **key_overrides = (const key_override_t *[]){
     &dot_colon_override,
         &comma_semicolin_override,
@@ -797,8 +791,6 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 #ifdef USERSPACE_CUSTOM_DOT_COMMA
 bool colon_pressed = false;
 bool semicolon_pressed = false;
-bool quote_pressed= false;
-bool dquo_pressed = false;
 bool delete_pressed = false;
 #endif
 /* uint8_t mods; */
@@ -1388,6 +1380,7 @@ void keyboard_post_init_user(void) {
     rgb_light_layer_helper(HSV_PURPLE);
 #endif
 #endif
+    layer_move(ENGRAM);
 }
 
 #ifdef RGB_MATRIX_ENABLE
