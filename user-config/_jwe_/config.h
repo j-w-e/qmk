@@ -84,12 +84,13 @@
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
-#define NO_ACTION_ONESHOT
-#define NO_ACTION_TAPPING
+/* #define NO_ACTION_ONESHOT */
+/* #define NO_ACTION_TAPPING */
 
 
-#define COMBO_VARIABLE_LEN
-#define COMBO_TERM 40
+/* #define COMBO_VARIABLE_LEN */
+/* #define COMBO_COUNT 3 */
+/* #define COMBO_TERM 40 */
 
 #ifdef LEADER_ENABLE
 #define LEADER_TIMEOUT 250

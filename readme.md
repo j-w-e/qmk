@@ -1,5 +1,11 @@
 # JWE's keymap
 
+## to do still
+
+1. Custom shift keys are working eratically in isolated instances. Investigate further.
+2. Think through how to better structure the files, so I can separate out the various features, eg bongo cat, into seperate files.
+
+## Mini write-up
 This is a custom, mostly 36-key keymap specifically for me. With a few extra optional side-keys, such as a zoom-mute button.
 
 This repo is designed so that I can work independently of the qmk repo. There is an init script that clones qmk, and sym-links the 'user-config' sub-folders into the relevant places in the qmk_firmware clone.

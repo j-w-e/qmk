@@ -4,7 +4,7 @@
 #pragma once
 
 #define MAC
-//#define BOTH
+/* #define BOTH */
 #define YABAI
 // #define MASTER_LEFT
 #define EE_HANDS
@@ -15,8 +15,6 @@
 #ifdef USERSPACE_LEADER
 #define LEADER_DISPLAY_STR
 #endif
-
-//#define QWERTY
 
 #ifdef USERSPACE_CAPS_WORD
 #define USE_XCASE
@@ -32,3 +30,4 @@
 #define ENABLE_COMPILE_KEYCODE
 
 #define COLEMAK
+/* #define QWERTY */

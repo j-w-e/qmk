@@ -143,13 +143,15 @@
 #define __TR2__ OS_SYM
 #define __TR3__ LA_MOUSE
 
-#ifdef USERSPACE_CAPS_WORD
-#define __TL3__ JWE_SHFT
-#elif defined(CAPS_WORD_ENABLE)
-#define __TL3__ JWE_SHFT
-#else
-#define __TL3__ KC_LSFT
-#endif
+
+#define __TL3__ OSM(MOD_LSFT)
+/* #ifdef USERSPACE_CAPS_WORD */
+/* #define __TL3__ JWE_SHFT */
+/* #elif defined(CAPS_WORD_ENABLE) */
+/* #define __TL3__ JWE_SHFT */
+/* #else */
+/* #define __TL3__ KC_LSFT */
+/* #endif */
 
 #define ________________CALLUM_THUMBS______________       __TL1__,  __TL2__,    __TL3__,    __TR1__,    __TR2__,    __TR3__
 
@@ -182,7 +184,7 @@
 
 #define ___________________NAV_L1__________________       SK_UNDO,  SK_CUT,     SK_COPY,    SK_PSTE,    SK_REDO
 #define ___________________NAV_L2__________________       ________________CALLUM_MODS_L______________,  SK_WORDBSPC
-#define ___________________NAV_L3__________________       SW_WIN,    SW_AWIN,    JWE_PRVTAB,JWE_NXTAB,  SK_WORDDEL
+#define ___________________NAV_L3__________________       SW_WIN,    SW_AWIN,    KC_ESC,    KC_TAB,     SK_WORDDEL
 
 #define ___________________NAV_R1__________________       KC_PGUP,  SK_WORDPRV, SK_PARANXT, SK_PARAPRV, SK_WORDNXT
 #define ___________________NAV_R2__________________       KC_PGDN,  KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT
@@ -190,9 +192,9 @@
 
 
 
-#define _________________NUMBERS_L1________________       JWE_LINK, KC_SPACE,   KC_E,       KC_N,       KC_NO
-#define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_NO
-#define _________________NUMBERS_L3________________       KC_ESC,   KC_TAB,     KC_VOLD,    KC_VOLU,    KC_MUTE
+#define _________________NUMBERS_L1________________       KC_Q,     KC_W,   KC_ENTER,       KC_N,       KC_VOLU
+#define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_VOLD
+#define _________________NUMBERS_L3________________       JWE_PRVTAB,JWE_NXTAB, KC_ESC,    KC_TAB,      KC_MUTE
 
 /* #define _________________NUMBERS_R1________________       KC_SLASH, KC_7,       KC_8,       KC_9,       KC_EQUAL
 #define _________________NUMBERS_R2________________       KC_ASTR,  KC_4,       KC_5,       KC_6,       UK_PLUS

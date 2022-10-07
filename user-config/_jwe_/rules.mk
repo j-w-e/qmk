@@ -13,8 +13,8 @@ GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 EXTRAKEY_ENABLE = yes
 
-VPATH  +=  keyboards/gboards/
-COMBO_ENABLE = yes
+# VPATH  +=  keyboards/gboards/
+# COMBO_ENABLE = yes
 
 ifeq ($(strip $(USERSPACE_LEADER)), yes)
     OPT_DEFS += -DUSERSPACE_LEADER

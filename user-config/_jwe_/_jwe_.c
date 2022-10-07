@@ -25,9 +25,9 @@
 #include "leader.h"
 #endif
 
-#ifdef COMBO_ENABLE
-#include "g/keymap_combo.h"
-#endif
+/* #ifdef COMBO_ENABLE */
+/* #include "g/keymap_combo.h" */
+/* #endif */
 
 bool WHICH_OS = false; // Switch between Mac and Win layouts. Mac is false, Win is true
 uint8_t mods;
@@ -72,7 +72,7 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
         case LA_NAV:
         case LA_MOUSE:
         case LA_NUM:
-        case JWE_SHFT:
+        /* case JWE_SHFT: */
         case OS_SHFT:
         case OS_CTRL:
         case OS_ALT:
@@ -100,7 +100,7 @@ bool is_oneshot_layer_cancel_key(uint16_t keycode) {
 
 bool is_oneshot_mod_key(uint16_t keycode) {
     switch (keycode) {
-        case JWE_SHFT:
+        /* case JWE_SHFT: */
         case OS_SHFT:
         case OS_CTRL:
         case OS_ALT:
@@ -110,6 +110,17 @@ bool is_oneshot_mod_key(uint16_t keycode) {
             return false;
     }
 }
+
+/* const uint16_t PROGMEM zero[] = {KC_SPC, KC_N, COMBO_END}; */
+/* const uint16_t PROGMEM tab[] = {KC_J, KC_K, COMBO_END}; */
+/* const uint16_t PROGMEM esc[] = {KC_X, KC_K, COMBO_END}; */
+/* combo_t key_combos[COMBO_COUNT] = { */
+/*     COMBO(zero, KC_0), */
+/*     COMBO(tab, KC_TAB),  */
+/*     COMBO(esc, KC_ESC),  */
+/* }; */
+/**/
+
 
 #ifdef LUNA_ENABLE
 /* KEYBOARD PET START */
@@ -764,7 +775,7 @@ bool oled_task_user(void) {
 #ifndef LUNA_ENABLE
         render_bootmagic_status_r2g_jwe(WHICH_OS);
 #endif // LUNA_ENABLE
-        render_mod_status(get_mods());
+        render_mod_status(get_mods() | get_oneshot_mods());
 #ifdef LEADER_DISPLAY_STR
         oled_advance_page(true);
         OLED_LEADER_DISPLAY();
@@ -809,9 +820,9 @@ bool colon_pressed = false;
 bool semicolon_pressed = false;
 bool delete_pressed = false;
 #endif
-/* uint8_t mods; */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+/*
 #ifdef USERSPACE_CAPS_WORD
     if (keycode == JWE_SHFT) {
         if (record -> event.pressed) {
@@ -877,7 +888,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_oneshot(&jwe_shft_state, KC_LSFT, JWE_SHFT,keycode, record);
     }
 #endif
-
+*/
     update_swapper(
             &sw_win_active, KC_LGUI, KC_TAB, SW_WIN,
             keycode, record
@@ -933,20 +944,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     switch(keycode) {
-#ifdef USERSPACE_CAPS_WORD
-        case JWE_SHFT:
-            if (record->event.pressed) {
-                shift_timer = timer_read();
-                return false;
-            }
-#endif
-#ifdef CAPS_WORD_ENABLE
-        case JWE_SHFT:
-            if (record->event.pressed) {
-                shift_timer = timer_read();
-                return false;
-            }
-#endif
+/* #ifdef USERSPACE_CAPS_WORD */
+/*         case JWE_SHFT: */
+/*             if (record->event.pressed) { */
+/*                 shift_timer = timer_read(); */
+/*                 return false; */
+/*             } */
+/* #endif */
+/* #ifdef CAPS_WORD_ENABLE */
+/*         case JWE_SHFT: */
+/*             if (record->event.pressed) { */
+/*                 shift_timer = timer_read(); */
+/*                 return false; */
+/*             } */
+/* #endif */
         case JWE_LINK:
             if (record->event.pressed) {
                 tap_code16(G(KC_K));
@@ -999,10 +1010,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_COMM:
             mods = get_mods();
             if (record->event.pressed) {
-                if (mods & MOD_MASK_SHIFT) {
+                if ((mods | get_oneshot_mods()) & MOD_MASK_SHIFT) {
                     semicolon_pressed = true;
                     unregister_code(KC_LSFT);
+                    del_oneshot_mods(MOD_MASK_SHIFT);
                     register_code(KC_SCLN);
+                    clear_oneshot_mods();
                     return false;
                 }
             } else {
@@ -1019,7 +1032,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KC_DOT:
             if (record->event.pressed) {
-                if (get_mods() & MOD_MASK_SHIFT) {
+                if ((mods | get_oneshot_mods()) & MOD_MASK_SHIFT) {
                     colon_pressed = true;
                     register_code(KC_SCLN);
                     return false;
@@ -1036,7 +1049,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_BSPC:
             mods = get_mods();
             if (record->event.pressed) {
-                if (mods & MOD_MASK_SHIFT) {
+                if (get_mods() & MOD_MASK_SHIFT) {
                     delete_pressed = true;
                     unregister_code(KC_LSFT);
                     register_code(KC_DEL);
@@ -1460,11 +1473,11 @@ void rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); }
 #endif
 
 void matrix_scan_user (void) {
-    if (jwe_shft_state == os_up_queued) {
-        if ( timer_elapsed(shift_timer) > ONESHOT_TIMEOUT ) {
-            unregister_code(KC_LSFT);
-        }
-    }
+    /* if (jwe_shft_state == os_up_queued) { */
+    /*     if ( timer_elapsed(shift_timer) > ONESHOT_TIMEOUT ) { */
+    /*         unregister_code(KC_LSFT); */
+    /*     } */
+    /* } */
     if (os_sym_state == os_up_queued) {
         if ( timer_elapsed(sym_timer) > ONESHOT_TIMEOUT ) {
             layer_off(SYM);
@@ -1522,6 +1535,10 @@ void matrix_scan_user (void) {
             layer_move(QWER);
         }
 #endif
+
+        SEQ_ONE_KEY(KC_H) {
+            SEND_STRING("Hugh");
+        }
 
         SEQ_TWO_KEYS(KC_L, KC_N) {
             layer_move(NAV);
