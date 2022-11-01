@@ -894,7 +894,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             keycode, record
             );
     update_swapper(
-            &sw_apwin_active, KC_LGUI, UK_BSLS, SW_AWIN,
+            &sw_apwin_active, KC_LGUI, BCKTICK, SW_AWIN,
             keycode, record
             );
 

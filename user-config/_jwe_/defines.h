@@ -15,11 +15,19 @@
 #define JWE_NXTAB   C(KC_TAB)
 #define JWE_PRVTAB  C(S(KC_TAB))
 
-#define TILDE       UK_PIPE
-#define BCKTICK     UK_BSLS
-#define SECTION     KC_GRV
-#define DEGREE      A(S(UK_8))
+#define BCKTICK     JWE_BSLS
+#define TILDE       S(JWE_BSLS)
+#define DEGREE      A(S(KC_8))
 #define POUND       LSFT(KC_3)
+#define CIRC        S(KC_6)
+
+#ifdef ERGODOX 
+#define JWE_BSLS    KC_GRV
+#define SECTION     KC_NUBS
+#else
+#define JWE_BSLS    KC_NUBS
+#define SECTION     KC_GRV
+#endif // ERGODOX
 
 #define ZM_MUTE     SCMD(KC_A)
 
@@ -229,7 +237,7 @@
 
 #define __________________SYM_2_L1_________________       KC_LABK,  KC_RABK,    SK_EURO,    DEGREE,     _______
 #define __________________SYM_2_L2_________________       KC_LBRC,  KC_RBRC,    KC_PIPE,    TILDE,      _______
-#define __________________SYM_2_L3_________________       KC_LCBR,  KC_RCBR,    UK_CIRC,    SECTION,    _______
+#define __________________SYM_2_L3_________________       KC_LCBR,  KC_RCBR,    CIRC,       SECTION,    _______
 
 #define __________________SYM_2_R1_________________       RGB_MOD,  RGB_VAI,    RGB_HUI,    RGB_SAI,    RGB_SPI
 #define __________________SYM_2_R2_________________       RGB_TOG,  ________________CALLUM_MODS_R______________
@@ -320,7 +328,7 @@
       k01,    k02,  k03,  k04,  k05,  k06,  KC_NO,        KC_NO, k07,  k08,  k09,  k0A,  k0B,  k0C,     \
       k11,    k12,  k13,  k14,  k15,  k16,                       k17,  k18,  k19,  k1A,  k1B,  k1C,     \
       k21,    k22,  k23,  k24,  k25,  k26,  KC_NO,        KC_NO, k27,  k28,  k29,  k2A,  k2B,  k2C,     \
-      KC_NO,  KC_NO,KC_NO,KC_NO,k31,                                   k36,  KC_NO,KC_NO,KC_NO,KC_NO,   \
+      KC_NUBS,  KC_NO,KC_NO,KC_NO,k31,                                   k36,  KC_NO,KC_NO,KC_NO,KC_NO,   \
                                       KC_NO,KC_NO,        KC_NO, KC_NO,                                 \
                                             KC_NO,        KC_NO,                                        \
                                 k32,  k33,  KC_NO,        KC_NO, k34,  k35

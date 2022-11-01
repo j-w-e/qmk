@@ -10,7 +10,7 @@
 #include "version.h"
 
 #include "quantum.h"
-#include "keymap_uk.h"
+/* #include "keymap_uk.h" */
 #include "oneshot.h"
 #include "swapper.h"
 #include "defines.h"
