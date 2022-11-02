@@ -1,4 +1,5 @@
 # this method comes from https://medium.com/@patrick.elmquist/separate-keymap-repo-for-qmk-136ff5a419bd
+# usage: make all, or make lbs, or make crkbd, or make ergodox
 USER = _jwe_
 
 KEYBOARDS = crkbd ergodox

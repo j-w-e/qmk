@@ -1,6 +1,8 @@
 #!/bin/zsh
 
 # make sure you have "brew install qmk/qmk/qmk" first
+# run this, then with the corresponding Makefile, it should be possible to to 
+# use make all to build all keyboards
 
 KEYBOARD_HOME="$(pwd)"
 export QMK_HOME="$KEYBOARD_HOME/qmk_firmware"
