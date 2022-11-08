@@ -3,8 +3,10 @@
 
 #include QMK_KEYBOARD_H
 
-#define TEAMS_MUTE HYPR(KC_M)
-#define TEAMS_VIDEO HYPR(KC_V)
+/* #define TEAMS_MUTE HYPR(KC_M) */
+/* #define TEAMS_VIDEO HYPR(KC_V) */
+#define TEAMS_MUTE G(S(KC_M))
+#define TEAMS_VIDEO G(S(KC_K))  // THIS IN NOT Video, it's raise hand
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -18,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
             KC_MUTE,
             MO(_FUNC),  MO(_RGB),
-            TEAMS_VIDEO,TEAMS_MUTE
+            TEAMS_MUTE,TEAMS_VIDEO
             ),
     [_FUNC] = LAYOUT(
             KC_MUTE,
