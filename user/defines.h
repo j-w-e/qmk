@@ -169,23 +169,25 @@
 #define ________________BLANK_THUMBS_______________       _______, _______, _______, _______, _______, _______
 
 
+/* JWE_PROJ */
+/* POUND */
+/* JWE_KEYS */
 
+#define _________________SYMBOLS_L1________________       KC_LABK,  KC_LCBR,      KC_LPRN,    KC_LBRC,   KC_COMM 
+#define _________________SYMBOLS_L2________________       SK_HASH,  KC_ASTR,    KC_EXLM,    KC_QUES,    KC_SLASH
+#define _________________SYMBOLS_L3________________       KC_PERC,    SK_AT,     KC_AMPR,    KC_DLR,    BCKTICK
 
-#define _________________SYMBOLS_L1________________       BCKTICK,  SK_AT,      KC_ASTR,    SK_HASH,    KC_SLASH
-#define _________________SYMBOLS_L2________________       KC_LPRN,  KC_RPRN,    KC_EXLM,    KC_QUES,    KC_COLN
-#define _________________SYMBOLS_L3________________       POUND,    KC_DLR,     KC_PERC,    KC_AMPR,    KC_SCOLON
-
-#define _________________SYMBOLS_R1________________       KC_BSLS,  JWE_MNE,    JWE_NRC,    JWE_PROJ,   JWE_KEYS
-#define _________________SYMBOLS_R2________________       TILDE,    ________________CALLUM_MODS_R______________
+#define _________________SYMBOLS_R1________________       KC_DOT,  KC_RBRC,    KC_RPRN,    KC_RCBR,   KC_RABK
+#define _________________SYMBOLS_R2________________       KC_BSLS,    ________________CALLUM_MODS_R______________
 #ifdef LEADER_ENABLE
-#define _________________SYMBOLS_R3________________       KC_LEAD,  KC_ENTER,   JWE_WEB,    JWE_OTLK,   JWE_WORD
+#define _________________SYMBOLS_R3________________       TILDE,    CIRC,   KC_LEAD,    JWE_MNE,   JWE_NRC
 #endif
 #ifdef USERSPACE_LEADER
-#define _________________SYMBOLS_R3________________       JWE_LEAD, KC_ENTER,   JWE_WEB,    JWE_OTLK,   JWE_WORD
+#define _________________SYMBOLS_R3________________       TILDE,    CIRC,   JWE_LEAD,    JWE_MNE,   JWE_NRC 
 #endif
 #ifndef LEADER_ENABLE
 #ifndef USERSPACE_LEADER
-#define _________________SYMBOLS_R3________________       KC_NO,    KC_ENTER,   JWE_WEB,    JWE_OTLK,   JWE_WORD
+#define _________________SYMBOLS_R3________________       TILDE,    CIRC,   KC_LEAD,    JWE_MNE,   JWE_NRC
 #endif // USERSPACE_LEADER
 #endif // LEADER_ENABLE
 
@@ -204,12 +206,6 @@
 #define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_VOLD
 #define _________________NUMBERS_L3________________       JWE_PRVTAB,JWE_NXTAB, KC_ESC,    KC_TAB,      KC_MUTE
 
-/* #define _________________NUMBERS_R1________________       KC_SLASH, KC_7,       KC_8,       KC_9,       KC_EQUAL
-#define _________________NUMBERS_R2________________       KC_ASTR,  KC_4,       KC_5,       KC_6,       UK_PLUS
-#define _________________NUMBERS_R3________________       KC_DOT,   KC_1,       KC_2,       KC_3,       KC_MINUS*/
-/* #define _________________NUMBERS_R1________________       KC_SLASH, KC_7,       KC_8,       KC_9,       KC_ASTR
-#define _________________NUMBERS_R2________________       KC_DOT,   KC_4,       KC_5,       KC_6,       KC_EQUAL
-#define _________________NUMBERS_R3________________       KC_0,     KC_1,       KC_2,       KC_3,       KC_MINUS */
 #define _________________NUMBERS_R1________________       KC_SLASH, KC_7,       KC_8,       KC_9,       KC_EQUAL
 #define _________________NUMBERS_R2________________       KC_ASTR,  KC_4,       KC_5,       KC_6,       KC_0 
 #define _________________NUMBERS_R3________________       KC_DOT,   KC_1,       KC_2,       KC_3,       KC_MINUS
