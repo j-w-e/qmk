@@ -1,2 +1,6 @@
 .DS_Store
+obj*/
 z. older configs
+*.hex
+*.elf
+*.map
