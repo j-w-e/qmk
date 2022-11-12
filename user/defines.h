@@ -173,28 +173,28 @@
 /* POUND */
 /* JWE_KEYS */
 
-#define _________________SYMBOLS_L1________________       KC_LABK,  KC_LCBR,      KC_LPRN,    KC_LBRC,   KC_COMM 
-#define _________________SYMBOLS_L2________________       SK_HASH,  KC_ASTR,    KC_EXLM,    KC_QUES,    KC_SLASH
-#define _________________SYMBOLS_L3________________       KC_PERC,    SK_AT,     KC_AMPR,    KC_DLR,    BCKTICK
+#define _________________SYMBOLS_L1________________       KC_LABK,  KC_LCBR,    KC_LPRN,    KC_LBRC,   KC_COMM 
+#define _________________SYMBOLS_L2________________       SK_HASH,  KC_ASTR,    KC_EXLM,    KC_QUES,   KC_SLASH
+#define _________________SYMBOLS_L3________________       KC_PERC,  SK_AT,      KC_AMPR,    KC_DLR,    BCKTICK
 
-#define _________________SYMBOLS_R1________________       KC_DOT,  KC_RBRC,    KC_RPRN,    KC_RCBR,   KC_RABK
+#define _________________SYMBOLS_R1________________       KC_DOT,   KC_RBRC,    KC_RPRN,    KC_RCBR,   KC_RABK
 #define _________________SYMBOLS_R2________________       KC_BSLS,    ________________CALLUM_MODS_R______________
 #ifdef LEADER_ENABLE
-#define _________________SYMBOLS_R3________________       TILDE,    CIRC,   KC_LEAD,    JWE_MNE,   JWE_NRC
+#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       KC_LEAD,    JWE_MNE,   JWE_NRC
 #endif
 #ifdef USERSPACE_LEADER
-#define _________________SYMBOLS_R3________________       TILDE,    CIRC,   JWE_LEAD,    JWE_MNE,   JWE_NRC 
+#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       JWE_LEAD,   JWE_MNE,   JWE_NRC 
 #endif
 #ifndef LEADER_ENABLE
 #ifndef USERSPACE_LEADER
-#define _________________SYMBOLS_R3________________       TILDE,    CIRC,   KC_LEAD,    JWE_MNE,   JWE_NRC
+#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       KC_LEAD,    JWE_MNE,   JWE_NRC
 #endif // USERSPACE_LEADER
 #endif // LEADER_ENABLE
 
 
 #define ___________________NAV_L1__________________       SK_UNDO,  SK_CUT,     SK_COPY,    SK_PSTE,    SK_REDO
 #define ___________________NAV_L2__________________       ________________CALLUM_MODS_L______________,  SK_WORDBSPC
-#define ___________________NAV_L3__________________       SW_WIN,    SW_AWIN,    KC_ESC,    KC_TAB,     SK_WORDDEL
+#define ___________________NAV_L3__________________       SW_WIN,   SW_AWIN,    KC_ESC,     KC_TAB,     SK_WORDDEL
 
 #define ___________________NAV_R1__________________       KC_PGUP,  SK_WORDPRV, SK_PARANXT, SK_PARAPRV, SK_WORDNXT
 #define ___________________NAV_R2__________________       KC_PGDN,  KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT
@@ -202,13 +202,13 @@
 
 
 
-#define _________________NUMBERS_L1________________       KC_Q,     KC_W,   KC_ENTER,       KC_N,       KC_VOLU
-#define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_VOLD
+#define _________________NUMBERS_L1________________       KC_Q,     KC_W,       KC_VOLD,    KC_VOLU,    KC_COMM
+#define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_BSPC
 #define _________________NUMBERS_L3________________       JWE_PRVTAB,JWE_NXTAB, KC_ESC,    KC_TAB,      KC_MUTE
 
-#define _________________NUMBERS_R1________________       KC_SLASH, KC_7,       KC_8,       KC_9,       KC_EQUAL
-#define _________________NUMBERS_R2________________       KC_ASTR,  KC_4,       KC_5,       KC_6,       KC_0 
-#define _________________NUMBERS_R3________________       KC_DOT,   KC_1,       KC_2,       KC_3,       KC_MINUS
+#define _________________NUMBERS_R1________________       KC_DOT,   KC_7,       KC_8,       KC_9,       KC_EQUAL
+#define _________________NUMBERS_R2________________       KC_ENT,   KC_4,       KC_5,       KC_6,       KC_0 
+#define _________________NUMBERS_R3________________       KC_MINUS, KC_1,       KC_2,       KC_3,       KC_PLUS
 
 
 
@@ -223,9 +223,9 @@
 #endif // YABAI
 
 #ifdef YABAI
-#define __________________MOUSE_R1_________________       Y_ZOOM, Y_WARP_L,  Y_WARP_D, Y_WARP_U, Y_WARP_R
-#define __________________MOUSE_R2_________________       Y_TOGGL, Y_SPC_L,   Y_APPWIN,  Y_M_CTL, Y_SPC_R
-#define __________________MOUSE_R3_________________       Y_CENTRE, Y_WIN_L,   Y_WIN_D,  Y_WIN_U, Y_WIN_R
+#define __________________MOUSE_R1_________________       Y_ZOOM,   Y_WARP_L,  Y_WARP_D,    Y_WARP_U,   Y_WARP_R
+#define __________________MOUSE_R2_________________       Y_TOGGL,  Y_SPC_L,   Y_APPWIN,    Y_M_CTL,    Y_SPC_R
+#define __________________MOUSE_R3_________________       Y_CENTRE, Y_WIN_L,   Y_WIN_D,     Y_WIN_U,    Y_WIN_R
 #endif // YABAI
 
 
