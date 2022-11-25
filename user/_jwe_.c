@@ -1543,7 +1543,7 @@ void matrix_scan_user (void) {
         SEQ_TWO_KEYS(KC_L, KC_N) {
             layer_move(NAV);
         }
-        SEQ_TWO_KEYS(KC_Z, KC_Z) {
+        SEQ_TWO_KEYS(KC_G, KC_G) {
             layer_on(MOUSE);
             layer_on(NUM);
         }

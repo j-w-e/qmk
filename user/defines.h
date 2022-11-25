@@ -180,14 +180,14 @@
 #define _________________SYMBOLS_R1________________       KC_DOT,   KC_RBRC,    KC_RPRN,    KC_RCBR,   KC_RABK
 #define _________________SYMBOLS_R2________________       KC_BSLS,    ________________CALLUM_MODS_R______________
 #ifdef LEADER_ENABLE
-#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       KC_LEAD,    JWE_MNE,   JWE_NRC
+#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       KC_LEAD,    JWE_NRC,   JWE_MNE
 #endif
 #ifdef USERSPACE_LEADER
-#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       JWE_LEAD,   JWE_MNE,   JWE_NRC 
+#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       JWE_LEAD,   JWE_NRC,   JWE_MNE
 #endif
 #ifndef LEADER_ENABLE
 #ifndef USERSPACE_LEADER
-#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       KC_LEAD,    JWE_MNE,   JWE_NRC
+#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       KC_LEAD,    JWE_NRC,   JWE_MNE
 #endif // USERSPACE_LEADER
 #endif // LEADER_ENABLE
 
