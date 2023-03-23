@@ -4,7 +4,7 @@ USER = _jwe_
 
 KEYBOARDS = crkbd ergodox_ez
 PATH_crkbd = r2g
-PATH_ergodox = shine
+PATH_ergodox_ez = shine
 PATH_lbs = tweetydabird/lbs4
 
 all: $(KEYBOARDS)
