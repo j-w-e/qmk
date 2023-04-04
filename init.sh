@@ -1,5 +1,12 @@
 #!/bin/zsh
 
+# TODO: 
+# 1. adjust the submodule add line, because it is already added as a submodule. 
+	# I should probably make this just submodule update, and require a git clone of my QMK repository first
+# 2. Adjust all the directories, because they shouldn't point to keyboard variant -> keymap dirs, it should just be the keymap dirs
+# 3. Check whether I actually need the lines that add the keymap dirs, or whether they are reduntant now
+# 4. check if I need to adjust QMK_HOME, and the qmk setup line to actually specify where QMK HOME is
+
 # make sure you have "brew install qmk/qmk/qmk" first
 # run this, then with the corresponding Makefile, it should be possible to to 
 # use make all to build all keyboards
