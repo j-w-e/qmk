@@ -1487,8 +1487,8 @@ void matrix_scan_user (void) {
     }
 
 #ifdef LEADER_ENABLE
-    // secrets file contains: 
-    // 0 is segregation 
+    // secrets file contains:
+    // 0 is segregation
     // 1 is email
     // 2 is phone number
     // 3 is OH's email
@@ -1497,7 +1497,7 @@ void matrix_scan_user (void) {
     LEADER_DICTIONARY() {
         leading = false;
 
-#ifndef NO_SECRETS            
+#ifndef NO_SECRETS
         SEQ_TWO_KEYS(KC_S, KC_E) {
             send_secret(0);
         }
@@ -1561,13 +1561,21 @@ void matrix_scan_user (void) {
         }
 
 #ifdef YABAI
-        SEQ_TWO_KEYS(KC_Y, KC_B) {
+        SEQ_TWO_KEYS(KC_W, KC_B) {
             SEND_STRING(SS_LSFT(SS_LCMD(SS_LCTL(SS_LALT("b")))));
         }
-        SEQ_TWO_KEYS(KC_Y, KC_R) {
+        SEQ_TWO_KEYS(KC_W, KC_R) {
             SEND_STRING(SS_LSFT(SS_LCMD(SS_LCTL(SS_LALT("r")))));
         }
 #endif // YABAI
+
+        SEQ_ONE_KEY(KC_B) {
+            SEND_STRING(SS_LCMD("q"));
+        }
+        SEQ_ONE_KEY(KC_Y) {
+            SEND_STRING(SS_LCMD("w"));
+        }
+
         leader_end();
     }
 #endif //LEADER_ENABLE

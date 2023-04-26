@@ -198,7 +198,7 @@
 
 #define ___________________NAV_R1__________________       KC_PGUP,  SK_WORDPRV, SK_PARANXT, SK_PARAPRV, SK_WORDNXT
 #define ___________________NAV_R2__________________       KC_PGDN,  KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT
-#define ___________________NAV_R3__________________       KC_CAPS,  SK_LINEBEG, SK_DOCEND,  SK_DOCBEG,  SK_LINEEND
+#define ___________________NAV_R3__________________       _______,  SK_LINEBEG, SK_DOCEND,  SK_DOCBEG,  SK_LINEEND
 
 
 
@@ -239,14 +239,14 @@
 #define __________________SYM_2_R2_________________       RGB_TOG,  ________________CALLUM_MODS_R______________
 #ifndef LEADER_ENABLE
 #ifndef USERSPACE_LEADER
-#define __________________SYM_2_R3_________________       JWE_PWD,  KC_ENTER,   KC_NO,      KC_NO,      JWE_TOGG
+#define __________________SYM_2_R3_________________       JWE_PWD,  KC_ENTER,   KC_CAPS,    JWE_PROJ,   JWE_TOGG
 #endif
 #endif
 #ifdef LEADER_ENABLE
-#define __________________SYM_2_R3_________________       KC_NO,    KC_NO,      KC_NO,      KC_NO,      JWE_TOGG
+#define __________________SYM_2_R3_________________       KC_NO,    KC_NO,      KC_CAPS,    JWE_PROJ,   JWE_TOGG
 #endif
 #ifdef USERSPACE_LEADER
-#define __________________SYM_2_R3_________________       KC_NO,    KC_NO,      KC_NO,      KC_NO,      JWE_TOGG
+#define __________________SYM_2_R3_________________       KC_NO,    KC_NO,      KC_CAPS,    JWE_PROJ,   JWE_TOGG
 #endif
 
 
