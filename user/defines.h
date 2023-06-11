@@ -115,13 +115,13 @@
 
 
 // wrappers
-#define _________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
-#define _________________COLEMAK_L2________________       KC_A,    KC_R,    KC_S,    KC_T,    KC_G
-#define _________________COLEMAK_L3________________       KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
+#define __________________APTMAK_L1________________       KC_X,    KC_W,    KC_F,    KC_P,    KC_B
+#define __________________APTMAK_L2________________       KC_R,    KC_S,    KC_T,    KC_H,    KC_BSPC
+#define __________________APTMAK_L3________________       KC_MINUS,KC_C,    KC_G,    KC_D,    KC_K
 
-#define _________________COLEMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
-#define _________________COLEMAK_R2________________       KC_M,    KC_N,    KC_E,    KC_I,    KC_O
-#define _________________COLEMAK_R3________________       KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINUS
+#define __________________APTMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
+#define __________________APTMAK_R2________________       KC_ENT,  KC_N,    KC_A,    KC_I,    KC_O
+#define __________________APTMAK_R3________________       KC_V,    KC_M,    KC_COMM, KC_DOT,  KC_SCLN
 
 #define __________________ENGRAM_L1________________       KC_B,    KC_Y,    KC_O,    KC_U,    KC_COMM
 #define __________________ENGRAM_L2________________       KC_C,    KC_I,    KC_E,    KC_A,    KC_BSPC
@@ -162,6 +162,7 @@
 /* #endif */
 
 #define ________________CALLUM_THUMBS______________       __TL1__,  __TL2__,    __TL3__,    __TR1__,    __TR2__,    __TR3__
+#define ________________aptmak_THUMBS______________       __TL1__,  __TL2__,    __TR1__,    KC_E,       __TR2__,    __TR3__
 
 #define ________________CALLUM_MODS_L______________       OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT
 #define ________________CALLUM_MODS_R______________       OS_SHFT, OS_CMD,  OS_ALT,  OS_CTRL
@@ -259,10 +260,10 @@
 #define ___________________FUNC_R3_________________       KC_F10,   KC_F1,      KC_F2,      KC_F3,      SLEEP
 
 
-#define _ALPHAS_COLEMAK \
-    _________________COLEMAK_L1________________, _________________COLEMAK_R1________________, \
-    _________________COLEMAK_L2________________, _________________COLEMAK_R2________________, \
-    _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
+#define _ALPHAS_APTMAK \
+    __________________APTMAK_L1________________, __________________APTMAK_R1________________, \
+    __________________APTMAK_L2________________, __________________APTMAK_R2________________, \
+    __________________APTMAK_L3________________, __________________APTMAK_R3________________
 
 #define _ALPHAS_ENGRAM \
     __________________ENGRAM_L1________________, __________________ENGRAM_R1________________, \
@@ -313,6 +314,9 @@
 
 #define _LAYOUT_ADD_THUMBS(...) __VA_ARGS__, ________________CALLUM_THUMBS______________
 #define LAYOUT_ADD_THUMBS(...) _LAYOUT_ADD_THUMBS(__VA_ARGS__)
+
+#define _LAYOUT_ADD_THeMBS(...) __VA_ARGS__, ________________aptmak_THUMBS______________
+#define LAYOUT_ADD_THeMBS(...) _LAYOUT_ADD_THeMBS(__VA_ARGS__)
 
 #define _LAYOUT_ergodox_wrapper( \
     k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, \
