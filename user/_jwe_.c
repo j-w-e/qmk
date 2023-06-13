@@ -411,7 +411,7 @@ void oled_render_layer_state_r2g_jwe(void) {
             break;
 #ifdef COLEMAK
         case CLMK:
-            oled_write_P(PSTR("CL"), false);
+            oled_write_P(PSTR("APMK"), false);
             break;
 #endif
 #ifdef QWERTY
@@ -1526,7 +1526,7 @@ void matrix_scan_user (void) {
             layer_move(ENGRAM);
         }
 #ifdef COLEMAK
-        SEQ_TWO_KEYS(KC_L, KC_C) {
+        SEQ_TWO_KEYS(KC_L, KC_A) {
             layer_move(CLMK);
         }
 #endif

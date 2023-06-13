@@ -12,6 +12,7 @@ SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 EXTRAKEY_ENABLE = yes
+# REPEAT_KEY_ENABLE = yes
 
 # VPATH  +=  keyboards/gboards/
 # COMBO_ENABLE = yes
