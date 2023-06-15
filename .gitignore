@@ -5,3 +5,4 @@ z. older configs
 *.elf
 *.map
 user/secrets.h
+qmk_firmware
