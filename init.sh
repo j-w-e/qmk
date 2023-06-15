@@ -21,9 +21,13 @@ LBS="keyboards/tweetydabird/lbs4/keymaps"
 if [[ ! -d "$QMK_HOME" ]]
 then
     echo "Add git sub-modules..."
-    # git clone --depth 1 https://github.com/qmk/qmk_firmware
+    git clone --depth 1 https://github.com/qmk/qmk_firmware
     git submodule add https://github.com/qmk/qmk_firmware.git 
     git submodule update --init --recursive 
+else
+    cd qmk_firmware
+    git pull
+    cd ..
 fi
 
 if [[ ! -d "$QMK_HOME/$CRKBD" ]]
