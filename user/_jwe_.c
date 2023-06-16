@@ -21,26 +21,16 @@
 #include "secrets.h"
 #endif
 
-#ifdef USERSPACE_LEADER
-#include "leader.h"
-#endif
-
 /* #ifdef COMBO_ENABLE */
 /* #include "g/keymap_combo.h" */
 /* #endif */
 
-bool WHICH_OS = false; // Switch between Mac and Win layouts. Mac is false, Win is true
-uint8_t mods;
-uint16_t shift_timer = ONESHOT_TIMEOUT + 1;
 uint16_t sym_timer = ONESHOT_TIMEOUT + 1;
-
 
 bool sw_win_active = false;
 bool sw_apwin_active = false;
 
-#ifdef LEADER_ENABLE
 bool leader_active = false;
-#endif
 
 oneshot_state os_shft_state = os_up_unqueued;
 oneshot_state os_ctrl_state = os_up_unqueued;
@@ -49,10 +39,6 @@ oneshot_state os_cmd_state = os_up_unqueued;
 oneshot_state jwe_shft_state = os_up_unqueued;
 oneshot_state os_sym_state = os_up_unqueued;
 
-
-#ifdef RGBLIGHT_ENABLE
-rgblight_config_t rgblight_config;
-#endif // RGBLIGHT_ENABLE
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
@@ -72,7 +58,6 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
         case LA_NAV:
         case LA_MOUSE:
         case LA_NUM:
-        /* case JWE_SHFT: */
         case OS_SHFT:
         case OS_CTRL:
         case OS_ALT:
@@ -111,285 +96,10 @@ bool is_oneshot_mod_key(uint16_t keycode) {
     }
 }
 
-/* const uint16_t PROGMEM zero[] = {KC_SPC, KC_N, COMBO_END}; */
-/* const uint16_t PROGMEM tab[] = {KC_J, KC_K, COMBO_END}; */
-/* const uint16_t PROGMEM esc[] = {KC_X, KC_K, COMBO_END}; */
-/* combo_t key_combos[COMBO_COUNT] = { */
-/*     COMBO(zero, KC_0), */
-/*     COMBO(tab, KC_TAB),  */
-/*     COMBO(esc, KC_ESC),  */
-/* }; */
-/**/
-
-
-#ifdef LUNA_ENABLE
-/* KEYBOARD PET START */
-
-/* settings */
-#    define MIN_WALK_SPEED      10
-#    define MIN_RUN_SPEED       40
-
-/* advanced settings */
-#    define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
-#    define ANIM_SIZE           96   // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
-
-/* timers */
-uint32_t anim_timer = 0;
-uint32_t anim_sleep = 0;
-
-/* current frame */
-uint8_t current_frame = 0;
-
-/* status variables */
-int   current_wpm = 0;
-led_t led_usb_state;
-
-bool isSneaking = false;
-bool isJumping  = false;
-bool showedJump = true;
-
-/* logic */
-static void render_luna(int LUNA_X, int LUNA_Y) {
-    /* Sit */
-    static const char PROGMEM sit[2][ANIM_SIZE] = {/* 'sit1', 32x22px */
-        {
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x1c, 0x02, 0x05, 0x02, 0x24, 0x04, 0x04, 0x02, 0xa9, 0x1e, 0xe0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x10, 0x08, 0x68, 0x10, 0x08, 0x04, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x06, 0x82, 0x7c, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x04, 0x0c, 0x10, 0x10, 0x20, 0x20, 0x20, 0x28, 0x3e, 0x1c, 0x20, 0x20, 0x3e, 0x0f, 0x11, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        },
-
-        /* 'sit2', 32x22px */
-        {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x1c, 0x02, 0x05, 0x02, 0x24, 0x04, 0x04, 0x02, 0xa9, 0x1e, 0xe0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x90, 0x08, 0x18, 0x60, 0x10, 0x08, 0x04, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x0e, 0x82, 0x7c, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x04, 0x0c, 0x10, 0x10, 0x20, 0x20, 0x20, 0x28, 0x3e, 0x1c, 0x20, 0x20, 0x3e, 0x0f, 0x11, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}};
-
-    /* Walk */
-    static const char PROGMEM walk[2][ANIM_SIZE] = {/* 'walk1', 32x22px */
-        {
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x20, 0x10, 0x90, 0x90, 0x90, 0xa0, 0xc0, 0x80, 0x80, 0x80, 0x70, 0x08, 0x14, 0x08, 0x90, 0x10, 0x10, 0x08, 0xa4, 0x78, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x08, 0xfc, 0x01, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x18, 0xea, 0x10, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x1c, 0x20, 0x20, 0x3c, 0x0f, 0x11, 0x1f, 0x03, 0x06, 0x18, 0x20, 0x20, 0x3c, 0x0c, 0x12, 0x1e, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        },
-
-        /* 'walk2', 32x22px */
-        {
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x20, 0x20, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x10, 0x28, 0x10, 0x20, 0x20, 0x20, 0x10, 0x48, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1f, 0x20, 0xf8, 0x02, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x03, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x10, 0x30, 0xd5, 0x20, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 0x20, 0x30, 0x0c, 0x02, 0x05, 0x09, 0x12, 0x1e, 0x02, 0x1c, 0x14, 0x08, 0x10, 0x20, 0x2c, 0x32, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        }};
-
-    /* Run */
-    static const char PROGMEM run[2][ANIM_SIZE] = {/* 'run1', 32x22px */
-        {
-            0x00, 0x00, 0x00, 0x00, 0xe0, 0x10, 0x08, 0x08, 0xc8, 0xb0, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x40, 0x40, 0x3c, 0x14, 0x04, 0x08, 0x90, 0x18, 0x04, 0x08, 0xb0, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0xc4, 0xa4, 0xfc, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc8, 0x58, 0x28, 0x2a, 0x10, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0e, 0x09, 0x04, 0x04, 0x04, 0x04, 0x02, 0x03, 0x02, 0x01, 0x01, 0x02, 0x02, 0x04, 0x08, 0x10, 0x26, 0x2b, 0x32, 0x04, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00,
-        },
-
-        /* 'run2', 32x22px */
-        {
-            0x00, 0x00, 0x00, 0xe0, 0x10, 0x10, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x78, 0x28, 0x08, 0x10, 0x20, 0x30, 0x08, 0x10, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x04, 0x08, 0x10, 0x11, 0xf9, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x10, 0xb0, 0x50, 0x55, 0x20, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x0c, 0x10, 0x20, 0x28, 0x37, 0x02, 0x1e, 0x20, 0x20, 0x18, 0x0c, 0x14, 0x1e, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        }};
-
-    /* Bark */
-    static const char PROGMEM bark[2][ANIM_SIZE] = {/* 'bark1', 32x22px */
-        {
-            0x00, 0xc0, 0x20, 0x10, 0xd0, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x40, 0x3c, 0x14, 0x04, 0x08, 0x90, 0x18, 0x04, 0x08, 0xb0, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x04, 0x08, 0x10, 0x11, 0xf9, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc8, 0x48, 0x28, 0x2a, 0x10, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x0c, 0x10, 0x20, 0x28, 0x37, 0x02, 0x02, 0x04, 0x08, 0x10, 0x26, 0x2b, 0x32, 0x04, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        },
-
-        /* 'bark2', 32x22px */
-        {
-            0x00, 0xe0, 0x10, 0x10, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x40, 0x40, 0x2c, 0x14, 0x04, 0x08, 0x90, 0x18, 0x04, 0x08, 0xb0, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x04, 0x08, 0x10, 0x11, 0xf9, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc0, 0x48, 0x28, 0x2a, 0x10, 0x0f, 0x20, 0x4a, 0x09, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x0c, 0x10, 0x20, 0x28, 0x37, 0x02, 0x02, 0x04, 0x08, 0x10, 0x26, 0x2b, 0x32, 0x04, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-        }};
-
-    /* Sneak */
-    static const char PROGMEM sneak[2][ANIM_SIZE] = {/* 'sneak1', 32x22px */
-        {
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x40, 0x40, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0x40, 0x40, 0x80, 0x00, 0x80, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1e, 0x21, 0xf0, 0x04, 0x02, 0x02, 0x02, 0x02, 0x03, 0x02, 0x02, 0x04, 0x04, 0x04, 0x03, 0x01, 0x00, 0x00, 0x09, 0x01, 0x80, 0x80, 0xab, 0x04, 0xf8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x1c, 0x20, 0x20, 0x3c, 0x0f, 0x11, 0x1f, 0x02, 0x06, 0x18, 0x20, 0x20, 0x38, 0x08, 0x10, 0x18, 0x04, 0x04, 0x02, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00,
-        },
-
-        /* 'sneak2', 32x22px */
-        {
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x40, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xa0, 0x20, 0x40, 0x80, 0xc0, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3e, 0x41, 0xf0, 0x04, 0x02, 0x02, 0x02, 0x03, 0x02, 0x02, 0x02, 0x04, 0x04, 0x02, 0x01, 0x00, 0x00, 0x00, 0x04, 0x00, 0x40, 0x40, 0x55, 0x82, 0x7c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 0x20, 0x30, 0x0c, 0x02, 0x05, 0x09, 0x12, 0x1e, 0x04, 0x18, 0x10, 0x08, 0x10, 0x20, 0x28, 0x34, 0x06, 0x02, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
-        }};
-
-    /* animation */
-    void animate_luna(void) {
-        /* jump */
-        if (isJumping || !showedJump) {
-            /* clear */
-            oled_set_cursor(LUNA_X, LUNA_Y + 2);
-            oled_write("     ", false);
-
-            oled_set_cursor(LUNA_X, LUNA_Y - 1);
-
-            showedJump = true;
-        } else {
-            /* clear */
-            oled_set_cursor(LUNA_X, LUNA_Y - 1);
-            oled_write("     ", false);
-
-            oled_set_cursor(LUNA_X, LUNA_Y);
-        }
-
-        /* switch frame */
-        current_frame = (current_frame + 1) % 2;
-
-        /* current status */
-        if (led_usb_state.caps_lock) {
-            oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
-
-        } else if (isSneaking) {
-            oled_write_raw_P(sneak[abs(1 - current_frame)], ANIM_SIZE);
-
-        } else if (current_wpm <= MIN_WALK_SPEED) {
-            oled_write_raw_P(sit[abs(1 - current_frame)], ANIM_SIZE);
-
-        } else if (current_wpm <= MIN_RUN_SPEED) {
-            oled_write_raw_P(walk[abs(1 - current_frame)], ANIM_SIZE);
-
-        } else {
-            oled_write_raw_P(run[abs(1 - current_frame)], ANIM_SIZE);
-        }
-    }
-
-    /* animation timer */
-    if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
-        anim_timer = timer_read32();
-        animate_luna();
-    }
-
-    /* this fixes the screen on and off bug */
-    if (current_wpm > 0) {
-        oled_on();
-        anim_sleep = timer_read32();
-    } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
-        oled_off();
-    }
-}
-
-/* KEYBOARD PET END */
-#endif // LUNA_ENABLE
-
-#ifdef RGBLIGHT_ENABLE
-void rgb_light_layer_helper(uint8_t hue, uint8_t sat, uint8_t val) {
-    HSV hsv = {hue, sat, val};
-    if (hsv.v > rgblight_get_val()) {
-        hsv.v = rgblight_get_val();
-    }
-    rgblight_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
-}
-#endif //RGBLIGHT_ENABLE
-
-#ifdef LEADER_ENABLE
-LEADER_EXTERNS();
-#endif //LEADER_ENABLE
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, SYM, NAV, SYM2);
     state = update_tri_layer_state(state, NUM, MOUSE, FUNC);
-
-#ifdef ERGODOX
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    if (WHICH_OS) {
-        switch (get_highest_layer(layer_state)) {
-            case CLMK:
-                ergodox_right_led_1_on();
-                ergodox_right_led_2_on();
-                ergodox_right_led_3_on();
-                break;
-            case SYM:
-                ergodox_right_led_2_on();
-                ergodox_right_led_3_on();
-                break;
-            case NAV:
-                ergodox_right_led_1_on();
-                ergodox_right_led_3_on();
-                break;
-            case NUM:
-                ergodox_right_led_1_on();
-                ergodox_right_led_2_on();
-                break;
-            case MOUSE:
-                ergodox_right_led_3_on();
-                break;
-            case SYM2:
-                ergodox_right_led_2_on();
-                break;
-            case FUNC:
-                ergodox_right_led_1_on();
-                break;
-            default:
-                break;
-        }
-    } else {
-        switch (get_highest_layer(state)) {
-            case SYM:
-                ergodox_right_led_1_on();
-                break;
-            case NAV:
-                ergodox_right_led_2_on();
-                break;
-            case NUM:
-                ergodox_right_led_3_on();
-                break;
-            case MOUSE:
-                ergodox_right_led_1_on();
-                ergodox_right_led_2_on();
-                break;
-            case SYM2:
-                ergodox_right_led_1_on();
-                ergodox_right_led_3_on();
-                break;
-            case FUNC:
-                ergodox_right_led_1_on();
-                ergodox_right_led_3_on();
-                break;
-#ifdef QWERTY
-            case QWER:
-                ergodox_right_led_1_on();
-                ergodox_right_led_2_on();
-                ergodox_right_led_3_on();
-                break;
-#endif
-            default:
-                break;
-        }
-    }
-#ifdef RGBLIGHT_ENABLE
-    switch (get_highest_layer(state)) {
-        case ENGRAM:
-            rgb_light_layer_helper(HSV_PURPLE);
-            break;
-#ifdef COLEMAK
-        case CLMK:
-            rgb_light_layer_helper(HSV_WHITE);
-            break;
-#endif
-#ifdef QWERTY
-        case QWER:
-            rgb_light_layer_helper(HSV_WHITE);
-            break;
-#endif
-        case SYM:
-            rgb_light_layer_helper(HSV_PINK);
-            break;
-        case NAV:
-            rgb_light_layer_helper(HSV_BLUE);
-            break;
-        case NUM:
-            rgb_light_layer_helper(HSV_GREEN);
-            break;
-        case MOUSE:
-            rgb_light_layer_helper(HSV_YELLOW);
-            break;
-        case SYM2:
-            rgb_light_layer_helper(HSV_AZURE);
-            break;
-        case FUNC:
-            rgb_light_layer_helper(HSV_RED);
-            break;
-
-        default:
-            rgb_light_layer_helper(HSV_PURPLE);
-            break;
-
-    }
-#endif // RGBLIGHT_ENABLE
-#endif // ERGODOX
 
     return state;
 };
@@ -409,16 +119,10 @@ void oled_render_layer_state_r2g_jwe(void) {
         case ENGRAM:
             oled_write_P(PSTR("EN"), false);
             break;
-#ifdef COLEMAK
-        case CLMK:
+        case APTMAK:
             oled_write_P(PSTR("APMK"), false);
             break;
-#endif
-#ifdef QWERTY
-        case QWER:
-            oled_write_P(PSTR("QW"), false);
-            break;
-#endif
+
         case SYM:
             oled_write_P(PSTR("sm"), false);
             break;
@@ -467,24 +171,16 @@ void oled_render_layer_state_r2g_jwe(void) {
 #endif
 }
 
-void render_bootmagic_status_r2g_jwe(bool status) {
+void render_bootmagic_status_r2g_jwe(void) {
     static const char PROGMEM logo[][2][3] = {
         {{0x8b, 0x8c, 0}, {0xab, 0xac, 0}},
         {{0x89, 0x8a, 0}, {0xa9, 0xaa, 0}},
     };
-    if (status) {
-        oled_advance_char();
-        oled_write_P(logo[0][0], false);
-        oled_advance_page(true);
-        oled_advance_char();
-        oled_write_P(logo[0][1], false);
-    } else {
         oled_advance_char();
         oled_write_P(logo[1][0], false);
         oled_advance_page(true);
         oled_advance_char();
         oled_write_P(logo[1][1], false);
-    }
     oled_advance_page(true);
 #ifdef WPM_ENABLE
     oled_advance_page(true);
@@ -773,7 +469,7 @@ bool oled_task_user(void) {
         oled_advance_page(true);
         oled_advance_page(true);
 #ifndef LUNA_ENABLE
-        render_bootmagic_status_r2g_jwe(WHICH_OS);
+        render_bootmagic_status_r2g_jwe();
 #endif // LUNA_ENABLE
         render_mod_status(get_mods() | get_oneshot_mods());
 #ifdef LEADER_DISPLAY_STR
@@ -801,94 +497,7 @@ bool oled_task_user(void) {
 #endif // OLED_ENABLE
 
 
-#ifdef KEY_OVERRIDE_ENABLE
-// Shift + dot = :
-const key_override_t dot_colon_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLN);
-
-// Shift + comma = ;
-const key_override_t comma_semicolin_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);
-
-const key_override_t **key_overrides = (const key_override_t *[]){
-    &dot_colon_override,
-        &comma_semicolin_override,
-        NULL
-};
-#endif
-
-#ifdef USERSPACE_CUSTOM_DOT_COMMA
-bool colon_pressed = false;
-bool semicolon_pressed = false;
-bool delete_pressed = false;
-#endif
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-/*
-#ifdef USERSPACE_CAPS_WORD
-    if (keycode == JWE_SHFT) {
-        if (record -> event.pressed) {
-            if (caps_word_enabled()) {
-                disable_caps_word();
-                jwe_shft_state = os_down_used;
-                register_code(KC_LSFT);
-                return false;
-            } else if ( timer_elapsed(shift_timer) < ONESHOT_TIMEOUT ) {
-                enable_caps_word();
-                jwe_shft_state = os_down_used;
-                shift_timer = ONESHOT_TIMEOUT + 1;
-                return false;
-            } else {
-                register_code(KC_LSFT);
-                jwe_shft_state = os_down_unused;
-            }
-        } else {
-            if ( timer_elapsed(shift_timer) > ONESHOT_TIMEOUT ) {
-                unregister_code(KC_LSFT);
-                jwe_shft_state = os_up_unqueued;
-            } else {
-                jwe_shft_state = os_up_queued;
-            }
-        }
-    } else {
-        if (!record->event.pressed) {
-            shift_timer = ONESHOT_TIMEOUT + 1;
-        }
-        update_oneshot(&jwe_shft_state, KC_LSFT, JWE_SHFT,keycode, record);
-    }
-#endif
-
-#ifdef CAPS_WORD_ENABLE
-    if (keycode == JWE_SHFT) {
-        if (record -> event.pressed) {
-            if (is_caps_word_on()) {
-                caps_word_off();
-                jwe_shft_state = os_down_used;
-                register_code(KC_LSFT);
-                return false;
-            } else if ( timer_elapsed(shift_timer) < ONESHOT_TIMEOUT ) {
-                caps_word_on();
-                jwe_shft_state = os_down_used;
-                shift_timer = ONESHOT_TIMEOUT + 1;
-                return false;
-            } else {
-                register_code(KC_LSFT);
-                jwe_shft_state = os_down_unused;
-            }
-        } else {
-            if ( timer_elapsed(shift_timer) > ONESHOT_TIMEOUT ) {
-                unregister_code(KC_LSFT);
-                jwe_shft_state = os_up_unqueued;
-            } else {
-                jwe_shft_state = os_up_queued;
-            }
-        }
-    } else {
-        if (!record->event.pressed) {
-            shift_timer = ONESHOT_TIMEOUT + 1;
-        }
-        update_oneshot(&jwe_shft_state, KC_LSFT, JWE_SHFT,keycode, record);
-    }
-#endif
-*/
     update_swapper(
             &sw_win_active, KC_LGUI, KC_TAB, SW_WIN,
             keycode, record
@@ -902,25 +511,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             &os_shft_state, KC_LSFT, OS_SHFT,
             keycode, record
             );
-    if (WHICH_OS) {
-        update_oneshot(
-                &os_ctrl_state, KC_LCTL, OS_CMD,
-                keycode, record
-                );
-        update_oneshot(
-                &os_cmd_state, KC_LCMD, OS_CTRL,
-                keycode, record
-                );
-    } else {
-        update_oneshot(
-                &os_ctrl_state, KC_LCTL, OS_CTRL,
-                keycode, record
-                );
-        update_oneshot(
-                &os_cmd_state, KC_LCMD, OS_CMD,
-                keycode, record
-                );
-    }
+    update_oneshot(
+            &os_ctrl_state, KC_LCTL, OS_CTRL,
+            keycode, record
+            );
+    update_oneshot(
+            &os_cmd_state, KC_LCMD, OS_CMD,
+            keycode, record
+            );
     update_oneshot(
             &os_alt_state, KC_LALT, OS_ALT,
             keycode, record
@@ -931,40 +529,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             keycode, record, &sym_timer
             ) & handled;
 
-#ifdef USERSPACE_CAPS_WORD
-    if (!process_case_modes(keycode, record)) {
-        return false;
-    }
-#endif
-
-#ifdef USERSPACE_LEADER
-    if (!process_leader(keycode, record)) {
-        return false;
-    }
-#endif
-
     switch(keycode) {
-/* #ifdef USERSPACE_CAPS_WORD */
-/*         case JWE_SHFT: */
-/*             if (record->event.pressed) { */
-/*                 shift_timer = timer_read(); */
-/*                 return false; */
-/*             } */
-/* #endif */
-/* #ifdef CAPS_WORD_ENABLE */
-/*         case JWE_SHFT: */
-/*             if (record->event.pressed) { */
-/*                 shift_timer = timer_read(); */
-/*                 return false; */
-/*             } */
-/* #endif */
-        case JWE_LINK:
-            if (record->event.pressed) {
-                tap_code16(G(KC_K));
-                tap_code16(G(KC_V));
-                tap_code(KC_ENT);
-            }
-            return false;
         case JWE_MNE:
             if (record->event.pressed) {
                 SEND_STRING("M&E");
@@ -1006,478 +571,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(MOUSE);
             }
             return false;
-#ifdef USERSPACE_CUSTOM_DOT_COMMA
-        case KC_COMM:
-            mods = get_mods();
-            if (record->event.pressed) {
-                if ((mods | get_oneshot_mods()) & MOD_MASK_SHIFT) {
-                    semicolon_pressed = true;
-                    unregister_code(KC_LSFT);
-                    del_oneshot_mods(MOD_MASK_SHIFT);
-                    register_code(KC_SCLN);
-                    clear_oneshot_mods();
-                    return false;
-                }
-            } else {
-                if (semicolon_pressed) {
-                    unregister_code(KC_SCLN);
-                    semicolon_pressed = false;
-                    if ((os_shft_state == os_down_used) | (jwe_shft_state == os_down_used)) {
-                        register_code(KC_LSFT);
-                    }
-                    return false;
-                }
-            }
-            return true;
 
-        case KC_DOT:
-            if (record->event.pressed) {
-                if ((mods | get_oneshot_mods()) & MOD_MASK_SHIFT) {
-                    colon_pressed = true;
-                    register_code(KC_SCLN);
-                    return false;
-                }
-            } else {
-                if (colon_pressed) {
-                    unregister_code(KC_SCLN);
-                    colon_pressed = false;
-                    return false;
-                }
-            }
-            return true;
-
-        case KC_BSPC:
-            mods = get_mods();
-            if (record->event.pressed) {
-                if (get_mods() & MOD_MASK_SHIFT) {
-                    delete_pressed = true;
-                    unregister_code(KC_LSFT);
-                    register_code(KC_DEL);
-                    return false;
-                }
-            } else {
-                if (delete_pressed) {
-                    unregister_code(KC_DEL);
-                    delete_pressed = false;
-                    if ((os_shft_state == os_down_used) | (jwe_shft_state == os_down_used)) {
-                        register_code(KC_LSFT);
-                    }
-                    return false;
-                }
-            }
-            return true;
-
-#endif // USERSPACE_CUSTOM_DOT_COMMA
-
-#ifndef LEADER_ENABLE
-#ifndef USERSPACE_LEADER
-        case JWE_PWD:
-            if (record->event.pressed) {
-                send_secret(0);
-            }
-            return false;
-#endif
-#endif
-
-        case JWE_TOGG:
-            if (record->event.pressed) {
-                WHICH_OS = !WHICH_OS;
-                // if (WHICH_OS) {
-                //   keymap_config.swap_lctl_lgui = false;
-                // }
-                // else {
-                //   keymap_config.swap_lctl_lgui = true;
-                // }
-            }
-            return false;
-#ifdef USERSPACE_LEADER
-        case JWE_LEAD:
-            if (record->event.pressed) {
-                start_leading();
-            }
-            return false;
-#endif
-
-#ifdef MAC
         case SLEEP:
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTL(SS_LCMD("q")) SS_DELAY(500) SS_TAP(X_ESC));
             }
             return false;
-#endif // MAC
-
-#ifdef BOTH
-        case SK_UNDO:
-            if (record->event.pressed) {
-                WHICH_OS ? SEND_STRING(SS_LCTL("z")) : SEND_STRING(SS_LGUI("z"));
-            }
-            else {}
-            return false;
-
-        case SK_CUT:
-            if (record->event.pressed) {
-                WHICH_OS ? SEND_STRING(SS_LCTL("x")) : SEND_STRING(SS_LGUI("x"));
-            }
-            else {}
-            return false;
-
-        case SK_COPY:
-            if (record->event.pressed) {
-                WHICH_OS ? SEND_STRING(SS_LCTL("c")) : SEND_STRING(SS_LGUI("c"));
-            }
-            else {}
-            return false;
-
-        case SK_PSTE:
-            if (record->event.pressed) {
-                WHICH_OS ? SEND_STRING(SS_LCTL("v")) : SEND_STRING(SS_LGUI("v"));
-            }
-            else {}
-            return false;
-
-        case SK_REDO:
-            if (record->event.pressed) {
-                WHICH_OS ? SEND_STRING(SS_LCTL("y")) : SEND_STRING(SS_LGUI("y"));
-            }
-            else {}
-            return false;
-
-
-        case SK_EURO:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code16(LCA(KC_4));
-                else
-                    register_code16(A(KC_2));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code16(LCA(KC_4));
-                else
-                    unregister_code16(A(KC_2));
-            }
-            return false;
-
-        case SK_AT:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code16(S(KC_QUOT));
-                else
-                    register_code16(S(KC_2));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code16(S(KC_QUOT));
-                else
-                    unregister_code16(S(KC_2));
-            }
-            return false;
-
-        case SK_HASH:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code(KC_BSLS);
-                else
-                    register_code16(A(KC_3));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code(KC_BSLS);
-                else
-                    unregister_code16(A(KC_3));
-            }
-            return false;
-
-
-        case JWE_DONE:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code16(RCS(KC_1));
-                else
-                    register_code16(C(KC_E));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code16(RCS(KC_1));
-                else
-                    unregister_code16(C(KC_E));
-            }
-            return false;
-
-        case SLEEP:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    tap_code(KC_POWER);
-                else
-                    SEND_STRING(SS_LCTL(SS_LCMD("q")) SS_DELAY(500) SS_TAP(X_ESC));
-            }
-            else {}
-            return false;
-
-        case SK_WORDPRV:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code16(C(KC_LEFT));
-                else
-                    register_code16(A(KC_LEFT));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code16(C(KC_LEFT));
-                else
-                    unregister_code16(A(KC_LEFT));
-            }
-            return false;
-
-        case SK_WORDNXT:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code16(C(KC_RIGHT));
-                else
-                    register_code16(A(KC_RIGHT));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code16(C(KC_RIGHT));
-                else
-                    unregister_code16(A(KC_RIGHT));
-            }
-            return false;
-
-        case SK_LINEBEG:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code(KC_HOME);
-                else
-                    register_code16(G(KC_LEFT));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code(KC_HOME);
-                else
-                    unregister_code16(G(KC_LEFT));
-            }
-            return false;
-
-        case SK_LINEEND:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code(KC_END);
-                else
-                    register_code16(G(KC_RIGHT));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code(KC_END);
-                else
-                    unregister_code16(G(KC_RIGHT));
-            }
-            return false;
-
-        case SK_PARAPRV:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code16(C(KC_UP));
-                else
-                    register_code16(A(KC_UP));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code16(C(KC_UP));
-                else
-                    unregister_code16(A(KC_UP));
-            }
-            return false;
-
-        case SK_PARANXT:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code16(C(KC_DOWN));
-                else
-                    register_code16(A(KC_DOWN));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code16(C(KC_DOWN));
-                else
-                    unregister_code16(A(KC_DOWN));
-            }
-            return false;
-
-        case SK_DOCBEG:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code16(C(KC_HOME));
-                else
-                    register_code16(G(KC_UP));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code16(C(KC_HOME));
-                else
-                    unregister_code16(G(KC_UP));
-            }
-            return false;
-
-        case SK_DOCEND:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code16(C(KC_END));
-                else
-                    register_code16(G(KC_DOWN));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code16(C(KC_END));
-                else
-                    unregister_code16(G(KC_DOWN));
-            }
-            return false;
-
-        case SK_WORDDEL:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code16(C(KC_DEL));
-                else
-                    register_code16(A(KC_DEL));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code16(A(KC_DEL));
-                else
-                    unregister_code16(C(KC_DEL));
-            }
-            return false;
-
-        case SK_WORDBSPC:
-            if (record->event.pressed) {
-                if (WHICH_OS)
-                    register_code16(C(KC_BSPC));
-                else
-                    register_code16(G(KC_BSPC));
-            }
-            else {
-                if (WHICH_OS)
-                    unregister_code16(C(KC_BSPC));
-                else
-                    unregister_code16(G(KC_BSPC));
-            }
-            return false;
-
-        default:
-            return true;
-
-#endif // BOTH
-       //
-#ifdef LUNA_ENABLE
-            /* KEYBOARD PET STATUS START */
-        case KC_LCTL:
-        case KC_RCTL:
-            if (record->event.pressed) {
-                isSneaking = true;
-            } else {
-                isSneaking = false;
-            }
-            break;
-        case KC_SPC:
-            if (record->event.pressed) {
-                isJumping  = true;
-                showedJump = false;
-            } else {
-                isJumping = false;
-            }
-            break;
-
-            /* KEYBOARD PET STATUS END */
-#endif // LUNA_ENABLE
 
     }
     return true;
 }
 
 void keyboard_post_init_user(void) {
-#ifdef WINDOWS
-    WHICH_OS = true;
-    /*
-       rgb_matrix_enable();
-       rgb_matrix_set_color_all(50,0,232);
-       rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE);
-       */
-#endif // WINDOWS
-#ifdef ERGODOX
-#ifdef RGBLIGHT_ENABLE
-    rgb_light_layer_helper(HSV_PURPLE);
-#endif
-#endif
     layer_move(ENGRAM);
 }
 
-#ifdef RGB_MATRIX_ENABLE
-#ifdef LAYERLIGHTS
-extern led_config_t g_led_config;
-void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_min, uint8_t led_max) {
-    HSV hsv = {hue, sat, val};
-    if (hsv.v > rgb_matrix_get_val()) {
-        hsv.v = rgb_matrix_get_val();
-    }
-    RGB rgb = hsv_to_rgb(hsv);
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
-        if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
-        }
-    }
-}
-__attribute__((weak)) void rgb_matrix_indicator_keymap(void) {}
-__attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) { return true; }
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_keymap(led_min, led_max)) { return; }
-    {
-        switch (get_highest_layer(layer_state | default_layer_state)) {
-            case ENGRAM:
-#ifdef COLEMAK
-            case CLMK:
-#endif
-                rgb_matrix_layer_helper(HSV_PURPLE, led_min, led_max);
-                break;
-#ifdef QWERTY
-            case QWER:
-                // rgb_matrix_layer_helper(HSV_WHITE, led_min, led_max);
-                // break;
-#endif
-            case SYM:
-                rgb_matrix_layer_helper(HSV_ORANGE, led_min, led_max);
-                break;
-            case NAV:
-                rgb_matrix_layer_helper(HSV_BLUE, led_min, led_max);
-                break;
-            case NUM:
-                rgb_matrix_layer_helper(HSV_GREEN, led_min, led_max);
-                break;
-            case MOUSE:
-                rgb_matrix_layer_helper(HSV_YELLOW, led_min, led_max);
-                break;
-            case SYM2:
-                rgb_matrix_layer_helper(HSV_AZURE, led_min, led_max);
-                break;
-            case FUNC:
-                rgb_matrix_layer_helper(HSV_RED, led_min, led_max);
-                break;
-        }
-    }
-}
-__attribute__((weak)) bool rgb_matrix_indicators_keymap(void) { return true; }
-void rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); }
-
-#endif
-#endif
-
 void matrix_scan_user (void) {
-    /* if (jwe_shft_state == os_up_queued) { */
-    /*     if ( timer_elapsed(shift_timer) > ONESHOT_TIMEOUT ) { */
-    /*         unregister_code(KC_LSFT); */
-    /*     } */
-    /* } */
     if (os_sym_state == os_up_queued) {
         if ( timer_elapsed(sym_timer) > ONESHOT_TIMEOUT ) {
             layer_off(SYM);
@@ -1486,7 +595,6 @@ void matrix_scan_user (void) {
         }
     }
 
-#ifdef LEADER_ENABLE
     // secrets file contains:
     // 0 is segregation
     // 1 is email
@@ -1494,9 +602,7 @@ void matrix_scan_user (void) {
     // 3 is OH's email
     // 4 is OH's phone number
     // 5 is work email
-    LEADER_DICTIONARY() {
-        leading = false;
-
+#if 0
 #ifndef NO_SECRETS
         SEQ_TWO_KEYS(KC_S, KC_E) {
             send_secret(0);
@@ -1525,16 +631,9 @@ void matrix_scan_user (void) {
         SEQ_TWO_KEYS(KC_L, KC_E) {
             layer_move(ENGRAM);
         }
-#ifdef COLEMAK
         SEQ_TWO_KEYS(KC_L, KC_A) {
             layer_move(CLMK);
         }
-#endif
-#ifdef QWERTY
-        SEQ_TWO_KEYS(KC_L, KC_Q) {
-            layer_move(QWER);
-        }
-#endif
 
         SEQ_ONE_KEY(KC_H) {
             SEND_STRING("Hugh");
@@ -1548,11 +647,9 @@ void matrix_scan_user (void) {
             layer_on(NUM);
         }
 
-#ifdef USE_XCASE
         SEQ_ONE_KEY(KC_X) {
             enable_xcase_with(KC_UNDS);
         }
-#endif
 
         SEQ_TWO_KEYS(KC_T, KC_S) {
             if(!WHICH_OS) {
@@ -1560,14 +657,12 @@ void matrix_scan_user (void) {
             }
         }
 
-#ifdef YABAI
         SEQ_TWO_KEYS(KC_W, KC_B) {
             SEND_STRING(SS_LSFT(SS_LCMD(SS_LCTL(SS_LALT("b")))));
         }
         SEQ_TWO_KEYS(KC_W, KC_R) {
             SEND_STRING(SS_LSFT(SS_LCMD(SS_LCTL(SS_LALT("r")))));
         }
-#endif // YABAI
 
         SEQ_ONE_KEY(KC_B) {
             SEND_STRING(SS_LCMD("q"));
@@ -1578,82 +673,5 @@ void matrix_scan_user (void) {
 
         leader_end();
     }
-#endif //LEADER_ENABLE
-
-}
-
-#ifdef LEADER_ENABLE
-void leader_end() {
-    leader_active = false;
-}
-void leader_start() {
-    leader_active = true;
-}
-#endif // LEADER_ENABLE
-
-#ifdef USERSPACE_LEADER
-/* --------------- LEADER SEQUENCES ---------------
-   comes from https://github.com/andrewjrae/kyria-keymap#userspace-leader-sequences */
-void *leader_layers_func(uint16_t keycode) {
-    switch (keycode) {
-#ifdef QWERTY
-        case KC_Q:
-            layer_move(QWER);
-            break;
 #endif
-#ifdef COLEMAK
-        case KC_C:
-            layer_move(CLMK);
-            break;
-#endif
-        case KC_E:
-            layer_move(ENGRAM);
-            break;
-        case KC_N:
-            layer_move(NAV);
-            break;
-        default:
-            break;
-    }
-    return NULL;
 }
-
-void *leader_strings_func(uint16_t keycode) {
-    switch (keycode) {
-        case KC_G:
-            send_secret(1);
-            break;
-        case KC_N:
-            send_secret(5);
-            break;
-        case KC_E:
-            send_secret(0);
-            break;
-        case KC_P:
-            send_secret(2);
-            break;
-        case KC_K:
-            send_secret(4);
-            break;
-        case KC_J:
-            send_secret(3);
-            break;
-
-        default:
-            break;
-    }
-    return NULL;
-}
-
-void *leader_start_func(uint16_t keycode) {
-    switch (keycode) {
-        case KC_L:
-            return leader_layers_func; // function to swap between my layers
-        case KC_S:
-            return leader_strings_func; // function to send longer strings
-        default:
-            return NULL;
-    }
-    return NULL;
-}
-#endif //USERSPACE_LEADER

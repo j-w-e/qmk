@@ -17,11 +17,6 @@ EXTRAKEY_ENABLE = yes
 # VPATH  +=  keyboards/gboards/
 # COMBO_ENABLE = yes
 
-ifeq ($(strip $(USERSPACE_LEADER)), yes)
-    OPT_DEFS += -DUSERSPACE_LEADER
-		SRC += leader.c
-endif
-
 ifeq ($(strip $(USERSPACE_CAPS_WORD)), yes)
     OPT_DEFS += -DUSERSPACE_CAPS_WORD
 		SRC += casemodes.c

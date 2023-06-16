@@ -13,7 +13,7 @@ static const char * const secrets[] = {
 
 #include QMK_KEYBOARD_H
 
-void send_secret(uint8_t secret) {
+void send_secret(uint16_t secret) {
 // Secrets!  Externally defined strings, not stored in repo
         clear_mods();
         send_string_with_delay(secrets[secret], 5);
