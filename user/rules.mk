@@ -12,19 +12,17 @@ SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 EXTRAKEY_ENABLE = yes
-# REPEAT_KEY_ENABLE = yes
+REPEAT_KEY_ENABLE = yes
+CAPS_WORD_ENABLE = yes
+LEADER_ENABLE = yes
 
-# VPATH  +=  keyboards/gboards/
-# COMBO_ENABLE = yes
+VPATH  +=  keyboards/gboards/
+COMBO_ENABLE = yes
+INTROSPECTION_KEYMAP_C = combos.c
 
 ifeq ($(strip $(USERSPACE_CAPS_WORD)), yes)
     OPT_DEFS += -DUSERSPACE_CAPS_WORD
 		SRC += casemodes.c
-endif
-
-ifeq ($(strip $(LUNA_ENABLE)), yes)
-    OPT_DEFS += -DLUNA_ENABLE
-	WPM_ENABLE = yes
 endif
 
 ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")

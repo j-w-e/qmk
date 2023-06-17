@@ -3,7 +3,6 @@
 
 #include QMK_KEYBOARD_H
 #include "_jwe_.h"
-/* #include "defines.h" */
 
 #define _LAYOUT_wrapper(...) LAYOUT_split_3x6_3(__VA_ARGS__)
 #define LAYOUT_jwe_wrapper(...) _LAYOUT_wrapper(LAYOUT_ADD_THUMBS(LAYOUT_5x3_TO_6x3(__VA_ARGS__)))

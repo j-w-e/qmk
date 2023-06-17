@@ -66,7 +66,7 @@
 #define ________________BLANK_THUMBS_______________       _______, _______, _______, _______, _______, _______
 
 
-#define __________________APTMAK_L1________________       KC_X,    KC_W,    KC_F,    KC_P,    KC_B
+#define __________________APTMAK_L1________________       QK_REP,  KC_W,    KC_F,    KC_P,    KC_B
 #define __________________APTMAK_L2________________       KC_R,    KC_S,    KC_T,    KC_H,    KC_BSPC
 #define __________________APTMAK_L3________________       KC_MINUS,KC_C,    KC_G,    KC_D,    KC_K
 

@@ -1,3 +1,11 @@
+
+COMB(comb_q,            KC_Q,           KC_W, KC_P)
+COMB(comb_x,            KC_X,           KC_L, KC_Y)
+COMB(comb_z,            KC_Z,           KC_C, KC_D)
+
+COMB(os_shft,           OS_SHFT,        KC_T, KC_H)
+COMB(caps_word,         CW_TOGG,        KC_T, KC_A)
+
 //COMB(ST_ENT,            KC_ENT,              KC_S, KC_T)
 //COMB(SYM_ENT,                     KC_ENT,                          KC_EXLM,    KC_QUES)
 //COMB(CD_BSPC,           KC_BSPC,             KC_C, KC_D)
@@ -5,18 +13,14 @@
 //COMB(XD_DEL,            KC_DEL,              KC_X, KC_D)
 //COMB(SYM_DEL,           KC_DEL,              KC_RBRC, KC_AMPR)
 //SUBS(HR_H2R,                         "H2R",                              KC_H, KC_R)
-COMB(FT_ESC,                         KC_ESC,                          KC_F, KC_T)
-COMB(FP_TAB,                         KC_TAB,                          KC_F, KC_P)
-#ifdef WINDOWS
-    COMB(XCD_WORDDEL,       C(KC_BSPC),              KC_X, KC_C, KC_D)
-#endif //WIN
-#ifndef WINDOWS // This is a mac definition, but using ifndef so that it works when I compile "BOTH" too
-    COMB(XCD_WORDDEL,       A(KC_BSPC),              KC_X, KC_C, KC_D)
-#endif // WINDOWS
+//COMB(FT_ESC,                         KC_ESC,                          KC_F, KC_T)
+//COMB(FP_TAB,                         KC_TAB,                          KC_F, KC_P)
+//COMB(XCD_WORDDEL,       A(KC_BSPC),              KC_X, KC_C, KC_D)
 
 #ifdef SWAP_HANDS_ENABLE
     COMB(swap_l,  SH_TG,  KC_Q, KC_P)
     COMB(swap_r,  SH_TG,  KC_L, KC_QUOT)
 #endif
 
-COMB(ZERO,        KC_0,    KC_SPC, KC_N)
+
+//COMB(ZERO,        KC_0,    KC_SPC, KC_N)

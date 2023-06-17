@@ -54,4 +54,9 @@ enum userspace_custom_keycodes {
 
 };
 
+bool override_shift(bool is_shifted,
+    uint16_t shift_override,
+    uint16_t keycode,
+    keyrecord_t *record);
+
 #endif

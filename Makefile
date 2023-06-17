@@ -56,6 +56,10 @@ lbs:
 # cleanup symlinks
 	rm -rf qmk_firmware/keyboards/$(PATH_$@)/keymaps/$(USER)
 
+.PHONY: flash
+flash: crkbd
+	cd qmk_firmware; qmk flash ../crkbd_r2g__jwe_.hex
+
 clean:
 	rm -rf obj_*
 	rm -f *.elf

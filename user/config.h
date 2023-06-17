@@ -4,7 +4,7 @@
 #pragma once
 
 #undef ONESHOT_TIMEOUT
-#define ONESHOT_TIMEOUT 500
+#define ONESHOT_TIMEOUT 250
 
 #ifdef CAPS_WORD_ENABLE
 #undef CAPS_WORD_IDLE_TIMEOUT
@@ -88,9 +88,9 @@
 /* #define NO_ACTION_TAPPING */
 
 
-/* #define COMBO_VARIABLE_LEN */
+#define COMBO_VARIABLE_LEN
 /* #define COMBO_COUNT 3 */
-/* #define COMBO_TERM 40 */
+#define COMBO_TERM 40
 
 #ifdef LEADER_ENABLE
 #define LEADER_TIMEOUT 250
