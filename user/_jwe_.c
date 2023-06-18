@@ -15,13 +15,8 @@
  */
 
 #include QMK_KEYBOARD_H
-/* #include "g/keymap_combo.h" */
-#include "_jwe_.h"
-#include "casemodes.h"
 
-#ifndef NO_SECRETS
-#include "secrets.h"
-#endif
+#include "_jwe_.h"
 
 uint16_t sym_timer = ONESHOT_TIMEOUT + 1;
 
@@ -83,7 +78,6 @@ bool is_oneshot_layer_cancel_key(uint16_t keycode) {
 
 bool is_oneshot_mod_key(uint16_t keycode) {
     switch (keycode) {
-        /* case JWE_SHFT: */
         case OS_SHFT:
         case OS_CTRL:
         case OS_ALT:
@@ -104,11 +98,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #ifdef OLED_ENABLE
 
-#ifndef BONGOCAT
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
-#endif
 
 void oled_render_layer_state_r2g_jwe(void) {
     oled_write_P(PSTR("lyr:"), false);
@@ -386,6 +378,69 @@ bool override_shift( bool is_shifted,
     return true;
 }
 
+void leader_start_user(void) {
+    leader_active = true;
+}
+
+void leader_end_user(void) {
+    leader_active = false;
+
+    if (leader_sequence_one_key(KC_H)) {
+        SEND_STRING("Hugh");
+    } else if (leader_sequence_two_keys(KC_L, KC_E)) {
+        layer_move(ENGRAM);
+    } else if (leader_sequence_two_keys(KC_L, KC_A)) {
+        layer_move(APTMAK);
+    } else if (leader_sequence_two_keys(KC_L, KC_N)) {
+        layer_move(NAV);
+    } else if (leader_sequence_two_keys(KC_G, KC_G)) {
+        layer_on(MOUSE);
+        layer_on(NUM);
+#ifndef NO_SECRETS
+        // secrets file contains:
+        // 0 is segregation
+        // 1 is email
+        // 2 is phone number
+        // 3 is OH's email
+        // 4 is OH's phone number
+        // 5 is work email
+    } else if (leader_sequence_two_keys(KC_S, KC_E)) {
+        send_secret(0);
+    } else if (leader_sequence_two_keys(KC_S, KC_G)) {
+        send_secret(1);
+    } else if (leader_sequence_two_keys(KC_S, KC_P)) {
+        send_secret(2);
+    } else if (leader_sequence_two_keys(KC_S, KC_J)) {
+        send_secret(3);
+    } else if (leader_sequence_two_keys(KC_S, KC_K)) {
+        send_secret(4);
+    } else if (leader_sequence_two_keys(KC_S, KC_N)) {
+        send_secret(5);
+#endif
+    /* } else if (leader_sequence_one_key(KC_X)) { */
+    /*     enable_xcase_with(KC_UNDS); */
+    } else if (leader_sequence_two_keys(KC_T, KC_S)) {
+        SEND_STRING(SS_LSFT(SS_LCMD("5")));
+    } else if (leader_sequence_two_keys(KC_W, KC_B)) {
+        SEND_STRING(SS_LSFT(SS_LCMD(SS_LCTL(SS_LALT("b")))));
+    } else if (leader_sequence_two_keys(KC_W, KC_R)) {
+        SEND_STRING(SS_LSFT(SS_LCMD(SS_LCTL(SS_LALT("r")))));
+    } 
+
+}
+
+
+void matrix_scan_user (void) {
+    if (os_sym_state == os_up_queued) {
+        if ( timer_elapsed(sym_timer) > ONESHOT_TIMEOUT ) {
+            layer_off(SYM);
+            sym_timer = ONESHOT_TIMEOUT + 1;
+            os_sym_state = os_up_unqueued;
+        }
+    }
+
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CAPS_WORD_ENABLE
     if(keycode == OS_SHFT && is_caps_word_on()) {
@@ -483,71 +538,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     }
     return true;
-}
-
-void keyboard_post_init_user(void) {
-    layer_move(ENGRAM);
-}
-
-void leader_start_user(void) {
-    leader_active = true;
-}
-
-void leader_end_user(void) {
-    leader_active = false;
-
-    if (leader_sequence_one_key(KC_H)) {
-        SEND_STRING("Hugh");
-    } else if (leader_sequence_two_keys(KC_L, KC_E)) {
-        layer_move(ENGRAM);
-    } else if (leader_sequence_two_keys(KC_L, KC_A)) {
-        layer_move(APTMAK);
-    } else if (leader_sequence_two_keys(KC_L, KC_N)) {
-        layer_move(NAV);
-    } else if (leader_sequence_two_keys(KC_G, KC_G)) {
-        layer_on(MOUSE);
-        layer_on(NUM);
-#ifndef NO_SECRETS
-        // secrets file contains:
-        // 0 is segregation
-        // 1 is email
-        // 2 is phone number
-        // 3 is OH's email
-        // 4 is OH's phone number
-        // 5 is work email
-    } else if (leader_sequence_two_keys(KC_S, KC_E)) {
-        send_secret(0);
-    } else if (leader_sequence_two_keys(KC_S, KC_G)) {
-        send_secret(1);
-    } else if (leader_sequence_two_keys(KC_S, KC_P)) {
-        send_secret(2);
-    } else if (leader_sequence_two_keys(KC_S, KC_J)) {
-        send_secret(3);
-    } else if (leader_sequence_two_keys(KC_S, KC_K)) {
-        send_secret(4);
-    } else if (leader_sequence_two_keys(KC_S, KC_N)) {
-        send_secret(5);
-#endif
-    /* } else if (leader_sequence_one_key(KC_X)) { */
-    /*     enable_xcase_with(KC_UNDS); */
-    } else if (leader_sequence_two_keys(KC_T, KC_S)) {
-        SEND_STRING(SS_LSFT(SS_LCMD("5")));
-    } else if (leader_sequence_two_keys(KC_W, KC_B)) {
-        SEND_STRING(SS_LSFT(SS_LCMD(SS_LCTL(SS_LALT("b")))));
-    } else if (leader_sequence_two_keys(KC_W, KC_R)) {
-        SEND_STRING(SS_LSFT(SS_LCMD(SS_LCTL(SS_LALT("r")))));
-    } 
-
-}
-
-
-void matrix_scan_user (void) {
-    if (os_sym_state == os_up_queued) {
-        if ( timer_elapsed(sym_timer) > ONESHOT_TIMEOUT ) {
-            layer_off(SYM);
-            sym_timer = ONESHOT_TIMEOUT + 1;
-            os_sym_state = os_up_unqueued;
-        }
-    }
-
 }

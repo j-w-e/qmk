@@ -17,10 +17,10 @@ COMB(caps_word,         CW_TOGG,        KC_T, KC_A)
 //COMB(FP_TAB,                         KC_TAB,                          KC_F, KC_P)
 //COMB(XCD_WORDDEL,       A(KC_BSPC),              KC_X, KC_C, KC_D)
 
-#ifdef SWAP_HANDS_ENABLE
-    COMB(swap_l,  SH_TG,  KC_Q, KC_P)
-    COMB(swap_r,  SH_TG,  KC_L, KC_QUOT)
-#endif
+//#ifdef SWAP_HANDS_ENABLE
+    //COMB(swap_l,  SH_TG,  KC_Q, KC_P)
+    //COMB(swap_r,  SH_TG,  KC_L, KC_QUOT)
+//#endif
 
 
 //COMB(ZERO,        KC_0,    KC_SPC, KC_N)

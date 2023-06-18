@@ -87,10 +87,9 @@
 /* #define NO_ACTION_ONESHOT */
 /* #define NO_ACTION_TAPPING */
 
-
 #define COMBO_VARIABLE_LEN
-/* #define COMBO_COUNT 3 */
 #define COMBO_TERM 40
+#define COMBO_MUST_TAP_PER_COMBO
 
 #ifdef LEADER_ENABLE
 #define LEADER_TIMEOUT 250

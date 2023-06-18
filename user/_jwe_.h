@@ -5,16 +5,16 @@
 
 #pragma once
 
-
 #include QMK_KEYBOARD_H
-/* #include "version.h" */
-
-/* #include "quantum.h" */
-/* #include "keymap_uk.h" */
-#include "oneshot.h"
-#include "swapper.h"
 #include "defines.h"
 
+// Features
+#include "oneshot.h"
+#include "swapper.h"
+
+#ifndef NO_SECRETS
+#include "secrets.h"
+#endif
 
 #ifdef SPLIT_KEYBOARD
 #   define MASTER_LEFT
