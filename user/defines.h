@@ -2,6 +2,39 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
+enum userspace_layers {
+    ENGRAM = 0,
+    APTMAK,
+    NAV,
+    NUM,
+    MOUSE,
+    SYM,
+    SYM2,
+    FUNC,
+};
+
+enum userspace_custom_keycodes {
+    // Callum custom oneshot mod implementation with no timers.
+    OS_SHFT = SAFE_RANGE,
+    OS_CTRL,
+    OS_ALT,
+    OS_CMD,
+    OS_SYM,
+
+    LA_NAV,
+    LA_NUM,
+    LA_MOUSE,
+
+    SW_WIN,  // Switch to next window         (cmd-tab)
+    SW_AWIN, // Switch to next window within an app (cmd-grave, for macos)
+
+    JWE_PROJ,
+    JWE_MNE,
+    JWE_NRC,
+    SLEEP,
+
+};
+
 #define JWE_NXTAB   C(KC_TAB)
 #define JWE_PRVTAB  C(S(KC_TAB))
 
@@ -85,7 +118,7 @@
 
 #define _________________SYMBOLS_L1________________       KC_LABK,  KC_LCBR,    KC_LPRN,    KC_LBRC,   KC_COMM 
 #define _________________SYMBOLS_L2________________       SK_HASH,  KC_ASTR,    KC_EXLM,    KC_QUES,   KC_SLASH
-#define _________________SYMBOLS_L3________________       KC_PERC,  SK_AT,      KC_AMPR,    KC_DLR,    BCKTICK
+#define _________________SYMBOLS_L3________________       KC_PERC,  SK_AT,      KC_DLR,     KC_AMPR,   BCKTICK
 
 #define _________________SYMBOLS_R1________________       KC_DOT,   KC_RBRC,    KC_RPRN,    KC_RCBR,   KC_RABK
 #define _________________SYMBOLS_R2________________       KC_BSLS,    ________________CALLUM_MODS_R______________

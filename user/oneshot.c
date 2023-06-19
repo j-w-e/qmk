@@ -4,6 +4,62 @@
 /* taken from @callum-oakley with tweak from @daliusd */
 
 #include "oneshot.h"
+#include "defines.h"
+
+bool is_oneshot_cancel_key(uint16_t keycode) {
+    switch (keycode) {
+        /* case OS_SYM: */ // removing this from One-shot cancel because then I can just hold shift down and move between layers
+        case LA_NAV:
+        case LA_MOUSE:
+        case LA_NUM:
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool is_oneshot_ignored_key(uint16_t keycode) {
+    switch (keycode) {
+        case OS_SYM:
+        case LA_NAV:
+        case LA_MOUSE:
+        case LA_NUM:
+        case OS_SHFT:
+        case OS_CTRL:
+        case OS_ALT:
+        case OS_CMD:
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool is_oneshot_layer_cancel_key(uint16_t keycode) {
+    switch (keycode) {
+        case LA_NAV:
+            if(layer_state_is(SYM)) {
+                return false;
+            }
+        case OS_SYM:
+        case LA_MOUSE:
+        case LA_NUM:
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool is_oneshot_mod_key(uint16_t keycode) {
+    switch (keycode) {
+        case OS_SHFT:
+        case OS_CTRL:
+        case OS_ALT:
+        case OS_CMD:
+            return true;
+        default:
+            return false;
+    }
+}
 
 void update_oneshot(
     oneshot_state *state,

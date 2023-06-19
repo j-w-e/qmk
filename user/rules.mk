@@ -27,4 +27,5 @@ endif
 
 SRC += oneshot.c
 SRC += swapper.c
-
+SRC += oled.c
+SRC += leader.c
