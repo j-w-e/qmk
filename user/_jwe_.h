@@ -16,10 +16,6 @@
 #include "secrets.h"
 #endif
 
-#ifdef SPLIT_KEYBOARD
-#   define MASTER_LEFT
-#endif
-
 bool override_shift(bool is_shifted,
     uint16_t shift_override,
     uint16_t keycode,

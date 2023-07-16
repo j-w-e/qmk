@@ -1,9 +1,11 @@
 
-COMB(comb_q,            KC_Q,           KC_W, KC_P)
-COMB(comb_x,            KC_X,           KC_L, KC_Y)
-COMB(comb_z,            KC_Z,           KC_C, KC_D)
+COMB(comb_q,            KC_Q,           KC_F, KC_P)
+SUBS(comb_qu,           "qu",           KC_W, KC_F, KC_P)
+COMB(comb_x,            KC_X,           KC_M, KC_COMM)
+COMB(comb_z,            KC_Z,           KC_G, KC_D)
 
-COMB(os_shft,           OS_SHFT,        KC_T, KC_H)
+COMB(os_shft_l,         OSM(MOD_LSFT),        KC_T, KC_H)
+COMB(os_shft_r,         OSM(MOD_LSFT),        KC_N, KC_A)
 COMB(caps_word,         CW_TOGG,        KC_T, KC_A)
 
 //COMB(ST_ENT,            KC_ENT,              KC_S, KC_T)

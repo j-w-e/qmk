@@ -60,6 +60,10 @@ lbs:
 flash: crkbd
 	cd qmk_firmware; qmk flash ../crkbd_r2g__jwe_.hex
 
+# .PHONY: flash_ez
+# flash: ergodox_ez
+# 	cd qmk_firmware; qmk flash ../ergodox_ez_shine__jwe_.hex
+
 clean:
 	rm -rf obj_*
 	rm -f *.elf

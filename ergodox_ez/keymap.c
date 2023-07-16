@@ -9,13 +9,17 @@
 #define _LAYOUT_wrapper(...) LAYOUT_ergodox_pretty(__VA_ARGS__)
 #define LAYOUT_jwe_wrapper(...) _LAYOUT_wrapper(LAYOUT_ergodox_wrapper(LAYOUT_ADD_THUMBS(LAYOUT_5x3_TO_6x3(__VA_ARGS__))))
 
+#define _LAYOUT_themb_wrapper(...) LAYOUT_ergodox_pretty(__VA_ARGS__)
+#define LAYOUT_themb_jwe_wrapper(...) _LAYOUT_themb_wrapper(LAYOUT_ergodox_wrapper(LAYOUT_ADD_THeMBS(LAYOUT_5x3_TO_6x3(__VA_ARGS__))))
+
 #define LAYOUT_wrapper(...) LAYOUT_ergodox_pretty(__VA_ARGS__)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-#ifdef COLEMAK
-    [CLMK] = LAYOUT_jwe_wrapper(_ALPHAS_COLEMAK),
-#endif
+/* #ifdef COLEMAK */
+/*     [CLMK] = LAYOUT_jwe_wrapper(_ALPHAS_COLEMAK), */
+/* #endif */
+    [APTMAK] = LAYOUT_themb_jwe_wrapper(_ALPHAS_APTMAK),
     [ENGRAM] = LAYOUT_jwe_wrapper(_ALPHAS_ENGRAM),
 #ifdef QWERTY
     [QWER] = LAYOUT_jwe_wrapper(_ALPHAS_QWERTY),

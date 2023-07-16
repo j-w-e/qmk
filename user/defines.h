@@ -85,13 +85,16 @@ enum userspace_custom_keycodes {
 // wrappers
 #define __TL1__ LA_NUM
 #define __TL2__ LA_NAV
-#define __TL3__ OS_SHFT
+#define __TL3__ OSM(MOD_LSFT)
 #define __TR1__ KC_SPC
 #define __TR2__ OS_SYM
 #define __TR3__ LA_MOUSE
 
 #define ________________CALLUM_THUMBS______________       __TL1__,  __TL2__,    __TL3__,    __TR1__,    __TR2__,    __TR3__
-#define ________________aptmak_THUMBS______________       __TL1__,  __TL2__,    __TR1__,    KC_E,       __TR2__,    __TR3__
+/* If using mirrored aptmak */
+/* #define ________________aptmak_THUMBS______________       __TL1__,  __TL2__,    KC_E,       __TR1__,       __TR2__,    __TR3__ */
+/* If using standard aptmak */
+#define ________________aptmak_THUMBS______________       __TL1__,  __TL2__,    __TR1__,       KC_E,       __TR2__,    __TR3__
 
 #define ________________CALLUM_MODS_L______________       OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT
 #define ________________CALLUM_MODS_R______________       OS_SHFT, OS_CMD,  OS_ALT,  OS_CTRL
@@ -99,13 +102,23 @@ enum userspace_custom_keycodes {
 #define ________________BLANK_THUMBS_______________       _______, _______, _______, _______, _______, _______
 
 
-#define __________________APTMAK_L1________________       QK_REP,  KC_W,    KC_F,    KC_P,    KC_B
-#define __________________APTMAK_L2________________       KC_R,    KC_S,    KC_T,    KC_H,    KC_BSPC
-#define __________________APTMAK_L3________________       KC_MINUS,KC_C,    KC_G,    KC_D,    KC_K
-
+/* If using standard aptmak */
 #define __________________APTMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
-#define __________________APTMAK_R2________________       KC_ENT,  KC_N,    KC_A,    KC_I,    KC_O
+#define __________________APTMAK_R2________________       KC_BSPC,  KC_N,    KC_A,    KC_I,    KC_O
 #define __________________APTMAK_R3________________       KC_V,    KC_M,    KC_COMM, KC_DOT,  KC_SCLN
+
+#define __________________APTMAK_L1________________       KC_MINUS,KC_W,    KC_F,    KC_P,    KC_B
+#define __________________APTMAK_L2________________       KC_R,    KC_S,    KC_T,    KC_H,    KC_ENT
+#define __________________APTMAK_L3________________       QK_REP,  KC_C,    KC_G,    KC_D,    KC_K
+
+/* If using mirrored aptmak */
+/* #define __________________APTMAK_L1________________          KC_QUOT,    KC_Y,    KC_U,    KC_L, KC_J */
+/* #define __________________APTMAK_L2________________          KC_O,    KC_I,    KC_A,  KC_N, KC_BSPC */
+/* #define __________________APTMAK_L3________________        KC_SCLN, KC_DOT,    KC_COMM,    KC_M, KC_V */
+/**/
+/* #define __________________APTMAK_R1________________          KC_B,    KC_P,    KC_F,KC_W, KC_MINUS */
+/* #define __________________APTMAK_R2________________          KC_ENT,    KC_H,    KC_T,    KC_S, KC_R */
+/* #define __________________APTMAK_R3________________          KC_K,    KC_D,    KC_G,  KC_C, QK_REP */
 
 #define __________________ENGRAM_L1________________       KC_B,    KC_Y,    KC_O,    KC_U,    KC_COMM
 #define __________________ENGRAM_L2________________       KC_C,    KC_I,    KC_E,    KC_A,    KC_BSPC
@@ -135,7 +148,9 @@ enum userspace_custom_keycodes {
 
 
 #define _________________NUMBERS_L1________________       KC_Q,     KC_W,       KC_VOLD,    KC_VOLU,    KC_COMM
-#define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_BSPC
+#define _________________NUMBERS_L2________________       OSM(MOD_LCTL),  OSM(MOD_LALT),    OSM(MOD_LGUI),    OSM(MOD_LSFT),    KC_BSPC
+/* #define _________________NUMBERS_L2________________       KC_LCTL,  KC_LALT,    KC_LGUI,    KC_LSFT,    KC_BSPC */
+/* #define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_BSPC */
 #define _________________NUMBERS_L3________________       JWE_PRVTAB,JWE_NXTAB, KC_ESC,    KC_TAB,      KC_MUTE
 
 #define _________________NUMBERS_R1________________       KC_DOT,   KC_7,       KC_8,       KC_9,       KC_EQUAL

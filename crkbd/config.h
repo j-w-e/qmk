@@ -4,6 +4,7 @@
 #pragma once
 
 #define YABAI
-#define EE_HANDS
+#undef SPLIT_USB_DETECT
+#define MASTER_RIGHT
 
 #define ENABLE_COMPILE_KEYCODE

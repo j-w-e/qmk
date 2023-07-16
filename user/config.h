@@ -80,16 +80,14 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 
 
-
-
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 /* #define NO_ACTION_ONESHOT */
 /* #define NO_ACTION_TAPPING */
 
 #define COMBO_VARIABLE_LEN
-#define COMBO_TERM 40
-#define COMBO_MUST_TAP_PER_COMBO
+#define COMBO_TERM 25
+/* #define COMBO_MUST_TAP_PER_COMBO */
 
 #ifdef LEADER_ENABLE
 #define LEADER_TIMEOUT 150

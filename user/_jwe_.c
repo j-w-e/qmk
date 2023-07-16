@@ -69,7 +69,7 @@ void matrix_scan_user (void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CAPS_WORD_ENABLE
-    if(keycode == OS_SHFT && is_caps_word_on()) {
+    if(keycode == OSM(MOD_LSFT) && is_caps_word_on()) {
         caps_word_off();
         return false;
     }
@@ -114,6 +114,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return override_shift(is_shifted, KC_SCLN, keycode, record);
         case KC_DOT:
             return override_shift(is_shifted, KC_COLN, keycode, record);
+        case KC_BSPC:
+            return override_shift(is_shifted, KC_DEL, keycode, record);
         case JWE_MNE:
             if (record->event.pressed) {
                 SEND_STRING("M&E");
