@@ -26,3 +26,4 @@ SUBS(HR_H2R,                         "H2R",                              KC_H, K
 
 
 //COMB(ZERO,        KC_0,    KC_SPC, KC_N)
+COMB(en_hyphen,         A(KC_MINUS),        KC_MINUS, KC_W)

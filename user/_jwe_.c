@@ -67,6 +67,15 @@ void matrix_scan_user (void) {
     }
 }
 
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+    switch (keycode) {
+        case KC_C: return KC_K;  // In place of alt-fingering ck
+        case KC_H: return KC_T;  // To ease the ght trigram
+    }
+
+    return keycode;  // Defer to default definitions.
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CAPS_WORD_ENABLE
     if(keycode == OSM(MOD_LSFT) && is_caps_word_on()) {
@@ -116,6 +125,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return override_shift(is_shifted, KC_COLN, keycode, record);
         case KC_BSPC:
             return override_shift(is_shifted, KC_DEL, keycode, record);
+        case KC_SLASH:
+            return override_shift(is_shifted, KC_SLASH, keycode, record);
         case JWE_MNE:
             if (record->event.pressed) {
                 SEND_STRING("M&E");
