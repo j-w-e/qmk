@@ -14,8 +14,8 @@
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [ENGRAM] = LAYOUT_jwe_wrapper(_ALPHAS_ENGRAM),
     [APTMAK] = LAYOUT_themb_jwe_wrapper(_ALPHAS_APTMAK),
+    [ENGRAM] = LAYOUT_jwe_wrapper(_ALPHAS_ENGRAM),
     [SYM] = LAYOUT_jwe_wrapper(_ALPHAS_SYMBOLS),
     [NAV] = LAYOUT_jwe_wrapper(_ALPHAS_NAV),
     [NUM] = LAYOUT_jwe_wrapper(_ALPHAS_NUMBERS),

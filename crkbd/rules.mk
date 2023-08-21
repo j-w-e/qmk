@@ -5,3 +5,5 @@ USER_NAME := _jwe_
 
 RGB_MATRIX_ENABLE = no
 RGBLIGHT_ENABLE = no
+
+WPM_ENABLE = yes

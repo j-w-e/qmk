@@ -79,7 +79,6 @@ void render_bootmagic_status_r2g_jwe(void) {
     oled_advance_page(true);
 #ifdef WPM_ENABLE
     oled_advance_page(true);
-    oled_write_P(PSTR("WPM: "), false);
     oled_write(get_u8_str(get_current_wpm(), ' '), false);
     oled_advance_page(true);
 #endif // WPM_ENABLE

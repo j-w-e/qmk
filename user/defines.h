@@ -3,8 +3,8 @@
 #pragma once
 
 enum userspace_layers {
-    ENGRAM = 0,
-    APTMAK,
+    APTMAK = 0,
+    ENGRAM,
     NAV,
     NUM,
     MOUSE,
@@ -105,7 +105,7 @@ enum userspace_custom_keycodes {
 /* If using standard aptmak */
 #define __________________APTMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
 #define __________________APTMAK_R2________________       KC_BSPC,  KC_N,    KC_A,    KC_I,    KC_O
-#define __________________APTMAK_R3________________       KC_V,    KC_M,    KC_COMM, KC_DOT,  KC_SCLN
+#define __________________APTMAK_R3________________       KC_V,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
 
 #define __________________APTMAK_L1________________       KC_MINUS,KC_W,    KC_F,    KC_P,    KC_B
 #define __________________APTMAK_L2________________       KC_R,    KC_S,    KC_T,    KC_H,    KC_ENT
