@@ -9,10 +9,12 @@
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     switch (index) {
         case comb_q:
-        case comb_qu:
         case comb_z:
         case comb_x:
             return 50;
+        case caps_word:
+        case comb_qu:
+            return 75;
     }
     return COMBO_TERM;
 

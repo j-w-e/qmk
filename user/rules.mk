@@ -29,3 +29,5 @@ SRC += oneshot.c
 SRC += swapper.c
 SRC += oled.c
 SRC += leader.c
+
+COMBO_TERM_PER_COMBO = yes

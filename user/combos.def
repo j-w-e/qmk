@@ -6,7 +6,7 @@ COMB(comb_z,            KC_Z,           KC_G, KC_D)
 
 COMB(os_shft_l,         OSM(MOD_LSFT),        KC_T, KC_H)
 COMB(os_shft_r,         OSM(MOD_LSFT),        KC_N, KC_A)
-COMB(caps_word,         CW_TOGG,        KC_T, KC_A)
+COMB(caps_word,         CW_TOGG,        KC_H, KC_N)
 
 //COMB(ST_ENT,            KC_ENT,              KC_S, KC_T)
 //COMB(SYM_ENT,                     KC_ENT,                          KC_EXLM,    KC_QUES)
