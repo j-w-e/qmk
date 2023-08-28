@@ -71,6 +71,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
         case KC_C: return KC_K;  // In place of alt-fingering ck
         case KC_H: return KC_T;  // To ease the ght trigram
+    //  case KC_Y: return 'OU' to allow typing you easily
     }
 
     return keycode;  // Defer to default definitions.

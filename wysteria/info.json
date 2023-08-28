@@ -1,0 +1,17 @@
+{
+    "keyboard_name": "Wysteria",
+    "manufacturer": "j-w-e",
+    "url": "https://github.com/j-w-e/jwekb",
+    "maintainer": "j-w-e",
+    "development_board": "liatris",
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            { "pin_a": "B4", "pin_b": "B5" }
+        ]
+    },
+    "matrix_pins": {
+        "cols": ["A3", "A2", "A1", "A0", "B1", "B3"],
+        "rows": ["D4", "C6", "D7", "E6"]
+    }
+}
