@@ -38,8 +38,13 @@ enum userspace_custom_keycodes {
 #define JWE_NXTAB   C(KC_TAB)
 #define JWE_PRVTAB  C(S(KC_TAB))
 
+#ifdef ERGODOX
+#define BCKTICK     KC_GRV
+#define SECTION     KC_NUBS
+#else
 #define BCKTICK     KC_NUBS
 #define SECTION     KC_GRV
+#endif // ERGODOX
 #define TILDE       S(KC_NUBS)
 #define DEGREE      A(S(KC_8))
 #define POUND       LSFT(KC_3)
@@ -51,7 +56,6 @@ enum userspace_custom_keycodes {
 #define SK_COPY     G(KC_C)
 #define SK_PSTE     G(KC_V)
 #define SK_REDO     G(KC_Y)
-#define SK_EURO     RALT(KC_2)
 #define SK_AT       S(KC_2)
 #define SK_HASH     RALT(KC_3)
 #define SK_WORDPRV  A(KC_LEFT)
@@ -62,7 +66,6 @@ enum userspace_custom_keycodes {
 #define SK_PARANXT  A(KC_DOWN)
 #define SK_WORDDEL  A(KC_DEL)
 #define SK_WORDBSPC A(KC_BSPC)
-#define JWE_DONE    C(KC_E)
 #define SK_DOCBEG   G(KC_UP)
 #define SK_DOCEND   G(KC_DOWN)
 
@@ -91,9 +94,6 @@ enum userspace_custom_keycodes {
 #define __TR3__ LA_MOUSE
 
 #define ________________CALLUM_THUMBS______________       __TL1__,  __TL2__,    __TL3__,    __TR1__,    __TR2__,    __TR3__
-/* If using mirrored aptmak */
-/* #define ________________aptmak_THUMBS______________       __TL1__,  __TL2__,    KC_E,       __TR1__,       __TR2__,    __TR3__ */
-/* If using standard aptmak */
 #define ________________aptmak_THUMBS______________       __TL1__,  __TL2__,    __TR1__,       KC_E,       __TR2__,    __TR3__
 
 #define ________________CALLUM_MODS_L______________       OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT
@@ -102,23 +102,13 @@ enum userspace_custom_keycodes {
 #define ________________BLANK_THUMBS_______________       _______, _______, _______, _______, _______, _______
 
 
-/* If using standard aptmak */
 #define __________________APTMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
 #define __________________APTMAK_R2________________       KC_BSPC,  KC_N,    KC_A,    KC_I,    KC_O
-#define __________________APTMAK_R3________________       KC_V,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+#define __________________APTMAK_R3________________       KC_V,    KC_M,    KC_COMM, KC_DOT,  KC_MINUS
 
-#define __________________APTMAK_L1________________       KC_MINUS,KC_W,    KC_F,    KC_P,    KC_B
+#define __________________APTMAK_L1________________       KC_SLASH,KC_W,    KC_F,    KC_P,    KC_B
 #define __________________APTMAK_L2________________       KC_R,    KC_S,    KC_T,    KC_H,    KC_ENT
 #define __________________APTMAK_L3________________       QK_AREP,  KC_C,    KC_G,    KC_D,    KC_K
-
-/* If using mirrored aptmak */
-/* #define __________________APTMAK_L1________________          KC_QUOT,    KC_Y,    KC_U,    KC_L, KC_J */
-/* #define __________________APTMAK_L2________________          KC_O,    KC_I,    KC_A,  KC_N, KC_BSPC */
-/* #define __________________APTMAK_L3________________        KC_SCLN, KC_DOT,    KC_COMM,    KC_M, KC_V */
-/**/
-/* #define __________________APTMAK_R1________________          KC_B,    KC_P,    KC_F,KC_W, KC_MINUS */
-/* #define __________________APTMAK_R2________________          KC_ENT,    KC_H,    KC_T,    KC_S, KC_R */
-/* #define __________________APTMAK_R3________________          KC_K,    KC_D,    KC_G,  KC_C, QK_REP */
 
 #define __________________ENGRAM_L1________________       KC_B,    KC_Y,    KC_O,    KC_U,    KC_COMM
 #define __________________ENGRAM_L2________________       KC_C,    KC_I,    KC_E,    KC_A,    KC_NO
@@ -129,7 +119,7 @@ enum userspace_custom_keycodes {
 #define __________________ENGRAM_R3________________       KC_MINUS,KC_R,    KC_M,    KC_F,    KC_P
 
 
-#define _________________SYMBOLS_L1________________       KC_LABK,  KC_LCBR,    KC_LPRN,    KC_LBRC,   KC_COMM 
+#define _________________SYMBOLS_L1________________       KC_LABK,  KC_LCBR,    KC_LPRN,    KC_LBRC,   KC_COMM
 #define _________________SYMBOLS_L2________________       SK_HASH,  KC_ASTR,    KC_EXLM,    KC_QUES,   KC_SLASH
 #define _________________SYMBOLS_L3________________       KC_PERC,  SK_AT,      KC_DLR,     KC_AMPR,   BCKTICK
 
@@ -148,14 +138,13 @@ enum userspace_custom_keycodes {
 
 
 #define _________________NUMBERS_L1________________       KC_E,     KC_W,       KC_VOLD,    KC_VOLU,    KC_COMM
-#define _________________NUMBERS_L2________________       OSM(MOD_LCTL),  OSM(MOD_LALT),    OSM(MOD_LGUI),    OSM(MOD_LSFT),    KC_BSPC
-/* #define _________________NUMBERS_L2________________       KC_LCTL,  KC_LALT,    KC_LGUI,    KC_LSFT,    KC_BSPC */
+#define _________________NUMBERS_L2________________       OSM(MOD_LCTL),  OSM(MOD_LALT),    OSM(MOD_LGUI),    OSM(MOD_LSFT),    KC_ENT
 /* #define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_BSPC */
 #define _________________NUMBERS_L3________________       JWE_PRVTAB,JWE_NXTAB, KC_ESC,    KC_TAB,      KC_MUTE
 
-#define _________________NUMBERS_R1________________       KC_DOT,   KC_7,       KC_8,       KC_9,       KC_EQUAL
-#define _________________NUMBERS_R2________________       KC_ENT,   KC_4,       KC_5,       KC_6,       KC_0 
-#define _________________NUMBERS_R3________________       KC_MINUS, KC_1,       KC_2,       KC_3,       KC_PLUS
+#define _________________NUMBERS_R1________________       KC_MINUS, KC_7,       KC_8,       KC_9,       KC_EQUAL
+#define _________________NUMBERS_R2________________       KC_BSPC,  KC_4,       KC_5,       KC_6,       KC_0
+#define _________________NUMBERS_R3________________       KC_DOT,   KC_1,       KC_2,       KC_3,       KC_PLUS
 
 
 #define __________________MOUSE_L1_________________       KC_WH_L,  KC_WH_U,    KC_WH_D,    KC_WH_R,    KC_BTN2
@@ -167,16 +156,16 @@ enum userspace_custom_keycodes {
 #define __________________MOUSE_R3_________________       Y_CENTRE, Y_WIN_L,   Y_WIN_D,     Y_WIN_U,    Y_WIN_R
 
 
-#define __________________SYM_2_L1_________________       KC_LABK,  KC_RABK,    EURO,       DEGREE,     _______
-#define __________________SYM_2_L2_________________       KC_LBRC,  KC_RBRC,    KC_PIPE,    TILDE,      KC_ENT
-#define __________________SYM_2_L3_________________       KC_LCBR,  KC_RCBR,    CIRC,       SECTION,    _______
+#define __________________SYM_2_L1_________________       _______,  _______,    _______,    _______,     _______
+#define __________________SYM_2_L2_________________       SECTION,  EURO,       POUND,      KC_PIPE,    DEGREE
+#define __________________SYM_2_L3_________________       _______,  _______,    _______,    _______,    _______
 
 #define __________________SYM_2_R1_________________       RGB_MOD,  RGB_VAI,    RGB_HUI,    RGB_SAI,    RGB_SPI
 #define __________________SYM_2_R2_________________       RGB_TOG,  ________________CALLUM_MODS_R______________
 #define __________________SYM_2_R3_________________       KC_NO,    KC_NO,      KC_CAPS,    JWE_PROJ,   KC_NO
 
 
-#define ___________________FUNC_L1_________________       QK_BOOT,  QK_REBOOT,  QK_MAKE,    KC_NO,      KC_NO
+#define ___________________FUNC_L1_________________       QK_BOOT,  KC_NO,      KC_NO,      KC_NO,      KC_NO
 #define ___________________FUNC_L2_________________       ________________CALLUM_MODS_L______________,  KC_NO
 #define ___________________FUNC_L3_________________       KC_LEFT,  KC_UP,      KC_DOWN,    KC_RIGHT,   KC_NO
 
