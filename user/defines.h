@@ -123,14 +123,14 @@ enum userspace_custom_keycodes {
 #define _________________SYMBOLS_L2________________       SK_HASH,  KC_ASTR,    KC_EXLM,    KC_QUES,   KC_SLASH
 #define _________________SYMBOLS_L3________________       KC_PERC,  SK_AT,      KC_DLR,     KC_AMPR,   BCKTICK
 
-#define _________________SYMBOLS_R1________________       KC_DOT,   KC_RBRC,    KC_RPRN,    KC_RCBR,   KC_RABK
+#define _________________SYMBOLS_R1________________       KC_BSLS,  KC_RBRC,    KC_RPRN,    KC_RCBR,   KC_RABK
 #define _________________SYMBOLS_R2________________       SK_WORDBSPC,    ________________CALLUM_MODS_R______________
-#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       KC_BSLS,    JWE_NRC,   JWE_MNE
+#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       QK_LEAD,    JWE_NRC,   JWE_MNE
 
 
 #define ___________________NAV_L1__________________       SK_UNDO,  SK_CUT,     SK_COPY,    SK_PSTE,    SK_REDO
 #define ___________________NAV_L2__________________       ________________CALLUM_MODS_L______________,  KC_NO
-#define ___________________NAV_L3__________________       SW_WIN,   SW_AWIN,    KC_ESC,     KC_TAB,     SK_WORDDEL
+#define ___________________NAV_L3__________________       SW_WIN,   SW_AWIN,    KC_ESC,     KC_TAB,     KC_NO
 
 #define ___________________NAV_R1__________________       KC_PGUP,  SK_WORDPRV, SK_PARANXT, SK_PARAPRV, SK_WORDNXT
 #define ___________________NAV_R2__________________       KC_PGDN,  KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT
