@@ -36,10 +36,10 @@
 led_config_t g_led_config = { {
     /* Key Matrix to LED index. */
     // Left split.
-    {      2,      3,      8,      9,     12, NO_LED }, // Top row
-    {      1,      4,      7,     10,     13, NO_LED }, // Middle row
-    {      0,      5,      6,     11,     14, NO_LED }, // Bottom row
-    {     17, NO_LED,     15,     16, NO_LED, NO_LED }, // Thumb cluster
+    {      17,      12,      11,      6,     5, 0 }, // Top row
+    {      16,      13,      10,     7,     4, 1 }, // Middle row
+    {      15,      14,      9,     8,     3, 2 }, // Bottom row
+    {     NO_LED, NO_LED,     NO_LED,     NO_LED, NO_LED, NO_LED }, // Thumb cluster
     // Right split.
     {     20,     21,     26,     27,     30, NO_LED }, // Top row
     {     19,     22,     25,     28,     31, NO_LED }, // Middle row

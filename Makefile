@@ -5,7 +5,6 @@ USER = _jwe_
 KEYBOARDS = crkbd ergodox_ez
 PATH_crkbd = r2g
 PATH_ergodox_ez = shine
-PATH_wysteria = .
 PATH_lbs = tweetydabird/lbs4
 
 all: $(KEYBOARDS)
@@ -74,15 +73,17 @@ wysteria:
 
 # cleanup old symlinks
 	rm -rf qmk_firmware/keyboards/$@
+	rm -rf qmk_firmware/users/$(USER)
 
 # add new symlinks
 	ln -s $(shell pwd)/$@ qmk_firmware/keyboards/$@
+	ln -s $(shell pwd)/user qmk_firmware/users/$(USER)
 
 # run lint check
 	# cd qmk_firmware; qmk lint -km $(USER) -kb $@ --strict
 
 # run build
-	make BUILD_DIR=$(shell pwd) -j1 -C qmk_firmware $@:default
+	make BUILD_DIR=$(shell pwd) -j1 -C qmk_firmware $@:_jwe_
 
 # cleanup symlinks
 	rm -rf qmk_firmware/keyboards/$@
@@ -90,7 +91,7 @@ wysteria:
 
 .PHONY: flash_wyst
 flash_wyst: wysteria
-	cp ./wysteria_3x5_3_hugh.uf2 /Volumes/RPI-RP2/wyst.uf2
+	cp ./wysteria__jwe_.uf2 /Volumes/RPI-RP2/wyst.uf2
 
 
 clean:
