@@ -90,11 +90,8 @@ enum userspace_custom_keycodes {
 #define __TR2__ OS_SYM
 #define __TR3__ LA_MOUSE
 
-#define ________________CALLUM_THUMBS______________       __TL1__,  __TL2__,    __TL3__,    __TR1__,    __TR2__,    __TR3__
-/* If using mirrored aptmak */
-/* #define ________________aptmak_THUMBS______________       __TL1__,  __TL2__,    KC_E,       __TR1__,       __TR2__,    __TR3__ */
-/* If using standard aptmak */
-#define ________________aptmak_THUMBS______________       __TL1__,  __TL2__,    __TR1__,       KC_E,       __TR2__,    __TR3__
+#define ________________CALLUM_THUMBS______________       __TL1__,  __TL3__,    __TL2__,    __TR2__,    __TR1__,    __TR3__
+#define ________________aptmak_THUMBS______________       __TL1__,  __TR1__,    __TL2__,    __TR2__,       KC_E,    __TR3__
 
 #define ________________CALLUM_MODS_L______________       OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT
 #define ________________CALLUM_MODS_R______________       OS_SHFT, OS_CMD,  OS_ALT,  OS_CTRL
@@ -105,9 +102,9 @@ enum userspace_custom_keycodes {
 /* If using standard aptmak */
 #define __________________APTMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
 #define __________________APTMAK_R2________________       KC_BSPC,  KC_N,    KC_A,    KC_I,    KC_O
-#define __________________APTMAK_R3________________       KC_V,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+#define __________________APTMAK_R3________________       KC_V,    KC_M,    KC_COMM, KC_DOT,  KC_MINUS
 
-#define __________________APTMAK_L1________________       KC_MINUS,KC_W,    KC_F,    KC_P,    KC_B
+#define __________________APTMAK_L1________________       KC_SLASH,KC_W,    KC_F,    KC_P,    KC_B
 #define __________________APTMAK_L2________________       KC_R,    KC_S,    KC_T,    KC_H,    KC_ENT
 #define __________________APTMAK_L3________________       QK_AREP,  KC_C,    KC_G,    KC_D,    KC_K
 
