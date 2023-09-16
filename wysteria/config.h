@@ -6,7 +6,7 @@
 #define MASTER_LEFT
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP25
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
 
 #ifdef RGB_MATRIX_ENABLE
@@ -18,6 +18,13 @@
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #    define RGB_MATRIX_KEYPRESSES
 #endif
+
+/* #define OLED_DC_PIN GP3 */
+/* #define OLED_CS_PIN GP2 */
+#define I2C1_SCL_PIN        GP3
+#define I2C1_SDA_PIN        GP2
+/* #define I2C_DRIVER I2CD0 */
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
