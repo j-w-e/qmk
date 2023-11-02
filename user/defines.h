@@ -104,9 +104,9 @@ enum userspace_custom_keycodes {
 #define __________________APTMAK_R2________________       KC_BSPC,  KC_N,    KC_A,    KC_I,    KC_O
 #define __________________APTMAK_R3________________       KC_V,    KC_M,    KC_COMM, KC_DOT,  KC_MINUS
 
-#define __________________APTMAK_L1________________       KC_SLASH,KC_W,    KC_F,    KC_P,    KC_B
+#define __________________APTMAK_L1________________       QK_REP,  KC_W,    KC_F,    KC_P,    KC_B
 #define __________________APTMAK_L2________________       KC_R,    KC_S,    KC_T,    KC_H,    KC_ENT
-#define __________________APTMAK_L3________________       QK_AREP,  KC_C,    KC_G,    KC_D,    KC_K
+#define __________________APTMAK_L3________________       KC_SLASH,KC_C,    KC_G,    KC_D,    KC_K
 
 /* If using mirrored aptmak */
 /* #define __________________APTMAK_L1________________          KC_QUOT,    KC_Y,    KC_U,    KC_L, KC_J */
