@@ -130,7 +130,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return override_shift(is_shifted, KC_SLASH, keycode, record);
         case JWE_MNE:
             if (record->event.pressed) {
-                SEND_STRING("M&E");
+                SEND_STRING("MEL");
             }
             return false;
         case JWE_NRC:

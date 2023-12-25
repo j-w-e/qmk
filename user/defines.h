@@ -126,13 +126,13 @@ enum userspace_custom_keycodes {
 #define __________________ENGRAM_R3________________       KC_MINUS,KC_R,    KC_M,    KC_F,    KC_P
 
 
-#define _________________SYMBOLS_L1________________       KC_LABK,  KC_LCBR,    KC_LPRN,    KC_LBRC,   KC_COMM 
+#define _________________SYMBOLS_L1________________       KC_SLASH, KC_LCBR,    KC_LPRN,    KC_LBRC,   KC_LABK
 #define _________________SYMBOLS_L2________________       SK_HASH,  KC_ASTR,    KC_EXLM,    KC_QUES,   KC_SLASH
 #define _________________SYMBOLS_L3________________       KC_PERC,  SK_AT,      KC_DLR,     KC_AMPR,   BCKTICK
 
-#define _________________SYMBOLS_R1________________       KC_DOT,   KC_RBRC,    KC_RPRN,    KC_RCBR,   KC_RABK
+#define _________________SYMBOLS_R1________________       KC_RABK,  KC_RBRC,    KC_RPRN,    KC_RCBR,   KC_BSLS
 #define _________________SYMBOLS_R2________________       SK_WORDBSPC,    ________________CALLUM_MODS_R______________
-#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       KC_BSLS,    JWE_NRC,   JWE_MNE
+#define _________________SYMBOLS_R3________________       TILDE,    CIRC,       QK_LEAD,    JWE_NRC,   JWE_MNE
 
 
 #define ___________________NAV_L1__________________       SK_UNDO,  SK_CUT,     SK_COPY,    SK_PSTE,    SK_REDO
@@ -144,15 +144,15 @@ enum userspace_custom_keycodes {
 #define ___________________NAV_R3__________________       _______,  SK_LINEBEG, SK_DOCEND,  SK_DOCBEG,  SK_LINEEND
 
 
-#define _________________NUMBERS_L1________________       KC_E,     KC_W,       KC_VOLD,    KC_VOLU,    KC_COMM
-#define _________________NUMBERS_L2________________       OSM(MOD_LCTL),  OSM(MOD_LALT),    OSM(MOD_LGUI),    OSM(MOD_LSFT),    KC_BSPC
+#define _________________NUMBERS_L1________________       KC_E,     KC_W,       KC_VOLD,    KC_VOLU,    KC_MUTE
+#define _________________NUMBERS_L2________________       OSM(MOD_LCTL),  OSM(MOD_LALT),    OSM(MOD_LGUI),    OSM(MOD_LSFT),    KC_ENT
 /* #define _________________NUMBERS_L2________________       KC_LCTL,  KC_LALT,    KC_LGUI,    KC_LSFT,    KC_BSPC */
 /* #define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_BSPC */
-#define _________________NUMBERS_L3________________       JWE_PRVTAB,JWE_NXTAB, KC_ESC,    KC_TAB,      KC_MUTE
+#define _________________NUMBERS_L3________________       JWE_PRVTAB,JWE_NXTAB, KC_ESC,    KC_TAB,      KC_COMM
 
-#define _________________NUMBERS_R1________________       KC_DOT,   KC_7,       KC_8,       KC_9,       KC_EQUAL
-#define _________________NUMBERS_R2________________       KC_ENT,   KC_4,       KC_5,       KC_6,       KC_0 
-#define _________________NUMBERS_R3________________       KC_MINUS, KC_1,       KC_2,       KC_3,       KC_PLUS
+#define _________________NUMBERS_R1________________       KC_MINUS, KC_7,       KC_8,       KC_9,       KC_EQUAL
+#define _________________NUMBERS_R2________________       KC_BSPC,  KC_4,       KC_5,       KC_6,       KC_0
+#define _________________NUMBERS_R3________________       KC_DOT,   KC_1,       KC_2,       KC_3,       KC_PLUS
 
 
 #define __________________MOUSE_L1_________________       KC_WH_L,  KC_WH_U,    KC_WH_D,    KC_WH_R,    KC_BTN2
@@ -227,9 +227,9 @@ enum userspace_custom_keycodes {
   k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, \
   k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A \
     ) \
-    SH_TOGG,  k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, KC_Q, \
-    QK_LEAD,     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, KC_Z, \
-    TO(ENGRAM), k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, TO(APTMAK)
+    QK_LEAD,  k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, KC_NO, \
+    KC_NO,     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, KC_NO, \
+    KC_NO, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, KC_NO
 #define LAYOUT_5x3_TO_6x3(...) _LAYOUT_5x3_TO_6x3(__VA_ARGS__)
 
 #define _LAYOUT_ADD_THUMBS(...) __VA_ARGS__, ________________CALLUM_THUMBS______________
@@ -245,8 +245,8 @@ enum userspace_custom_keycodes {
                    k31, k32, k33, k34, k35, k36                 \
   ) \
       KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_NO,        KC_NO, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, \
-      k01,    k02,  k03,  k04,  k05,  k06,  KC_NO,        KC_NO, k07,  k08,  k09,  k0A,  k0B,  k0C,     \
-      k11,    k12,  k13,  k14,  k15,  k16,                       k17,  k18,  k19,  k1A,  k1B,  k1C,     \
+      k01,    k11,  k03,  k04,  k05,  k06,  KC_NO,        KC_NO, k07,  k08,  k09,  k0A,  k1C,  k0C,     \
+      k02,    k12,  k13,  k14,  k15,  k16,                       k17,  k18,  k19,  k1A,  k1B,  k0B,     \
       k21,    k22,  k23,  k24,  k25,  k26,  KC_NO,        KC_NO, k27,  k28,  k29,  k2A,  k2B,  k2C,     \
       KC_NUBS,  KC_NO,KC_NO,KC_NO,k31,                                   k36,  KC_NO,KC_NO,KC_NO,KC_NO,   \
                                       KC_NO,KC_NO,        KC_NO, KC_NO,                                 \
