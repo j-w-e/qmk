@@ -25,6 +25,9 @@
 #define I2C1_SDA_PIN        GP2
 /* #define I2C_DRIVER I2CD0 */
 
+#define ENCODERS_PAD_A { GP9 }
+#define ENCODERS_PAD_B { GP8 }
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -40,3 +43,5 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
+
+
