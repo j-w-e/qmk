@@ -92,6 +92,7 @@ enum userspace_custom_keycodes {
 
 #define ________________CALLUM_THUMBS______________       __TL1__,  __TL3__,    __TL2__,    __TR2__,    __TR1__,    __TR3__
 #define ________________aptmak_THUMBS______________       __TL1__,  __TR1__,    __TL2__,    __TR2__,       KC_E,    __TR3__
+#define _________________wyst_THUMBS_______________       __TL1__,  __TR1__,    __TL2__, KC_MUTE, KC_MUTE,    __TR2__,       KC_E,    __TR3__
 
 #define ________________CALLUM_MODS_L______________       OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT
 #define ________________CALLUM_MODS_R______________       OS_SHFT, OS_CMD,  OS_ALT,  OS_CTRL
@@ -144,7 +145,11 @@ enum userspace_custom_keycodes {
 #define ___________________NAV_R3__________________       _______,  SK_LINEBEG, SK_DOCEND,  SK_DOCBEG,  SK_LINEEND
 
 
+#ifdef ERGODOX
 #define _________________NUMBERS_L1________________       KC_E,     KC_W,       KC_VOLD,    KC_VOLU,    KC_MUTE
+#else
+#define _________________NUMBERS_L1________________       KC_E,     KC_W,       KC_NO,      SECTION,    KC_SPACE
+#endif // ERGODOX
 #define _________________NUMBERS_L2________________       OSM(MOD_LCTL),  OSM(MOD_LALT),    OSM(MOD_LGUI),    OSM(MOD_LSFT),    KC_ENT
 /* #define _________________NUMBERS_L2________________       KC_LCTL,  KC_LALT,    KC_LGUI,    KC_LSFT,    KC_BSPC */
 /* #define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_BSPC */
@@ -221,17 +226,6 @@ enum userspace_custom_keycodes {
     ___________________FUNC_L3_________________, ___________________FUNC_R3_________________
 
 
-#define _LAYOUT_5x3_TO_WYST(  \
-  k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, \
-  k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, \
-  k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A \
-                            ) \
-  k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, \
-  k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, \
-  k21, k22, k23, k24, k25, KC_MUTE, KC_MUTE, k26, k27, k28, k29, k2A 
-#define LAYOUT_5x3_TO_WYST(...) _LAYOUT_5x3_TO_WYST(__VA_ARGS__)
-
-
 #define _LAYOUT_5x3_TO_6x3( \
   k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, \
   k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, \
@@ -247,6 +241,9 @@ enum userspace_custom_keycodes {
 
 #define _LAYOUT_ADD_THeMBS(...) __VA_ARGS__, ________________aptmak_THUMBS______________
 #define LAYOUT_ADD_THeMBS(...) _LAYOUT_ADD_THeMBS(__VA_ARGS__)
+
+#define _LAYOUT_ADD_WYST_THeMBS(...) __VA_ARGS__, _________________wyst_THUMBS_______________
+#define LAYOUT_ADD_WYST_THeMBS(...) _LAYOUT_ADD_WYST_THeMBS(__VA_ARGS__)
 
 #define _LAYOUT_ergodox_wrapper( \
     k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, \

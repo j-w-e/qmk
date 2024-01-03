@@ -16,11 +16,7 @@
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* #ifdef COLEMAK */
-/*     [CLMK] = LAYOUT_jwe_wrapper(_ALPHAS_COLEMAK), */
-/* #endif */
     [APTMAK] = LAYOUT_themb_jwe_wrapper(_ALPHAS_APTMAK),
-    [ENGRAM] = LAYOUT_jwe_wrapper(_ALPHAS_ENGRAM),
 #ifdef QWERTY
     [QWER] = LAYOUT_jwe_wrapper(_ALPHAS_QWERTY),
 #endif
