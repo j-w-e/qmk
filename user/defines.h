@@ -221,6 +221,16 @@ enum userspace_custom_keycodes {
     ___________________FUNC_L3_________________, ___________________FUNC_R3_________________
 
 
+#define _LAYOUT_5x3_TO_WYST(  \
+  k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, \
+  k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, \
+  k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A \
+                            ) \
+  k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, \
+  k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, \
+  k21, k22, k23, k24, k25, KC_MUTE, KC_MUTE, k26, k27, k28, k29, k2A 
+#define LAYOUT_5x3_TO_WYST(...) _LAYOUT_5x3_TO_WYST(__VA_ARGS__)
+
 
 #define _LAYOUT_5x3_TO_6x3( \
   k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, \

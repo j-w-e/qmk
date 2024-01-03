@@ -40,7 +40,7 @@
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-//# 	define RGB_DISABLE_TIMEOUT 60000 // number of milliseconds to wait until rgb automatically turns off
+# 	define RGB_DISABLE_TIMEOUT 60000 // number of milliseconds to wait until rgb automatically turns off
 #	define RGB_MATRIX_KEYPRESSES
 #   undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #   undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
