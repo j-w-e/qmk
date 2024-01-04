@@ -38,8 +38,13 @@ enum userspace_custom_keycodes {
 #define JWE_NXTAB   C(KC_TAB)
 #define JWE_PRVTAB  C(S(KC_TAB))
 
+#ifdef ERGODOX
 #define BCKTICK     KC_NUBS
 #define SECTION     KC_GRV
+#else
+#define BCKTICK     KC_GRV
+#define SECTION     KC_NUBS
+#endif // ERGODOX
 #define TILDE       S(KC_NUBS)
 #define DEGREE      A(S(KC_8))
 #define POUND       LSFT(KC_3)
@@ -160,8 +165,13 @@ enum userspace_custom_keycodes {
 #define _________________NUMBERS_R3________________       KC_DOT,   KC_1,       KC_2,       KC_3,       KC_PLUS
 
 
+#ifdef ERGODOX
 #define __________________MOUSE_L1_________________       KC_WH_L,  KC_WH_U,    KC_WH_D,    KC_WH_R,    KC_BTN2
 #define __________________MOUSE_L2_________________       KC_MS_L,  KC_MS_U,    KC_MS_D,    KC_MS_R,    KC_BTN1
+#else
+#define __________________MOUSE_L1_________________       KC_MS_L,  KC_MS_U,    KC_MS_D,    KC_MS_R,    KC_BTN2
+#define __________________MOUSE_L2_________________       ________________CALLUM_MODS_L______________,  KC_BTN1
+#endif // ERGODOX
 #define __________________MOUSE_L3_________________       KC_MPRV,  KC_MSTP,    KC_MPLY,    KC_MNXT,    KC_BTN3
 
 #define __________________MOUSE_R1_________________       Y_ZOOM,   Y_WARP_L,  Y_WARP_D,    Y_WARP_U,   Y_WARP_R
