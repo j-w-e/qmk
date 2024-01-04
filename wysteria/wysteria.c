@@ -35,16 +35,16 @@
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
     /* Key Matrix to LED index. */
-    // Left split.
+    // Left split - final column is thumb cluster
     {      17,      12,      11,      6,     5,    0    }, // Top row
     {      16,      13,      10,      7,     4,    1    }, // Middle row
     {      15,      14,      9,       8,     3,    2    }, // Bottom row
-    {     NO_LED, NO_LED,     NO_LED,     NO_LED, NO_LED, NO_LED }, // Thumb cluster
-    /* // Right split. */
+    {     NO_LED, NO_LED,     NO_LED,     NO_LED, NO_LED, NO_LED }, // I actually don't understand why this is necessary, but it works
+    // Right split - final column is thumb cluster
     {     35,       30,     29,     24,    23,   18    }, // Top row
     {     34,       31,     28,     25,    22,   19    }, // Middle row
     {     33,       32,     27,     26,    21,   20    }, // Bottom row
-    {     NO_LED, NO_LED,     NO_LED,     NO_LED, NO_LED, NO_LED }, // Thumb cluster
+    {     NO_LED, NO_LED,     NO_LED,     NO_LED, NO_LED, NO_LED }, // I actually don't understand why this is necessary, but it works
 }, {
     /* LED index to physical position. */
     // Left split.
