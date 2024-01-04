@@ -36,15 +36,15 @@
 led_config_t g_led_config = { {
     /* Key Matrix to LED index. */
     // Left split.
-    {      17,      12,      11,      6,     5, 0 }, // Top row
-    {      16,      13,      10,     7,     4, 1 }, // Middle row
-    {      15,      14,      9,     8,     3, 2 }, // Bottom row
+    {      17,      12,      11,      6,     5,    0    }, // Top row
+    {      16,      13,      10,      7,     4,    1    }, // Middle row
+    {      15,      14,      9,       8,     3,    2    }, // Bottom row
     {     NO_LED, NO_LED,     NO_LED,     NO_LED, NO_LED, NO_LED }, // Thumb cluster
-    // Right split.
-    {     20,     21,     26,     27,     30, NO_LED }, // Top row
-    {     19,     22,     25,     28,     31, NO_LED }, // Middle row
-    {     18,     23,     24,     29,     32, NO_LED }, // Bottom row
-    {     35, NO_LED,     33,     34, NO_LED, NO_LED }, // Thumb cluster
+    /* // Right split. */
+    {     35,       30,     29,     24,    23,   18    }, // Top row
+    {     34,       31,     28,     25,    22,   19    }, // Middle row
+    {     33,       32,     27,     26,    21,   20    }, // Bottom row
+    {     NO_LED, NO_LED,     NO_LED,     NO_LED, NO_LED, NO_LED }, // Thumb cluster
 }, {
     /* LED index to physical position. */
     // Left split.

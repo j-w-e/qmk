@@ -97,7 +97,7 @@ enum userspace_custom_keycodes {
 
 #define ________________CALLUM_THUMBS______________       __TL1__,  __TL3__,    __TL2__,    __TR2__,    __TR1__,    __TR3__
 #define ________________aptmak_THUMBS______________       __TL1__,  __TR1__,    __TL2__,    __TR2__,       KC_E,    __TR3__
-#define _________________wyst_THUMBS_______________       __TL1__,  __TR1__,    __TL2__, KC_MUTE, KC_MUTE,    __TR2__,       KC_E,    __TR3__
+#define _________________wyst_THUMBS_______________       __TL1__,  __TR1__,    __TL2__, KC_MUTE, KC_MUTE,  __TR2__,  KC_E,  __TR3__
 
 #define ________________CALLUM_MODS_L______________       OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT
 #define ________________CALLUM_MODS_R______________       OS_SHFT, OS_CMD,  OS_ALT,  OS_CTRL
