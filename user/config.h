@@ -63,15 +63,15 @@
 #   undef ENABLE_RGB_MATRIX_SPLASH
 #   undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #endif
 
 #ifdef OLED_ENABLE
 #define OLED_FONT_H "_jwe_font.c"
-#define OLED_SCROLL_TIMEOUT 5000
+#define OLED_SCROLL_TIMEOUT 20000
 #define OLED_BRIGHTNESS 128
 //#define OLED_SCROLL_TIMEOUT_RIGHT
-#define OLED_TIMEOUT 20000
+#define OLED_TIMEOUT 60000
 #endif
 
 
