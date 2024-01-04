@@ -22,25 +22,30 @@
  * LEDs index.
  *
  * ╭────────────────────╮                 ╭────────────────────╮
- *    2   3   8   9  12                     30  27  26  21  20
+ *   17  12  11   6   5                     23  24  29  30  35
  * ├────────────────────┤                 ├────────────────────┤
- *    1   4   7  10  13                     31  28  25  22  19
+ *   16  13  10   7   4                     22  25  28  31  34
  * ├────────────────────┤                 ├────────────────────┤
- *    0   5   6  11  14                     32  29  24  23  18
+ *   15  14   9   8   3                     21  26  27  32  33
  * ╰────────────────────╯                 ╰────────────────────╯
- *                   15  16  17     35  34  33
+ *                    0   1   2     18  19  20
  *                 ╰────────────╯ ╰────────────╯
  */
+
 // clang-format off
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
     /* Key Matrix to LED index. */
     // Left split - final column is thumb cluster
+    // columns are: pinky, ring, middle, index, inner, thumb, in that order
+    // for thumb col, top row is reachy thumb, bottom row is tucky thumb
     {      17,      12,      11,      6,     5,    0    }, // Top row
     {      16,      13,      10,      7,     4,    1    }, // Middle row
     {      15,      14,      9,       8,     3,    2    }, // Bottom row
     {     NO_LED, NO_LED,     NO_LED,     NO_LED, NO_LED, NO_LED }, // I actually don't understand why this is necessary, but it works
     // Right split - final column is thumb cluster
+    // columns are: pinky, ring, middle, index, inner, thumb, in that order
+    // for thumb col, top row is reachy thumb, bottom row is tucky thumb
     {     35,       30,     29,     24,    23,   18    }, // Top row
     {     34,       31,     28,     25,    22,   19    }, // Middle row
     {     33,       32,     27,     26,    21,   20    }, // Bottom row
