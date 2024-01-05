@@ -26,6 +26,8 @@
 #define I2C1_SDA_PIN        GP2
 /* #define I2C_DRIVER I2CD0 */
 
+#define ENCODERS_PAD_A_RIGHT { GP8 }
+#define ENCODERS_PAD_B_RIGHT { GP9 }
 #define ENCODERS_PAD_A { GP9 }
 #define ENCODERS_PAD_B { GP8 }
 
