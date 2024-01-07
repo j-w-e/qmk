@@ -41,11 +41,12 @@ enum userspace_custom_keycodes {
 #ifdef ERGODOX
 #define BCKTICK     KC_NUBS
 #define SECTION     KC_GRV
+#define TILDE       S(KC_NUBS)
 #else
 #define BCKTICK     KC_GRV
 #define SECTION     KC_NUBS
+#define TILDE       S(BCKTICK)
 #endif // ERGODOX
-#define TILDE       S(KC_NUBS)
 #define DEGREE      A(S(KC_8))
 #define POUND       LSFT(KC_3)
 #define CIRC        S(KC_6)
@@ -188,13 +189,13 @@ enum userspace_custom_keycodes {
 #define __________________SYM_2_R3_________________       KC_NO,    KC_NO,      KC_CAPS,    JWE_PROJ,   KC_NO
 
 
-#define ___________________FUNC_L1_________________       QK_BOOT,  QK_REBOOT,  QK_MAKE,    KC_NO,      KC_NO
-#define ___________________FUNC_L2_________________       ________________CALLUM_MODS_L______________,  KC_NO
+#define ___________________FUNC_L1_________________       QK_BOOT,  QK_REBOOT,  KC_NO,      KC_NO,      QK_REBOOT
+#define ___________________FUNC_L2_________________       ________________CALLUM_MODS_L______________,  SLEEP
 #define ___________________FUNC_L3_________________       KC_LEFT,  KC_UP,      KC_DOWN,    KC_RIGHT,   KC_NO
 
-#define ___________________FUNC_R1_________________       KC_F12,   KC_F7,      KC_F8,      KC_F9,      KC_NO
-#define ___________________FUNC_R2_________________       KC_F11,   KC_F4,      KC_F5,      KC_F6,      KC_NO
-#define ___________________FUNC_R3_________________       KC_F10,   KC_F1,      KC_F2,      KC_F3,      SLEEP
+#define ___________________FUNC_R1_________________       KC_NO,    KC_F7,      KC_F8,      KC_F9,      KC_F12
+#define ___________________FUNC_R2_________________       SLEEP,    KC_F4,      KC_F5,      KC_F6,      KC_F11
+#define ___________________FUNC_R3_________________       KC_NO,    KC_F1,      KC_F2,      KC_F3,      KC_F10
 
 
 #define _ALPHAS_APTMAK \
