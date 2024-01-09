@@ -11,10 +11,6 @@
 #define CAPS_WORD_IDLE_TIMEOUT 1000
 #endif
 
-/* #ifdef LIATRIS */
-/* #define WPM_ENABLE */
-/* #endif // LIATRIS */
-
 #define USB_SUSPEND_WAKEUP_DELAY 0
 
 #undef MOUSEKEY_WHEEL_DELAY

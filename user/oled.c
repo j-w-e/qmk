@@ -1,9 +1,9 @@
-#include QMK_KEYBOARD_H
-#include "defines.h"
+#include "oled.h"
 
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    kittoken = defer_exec(3000, pet_animation_phases, NULL);
     return OLED_ROTATION_270;
 }
 
@@ -86,6 +86,74 @@ void render_bootmagic_status_r2g_jwe(void) {
 
     oled_advance_page(true);
 }
+
+// WPM-responsive animation stuff here
+#ifndef OLED_SLEEP_SPEED
+#    define OLED_SLEEP_SPEED 10
+#endif
+#ifndef OLED_KAKI_SPEED
+#    define OLED_KAKI_SPEED 40
+#endif
+#ifndef OLED_MATI_SPEED
+#    define OLED_MATI_SPEED 60
+#endif
+#ifndef OLED_PET_ARRAY
+#    define OLED_PET_ARRAY tora_the_cat_animation
+#endif
+
+// #define ANIM_FRAME_DURATION 500 // how long each frame lasts in ms
+//  #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
+#if (OLED_SLEEP_FRAMES > OLED_ANIM_MAX_FRAMES) || (OLED_WAKE_FRAMES > OLED_ANIM_MAX_FRAMES) || \
+    (OLED_KAKI_FRAMES > OLED_ANIM_MAX_FRAMES) || (OLED_RTOGI_FRAMES > OLED_ANIM_MAX_FRAMES)
+#    error frame size too large
+#endif
+
+static uint8_t animation_frame = 0;
+static uint8_t animation_type  = 0;
+deferred_token kittoken;
+
+void render_pet(uint8_t col, uint8_t line) {
+    for (uint8_t i = 0; i < 4; i++) {
+        oled_set_cursor(col, line + i);
+        oled_write_raw_P(pet_animiations[1][animation_type][animation_frame][i], OLED_ANIM_SIZE);
+    }
+}
+
+uint32_t pet_animation_phases(uint32_t triger_time, void *cb_arg) {
+    static uint32_t anim_frame_duration = 500;
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
+    if (get_auto_mouse_toggle()) {
+        animation_frame     = (animation_frame + 1) % OLED_RTOGI_FRAMES;
+        animation_type      = 4;
+        anim_frame_duration = 300;
+    } else
+#endif
+    {
+#ifdef WPM_ENABLE
+        if (get_current_wpm() <= OLED_SLEEP_SPEED) {
+#endif
+            animation_frame     = (animation_frame + 1) % OLED_SLEEP_FRAMES;
+            animation_type      = 0;
+            anim_frame_duration = 500;
+#ifdef WPM_ENABLE
+        } else if (get_current_wpm() <= OLED_KAKI_SPEED) {
+            animation_frame     = (animation_frame + 1) % OLED_KAKI_FRAMES;
+            animation_type      = 1;
+            anim_frame_duration = 500;
+        } else if (get_current_wpm() <= OLED_MATI_SPEED) {
+            animation_frame     = (animation_frame + 1) % OLED_MATI_FRAMES;
+            animation_type      = 2;
+            anim_frame_duration = 500;
+        } else {
+            animation_frame     = (animation_frame + 1) % OLED_AWAKE_FRAMES;
+            animation_type      = 3;
+            anim_frame_duration = 300;
+        }
+#endif
+    }
+    return anim_frame_duration;
+}
+
 
 void render_mod_status(uint8_t modifiers) {
     // fillers between the modifier icons bleed into the icon frames
@@ -235,20 +303,25 @@ void oled_render_logo_r2g_jwe(void) {
 bool oled_task_user(void) {
 
     if (is_keyboard_master()) {
-        oled_render_layer_state_r2g_jwe();
+        /* oled_render_layer_state_r2g_jwe(); */
+        /* oled_advance_page(true); */
+        /* oled_advance_page(true); */
+        /* render_bootmagic_status_r2g_jwe(); */
+        /* render_mod_status(get_mods() | get_oneshot_mods()); */
+        // THIS is just so that my pet diplays correctly!
+        oled_write(get_u8_str(get_current_wpm(), ' '), false);
         oled_advance_page(true);
         oled_advance_page(true);
-        render_bootmagic_status_r2g_jwe();
-        render_mod_status(get_mods() | get_oneshot_mods());
-#ifdef LEADER_ENABLE
-        if (leader_sequence_active()) {
-            oled_advance_page(true);
-            oled_write_P(PSTR("LEAD"), false);
-        } else {
-            oled_advance_page(true);
-            oled_advance_page(true);
-        }
-#endif // LEADER_ENABLE
+        render_pet(0, 1);
+/* #ifdef LEADER_ENABLE */
+/*         if (leader_sequence_active()) { */
+/*             oled_advance_page(true); */
+/*             oled_write_P(PSTR("LEAD"), false); */
+/*         } else { */
+/*             oled_advance_page(true); */
+/*             oled_advance_page(true); */
+/*         } */
+/* #endif // LEADER_ENABLE */
     } else {
         oled_render_logo_r2g_jwe();
     }
