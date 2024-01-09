@@ -284,9 +284,9 @@ void render_mod_status(uint8_t modifiers) {
 void oled_render_logo_r2g_jwe(void) {
     static const char PROGMEM qmk_logo[] = {
         0x20, 0x20, 0x20, 0x20, 0x20,
-        0x20, 0x20, 0x20, 0x20, 0x20,
-        0x20, 0x20, 0x20, 0x20, 0x20,
-        0x20, 0x20, 0x20, 0x20, 0x20,
+        /* 0x20, 0x20, 0x20, 0x20, 0x20, */
+        /* 0x20, 0x20, 0x20, 0x20, 0x20, */
+        /* 0x20, 0x20, 0x20, 0x20, 0x20, */
         0x20, 0x80, 0x81, 0x82, 0x83,
         0x20, 0xA0, 0xA1, 0xA2, 0xA3,
         0x20, 0xC0, 0xC1, 0xC2, 0xC3,
@@ -303,27 +303,24 @@ void oled_render_logo_r2g_jwe(void) {
 bool oled_task_user(void) {
 
     if (is_keyboard_master()) {
-        /* oled_render_layer_state_r2g_jwe(); */
-        /* oled_advance_page(true); */
-        /* oled_advance_page(true); */
-        /* render_bootmagic_status_r2g_jwe(); */
-        /* render_mod_status(get_mods() | get_oneshot_mods()); */
-        // THIS is just so that my pet diplays correctly!
-        oled_write(get_u8_str(get_current_wpm(), ' '), false);
+        oled_render_layer_state_r2g_jwe();
         oled_advance_page(true);
         oled_advance_page(true);
-        render_pet(0, 1);
-/* #ifdef LEADER_ENABLE */
-/*         if (leader_sequence_active()) { */
-/*             oled_advance_page(true); */
-/*             oled_write_P(PSTR("LEAD"), false); */
-/*         } else { */
-/*             oled_advance_page(true); */
-/*             oled_advance_page(true); */
-/*         } */
-/* #endif // LEADER_ENABLE */
+        render_bootmagic_status_r2g_jwe();
+        render_mod_status(get_mods() | get_oneshot_mods());
+#ifdef LEADER_ENABLE
+        if (leader_sequence_active()) {
+            oled_advance_page(true);
+            oled_write_P(PSTR("LEAD"), false);
+        } else {
+            oled_advance_page(true);
+            oled_advance_page(true);
+        }
+#endif // LEADER_ENABLE
     } else {
+        /* render_mod_status(get_mods() | get_oneshot_mods()); */
         oled_render_logo_r2g_jwe();
+        render_pet(0, 10);
     }
     return false;
 }
