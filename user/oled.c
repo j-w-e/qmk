@@ -15,9 +15,6 @@ void oled_render_layer_state_r2g_jwe(void) {
 #endif
     oled_advance_page(true);
     switch (get_highest_layer(layer_state)) {
-        case ENGRAM:
-            oled_write_P(PSTR("EN"), false);
-            break;
         case APTMAK:
             oled_write_P(PSTR("APMK"), false);
             break;
@@ -35,7 +32,7 @@ void oled_render_layer_state_r2g_jwe(void) {
             oled_write_P(PSTR("s2"), false);
             break;
         case MOUSE:
-            oled_write_P(PSTR("m"), false);
+            oled_write_P(PSTR("wmm"), false);
             break;
         case FUNC:
             oled_write_P(PSTR("f"), false);

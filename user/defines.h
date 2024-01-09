@@ -41,6 +41,7 @@ enum userspace_custom_keycodes {
 #define BCKTICK     KC_GRV
 #define SECTION     KC_NUBS
 #define TILDE       S(BCKTICK)
+#define DEGREE      A(S(KC_8))
 #define POUND       LSFT(KC_3)
 #define CIRC        S(KC_6)
 #define EURO     RALT(KC_2)
