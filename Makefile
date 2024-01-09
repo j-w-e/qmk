@@ -37,8 +37,9 @@ $(KEYBOARDS):
 
 .PHONY: lbs
 lbs:
-	# init submodule
-	git submodule update --init --recursive
+	cd qmk_firmware
+	git pull
+	cd ..
 
 # cleanup old symlinks
 	rm -rf qmk_firmware/keyboards/$(PATH_$@)/keymaps/$(USER)
@@ -56,16 +57,47 @@ lbs:
 # cleanup symlinks
 	rm -rf qmk_firmware/keyboards/$(PATH_$@)/keymaps/$(USER)
 
-.PHONY: flash
-flash: crkbd
+.PHONY: ck_flash
+ck_flash: crkbd
 	cd qmk_firmware; qmk flash ../crkbd_r2g__jwe_.hex
 
 .PHONY: eez_flash
 eez_flash: ergodox_ez
 	cd qmk_firmware; qmk flash --mcu atmega32u4 ../ergodox_ez_shine__jwe_.hex
 
+.PHONY: wysteria
+wysteria:
+	cd qmk_firmware
+	git pull
+	cd ..
+
+# cleanup old symlinks
+	rm -rf qmk_firmware/keyboards/$@
+	rm -rf qmk_firmware/users/$(USER)
+
+# add new symlinks
+	ln -s $(shell pwd)/$@ qmk_firmware/keyboards/$@
+	ln -s $(shell pwd)/user qmk_firmware/users/$(USER)
+
+# run lint check
+	# cd qmk_firmware; qmk lint -km $(USER) -kb $@ --strict
+
+# run build
+	make BUILD_DIR=$(shell pwd) -j1 -C qmk_firmware $@:_jwe_
+
+# cleanup symlinks
+	rm -rf qmk_firmware/keyboards/$@
+
+
+.PHONY: flash_wyst
+flash_wyst: wysteria
+	cp ./wysteria__jwe_.uf2 /Volumes/RPI-RP2/wyst.uf2
+
+
 clean:
 	rm -rf obj_*
 	rm -f *.elf
 	rm -f *.map
 	rm -f *.hex
+	rm -f *.tmp
+	rm -f *.uf2

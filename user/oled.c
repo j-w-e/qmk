@@ -8,7 +8,11 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 void oled_render_layer_state_r2g_jwe(void) {
+#ifdef SWAP_HANDS_ENABLE
     oled_write_P(PSTR("lyr:"), is_swap_hands_on());
+#else
+    oled_write_P(PSTR("lyr:"), false);
+#endif
     oled_advance_page(true);
     switch (get_highest_layer(layer_state)) {
         case ENGRAM:

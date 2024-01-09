@@ -71,6 +71,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
         case KC_C: return KC_K;  // In place of alt-fingering ck
         case KC_H: return KC_T;  // To ease the ght trigram
+    //  case KC_Y: return 'OU' to allow typing you easily
     }
 
     return keycode;  // Defer to default definitions.
@@ -129,7 +130,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return override_shift(is_shifted, KC_SLASH, keycode, record);
         case JWE_MNE:
             if (record->event.pressed) {
-                SEND_STRING("M&E");
+                SEND_STRING("MEL");
             }
             return false;
         case JWE_NRC:
@@ -178,3 +179,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+#ifdef LIATRIS
+void keyboard_pre_init_user(void) {
+    // Set our LED pin as output
+    setPinOutput(24);
+    // Turn the LED off
+    // (Due to technical reasons, high is off and low is on)
+    writePinHigh(24);
+}
+#endif /* ifdef LIATRIS */

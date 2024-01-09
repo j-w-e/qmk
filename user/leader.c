@@ -7,10 +7,6 @@ void leader_end_user(void) {
 
     if (leader_sequence_one_key(KC_H)) {
         SEND_STRING("Hugh");
-    } else if (leader_sequence_two_keys(KC_L, KC_E)) {
-        layer_move(ENGRAM);
-    } else if (leader_sequence_two_keys(KC_L, KC_A)) {
-        layer_move(APTMAK);
     } else if (leader_sequence_two_keys(KC_L, KC_N)) {
         layer_move(NAV);
     } else if (leader_sequence_two_keys(KC_G, KC_G)) {
@@ -21,20 +17,20 @@ void leader_end_user(void) {
         // 0 is segregation
         // 1 is email
         // 2 is phone number
-        // 3 is OH's email
-        // 4 is OH's phone number
+        // 3 is SO's email
+        // 4 is SO's phone number
         // 5 is work email
-    } else if (leader_sequence_two_keys(KC_S, KC_E)) {
+    } else if (leader_sequence_two_keys(KC_T, KC_H)) {
         send_secret(0);
-    } else if (leader_sequence_two_keys(KC_S, KC_G)) {
+    } else if (leader_sequence_one_key(KC_C)) {
         send_secret(1);
-    } else if (leader_sequence_two_keys(KC_S, KC_P)) {
+    } else if (leader_sequence_one_key(KC_P)) {
         send_secret(2);
-    } else if (leader_sequence_two_keys(KC_S, KC_J)) {
+    } else if (leader_sequence_two_keys(KC_K, KC_C)) {
         send_secret(3);
-    } else if (leader_sequence_two_keys(KC_S, KC_K)) {
+    } else if (leader_sequence_two_keys(KC_K, KC_P)) {
         send_secret(4);
-    } else if (leader_sequence_two_keys(KC_S, KC_N)) {
+    } else if (leader_sequence_two_keys(KC_N, KC_C)) {
         send_secret(5);
 #endif
     /* } else if (leader_sequence_one_key(KC_X)) { */

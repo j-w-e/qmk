@@ -38,15 +38,9 @@ enum userspace_custom_keycodes {
 #define JWE_NXTAB   C(KC_TAB)
 #define JWE_PRVTAB  C(S(KC_TAB))
 
-#ifdef ERGODOX
 #define BCKTICK     KC_GRV
 #define SECTION     KC_NUBS
-#else
-#define BCKTICK     KC_NUBS
-#define SECTION     KC_GRV
-#endif // ERGODOX
-#define TILDE       S(KC_NUBS)
-#define DEGREE      A(S(KC_8))
+#define TILDE       S(BCKTICK)
 #define POUND       LSFT(KC_3)
 #define CIRC        S(KC_6)
 #define EURO     RALT(KC_2)
@@ -93,8 +87,9 @@ enum userspace_custom_keycodes {
 #define __TR2__ OS_SYM
 #define __TR3__ LA_MOUSE
 
-#define ________________CALLUM_THUMBS______________       __TL1__,  __TL2__,    __TL3__,    __TR1__,    __TR2__,    __TR3__
-#define ________________aptmak_THUMBS______________       __TL1__,  __TL2__,    __TR1__,       KC_E,       __TR2__,    __TR3__
+#define ________________CALLUM_THUMBS______________       __TL1__,  __TL3__,    __TL2__,    __TR2__,    __TR1__,    __TR3__
+#define ________________aptmak_THUMBS______________       __TL1__,  __TR1__,    __TL2__,    __TR2__,       KC_E,    __TR3__
+#define _________________wyst_THUMBS_______________       __TL1__,  __TR1__,    __TL2__, KC_MUTE, KC_MUTE,  __TR2__,  KC_E,  __TR3__
 
 #define ________________CALLUM_MODS_L______________       OS_CTRL, OS_ALT,  OS_CMD,  OS_SHFT
 #define ________________CALLUM_MODS_R______________       OS_SHFT, OS_CMD,  OS_ALT,  OS_CTRL
@@ -106,9 +101,9 @@ enum userspace_custom_keycodes {
 #define __________________APTMAK_R2________________       KC_BSPC,  KC_N,    KC_A,    KC_I,    KC_O
 #define __________________APTMAK_R3________________       KC_V,    KC_M,    KC_COMM, KC_DOT,  KC_MINUS
 
-#define __________________APTMAK_L1________________       KC_SLASH,KC_W,    KC_F,    KC_P,    KC_B
+#define __________________APTMAK_L1________________       QK_REP,  KC_W,    KC_F,    KC_P,    KC_B
 #define __________________APTMAK_L2________________       KC_R,    KC_S,    KC_T,    KC_H,    KC_ENT
-#define __________________APTMAK_L3________________       QK_AREP,  KC_C,    KC_G,    KC_D,    KC_K
+#define __________________APTMAK_L3________________       KC_SLASH,KC_C,    KC_G,    KC_D,    KC_K
 
 #define __________________ENGRAM_L1________________       KC_B,    KC_Y,    KC_O,    KC_U,    KC_COMM
 #define __________________ENGRAM_L2________________       KC_C,    KC_I,    KC_E,    KC_A,    KC_NO
@@ -119,11 +114,11 @@ enum userspace_custom_keycodes {
 #define __________________ENGRAM_R3________________       KC_MINUS,KC_R,    KC_M,    KC_F,    KC_P
 
 
-#define _________________SYMBOLS_L1________________       KC_LABK,  KC_LCBR,    KC_LPRN,    KC_LBRC,   KC_COMM
+#define _________________SYMBOLS_L1________________       KC_SLASH, KC_LCBR,    KC_LPRN,    KC_LBRC,   KC_LABK
 #define _________________SYMBOLS_L2________________       SK_HASH,  KC_ASTR,    KC_EXLM,    KC_QUES,   KC_SLASH
 #define _________________SYMBOLS_L3________________       KC_PERC,  SK_AT,      KC_DLR,     KC_AMPR,   BCKTICK
 
-#define _________________SYMBOLS_R1________________       KC_BSLS,  KC_RBRC,    KC_RPRN,    KC_RCBR,   KC_RABK
+#define _________________SYMBOLS_R1________________       KC_RABK,  KC_RBRC,    KC_RPRN,    KC_RCBR,   KC_BSLS
 #define _________________SYMBOLS_R2________________       SK_WORDBSPC,    ________________CALLUM_MODS_R______________
 #define _________________SYMBOLS_R3________________       TILDE,    CIRC,       QK_LEAD,    JWE_NRC,   JWE_MNE
 
@@ -137,18 +132,28 @@ enum userspace_custom_keycodes {
 #define ___________________NAV_R3__________________       _______,  SK_LINEBEG, SK_DOCEND,  SK_DOCBEG,  SK_LINEEND
 
 
-#define _________________NUMBERS_L1________________       KC_E,     KC_W,       KC_VOLD,    KC_VOLU,    KC_COMM
+#ifdef ERGODOX
+#define _________________NUMBERS_L1________________       KC_E,     KC_W,       KC_VOLD,    KC_VOLU,    KC_MUTE
+#else
+#define _________________NUMBERS_L1________________       KC_E,     KC_W,       KC_NO,      SECTION,    KC_SPACE
+#endif // ERGODOX
 #define _________________NUMBERS_L2________________       OSM(MOD_LCTL),  OSM(MOD_LALT),    OSM(MOD_LGUI),    OSM(MOD_LSFT),    KC_ENT
+/* #define _________________NUMBERS_L2________________       KC_LCTL,  KC_LALT,    KC_LGUI,    KC_LSFT,    KC_BSPC */
 /* #define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_BSPC */
-#define _________________NUMBERS_L3________________       JWE_PRVTAB,JWE_NXTAB, KC_ESC,    KC_TAB,      KC_MUTE
+#define _________________NUMBERS_L3________________       JWE_PRVTAB,JWE_NXTAB, KC_ESC,    KC_TAB,      KC_COMM
 
 #define _________________NUMBERS_R1________________       KC_MINUS, KC_7,       KC_8,       KC_9,       KC_EQUAL
 #define _________________NUMBERS_R2________________       KC_BSPC,  KC_4,       KC_5,       KC_6,       KC_0
 #define _________________NUMBERS_R3________________       KC_DOT,   KC_1,       KC_2,       KC_3,       KC_PLUS
 
 
+#ifdef ERGODOX
 #define __________________MOUSE_L1_________________       KC_WH_L,  KC_WH_U,    KC_WH_D,    KC_WH_R,    KC_BTN2
 #define __________________MOUSE_L2_________________       KC_MS_L,  KC_MS_U,    KC_MS_D,    KC_MS_R,    KC_BTN1
+#else
+#define __________________MOUSE_L1_________________       KC_MS_L,  KC_MS_U,    KC_MS_D,    KC_MS_R,    KC_BTN2
+#define __________________MOUSE_L2_________________       ________________CALLUM_MODS_L______________,  KC_BTN1
+#endif // ERGODOX
 #define __________________MOUSE_L3_________________       KC_MPRV,  KC_MSTP,    KC_MPLY,    KC_MNXT,    KC_BTN3
 
 #define __________________MOUSE_R1_________________       Y_ZOOM,   Y_WARP_L,  Y_WARP_D,    Y_WARP_U,   Y_WARP_R
@@ -165,13 +170,13 @@ enum userspace_custom_keycodes {
 #define __________________SYM_2_R3_________________       KC_NO,    KC_NO,      KC_CAPS,    JWE_PROJ,   KC_NO
 
 
-#define ___________________FUNC_L1_________________       QK_BOOT,  KC_NO,      KC_NO,      KC_NO,      KC_NO
-#define ___________________FUNC_L2_________________       ________________CALLUM_MODS_L______________,  KC_NO
+#define ___________________FUNC_L1_________________       QK_BOOT,  QK_REBOOT,  KC_NO,      KC_NO,      QK_REBOOT
+#define ___________________FUNC_L2_________________       ________________CALLUM_MODS_L______________,  SLEEP
 #define ___________________FUNC_L3_________________       KC_LEFT,  KC_UP,      KC_DOWN,    KC_RIGHT,   KC_NO
 
-#define ___________________FUNC_R1_________________       KC_F12,   KC_F7,      KC_F8,      KC_F9,      KC_NO
-#define ___________________FUNC_R2_________________       KC_F11,   KC_F4,      KC_F5,      KC_F6,      KC_NO
-#define ___________________FUNC_R3_________________       KC_F10,   KC_F1,      KC_F2,      KC_F3,      SLEEP
+#define ___________________FUNC_R1_________________       KC_NO,    KC_F7,      KC_F8,      KC_F9,      KC_F12
+#define ___________________FUNC_R2_________________       SLEEP,    KC_F4,      KC_F5,      KC_F6,      KC_F11
+#define ___________________FUNC_R3_________________       KC_NO,    KC_F1,      KC_F2,      KC_F3,      KC_F10
 
 
 #define _ALPHAS_APTMAK \
@@ -213,15 +218,14 @@ enum userspace_custom_keycodes {
     ___________________FUNC_L3_________________, ___________________FUNC_R3_________________
 
 
-
 #define _LAYOUT_5x3_TO_6x3( \
   k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, \
   k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, \
   k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A \
     ) \
-    SH_TOGG,  k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, KC_Q, \
-    QK_LEAD,     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, KC_Z, \
-    TO(ENGRAM), k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, TO(APTMAK)
+    QK_LEAD,  k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, KC_NO, \
+    KC_NO,     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, KC_NO, \
+    KC_NO, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, KC_NO
 #define LAYOUT_5x3_TO_6x3(...) _LAYOUT_5x3_TO_6x3(__VA_ARGS__)
 
 #define _LAYOUT_ADD_THUMBS(...) __VA_ARGS__, ________________CALLUM_THUMBS______________
@@ -230,6 +234,9 @@ enum userspace_custom_keycodes {
 #define _LAYOUT_ADD_THeMBS(...) __VA_ARGS__, ________________aptmak_THUMBS______________
 #define LAYOUT_ADD_THeMBS(...) _LAYOUT_ADD_THeMBS(__VA_ARGS__)
 
+#define _LAYOUT_ADD_WYST_THeMBS(...) __VA_ARGS__, _________________wyst_THUMBS_______________
+#define LAYOUT_ADD_WYST_THeMBS(...) _LAYOUT_ADD_WYST_THeMBS(__VA_ARGS__)
+
 #define _LAYOUT_ergodox_wrapper( \
     k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, \
     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, \
@@ -237,8 +244,8 @@ enum userspace_custom_keycodes {
                    k31, k32, k33, k34, k35, k36                 \
   ) \
       KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_NO,        KC_NO, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, \
-      k01,    k02,  k03,  k04,  k05,  k06,  KC_NO,        KC_NO, k07,  k08,  k09,  k0A,  k0B,  k0C,     \
-      k11,    k12,  k13,  k14,  k15,  k16,                       k17,  k18,  k19,  k1A,  k1B,  k1C,     \
+      k01,    k11,  k03,  k04,  k05,  k06,  KC_NO,        KC_NO, k07,  k08,  k09,  k0A,  k1C,  k0C,     \
+      k02,    k12,  k13,  k14,  k15,  k16,                       k17,  k18,  k19,  k1A,  k1B,  k0B,     \
       k21,    k22,  k23,  k24,  k25,  k26,  KC_NO,        KC_NO, k27,  k28,  k29,  k2A,  k2B,  k2C,     \
       KC_NUBS,  KC_NO,KC_NO,KC_NO,k31,                                   k36,  KC_NO,KC_NO,KC_NO,KC_NO,   \
                                       KC_NO,KC_NO,        KC_NO, KC_NO,                                 \
