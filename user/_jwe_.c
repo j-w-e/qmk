@@ -188,4 +188,4 @@ void keyboard_pre_init_user(void) {
     // (Due to technical reasons, high is off and low is on)
     writePinHigh(24);
 }
-#endif /* ifdef MACRO */
+#endif /* ifdef LIATRIS */
