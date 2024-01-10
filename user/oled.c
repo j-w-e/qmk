@@ -92,10 +92,10 @@ void render_bootmagic_status_r2g_jwe(void) {
 #    define OLED_SLEEP_SPEED 10
 #endif
 #ifndef OLED_KAKI_SPEED
-#    define OLED_KAKI_SPEED 40
+#    define OLED_KAKI_SPEED 50
 #endif
 #ifndef OLED_MATI_SPEED
-#    define OLED_MATI_SPEED 60
+#    define OLED_MATI_SPEED 80
 #endif
 #ifndef OLED_PET_ARRAY
 #    define OLED_PET_ARRAY tora_the_cat_animation
