@@ -80,6 +80,7 @@ void render_bootmagic_status_r2g_jwe(void) {
     oled_advance_page(true);
 #ifdef WPM_ENABLE
     oled_advance_page(true);
+    oled_write_P(PSTR("WPM: "), false);
     oled_write(get_u8_str(get_current_wpm(), ' '), false);
     oled_advance_page(true);
 #endif // WPM_ENABLE
@@ -304,7 +305,6 @@ bool oled_task_user(void) {
 
     if (is_keyboard_master()) {
         oled_render_layer_state_r2g_jwe();
-        oled_advance_page(true);
         oled_advance_page(true);
         render_bootmagic_status_r2g_jwe();
         render_mod_status(get_mods() | get_oneshot_mods());

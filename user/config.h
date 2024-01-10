@@ -22,6 +22,15 @@
 #undef MOUSEKEY_WHEEL_MAX_SPEED
 #define MOUSEKEY_WHEEL_MAX_SPEED 2
 
+#if defined(WPM_ENABLE)
+#    define WPM_LAUNCH_CONTROL
+// #    define WPM_UNFILTERED
+#    define WPM_ALLOW_COUNT_REGRESSION
+#    define WPM_SAMPLE_SECONDS      10
+#    define WPM_SAMPLE_PERIODS      50
+// #    define WPM_ESTIMATED_WORD_SIZE 5
+#endif
+
 
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_LIMIT_VAL 192
