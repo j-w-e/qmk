@@ -131,7 +131,6 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 /* #define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL */
 #define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
-#define RGB_MATRIX_IDLE_TIME 10000
 #endif
 
 #ifdef OLED_ENABLE
@@ -141,10 +140,12 @@
 /* #define OLED_FADE_OUT */
 /* #define OLED_FADE_OUT_INTERVAL 2 */
 #define OLED_BRIGHTNESS 128
-#define OLED_TIMEOUT 30000
+#define OLED_TIMEOUT 15000
 #define SPLIT_OLED_ENABLE
 #endif
 
+#define KEYBOARD_IDLE_TIME 30000
+#define KEYBOARD_SLEEP_TIME 900000
 
 //#define SPLIT_LAYER_STATE_ENABLE
 #define LAYER_STATE_8BIT // limit to fewer than 8 layers
