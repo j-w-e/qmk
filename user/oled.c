@@ -302,26 +302,28 @@ void oled_render_logo_r2g_jwe(void) {
 
 
 bool oled_task_user(void) {
+    /* if (check_if_oled_should_be_on()) { */
 
-    if (is_keyboard_master()) {
-        oled_render_layer_state_r2g_jwe();
-        oled_advance_page(true);
-        render_bootmagic_status_r2g_jwe();
-        render_mod_status(get_mods() | get_oneshot_mods());
+        if (is_keyboard_master()) {
+            oled_render_layer_state_r2g_jwe();
+            oled_advance_page(true);
+            render_bootmagic_status_r2g_jwe();
+            render_mod_status(get_mods() | get_oneshot_mods());
 #ifdef LEADER_ENABLE
-        if (leader_sequence_active()) {
-            oled_advance_page(true);
-            oled_write_P(PSTR("LEAD"), false);
-        } else {
-            oled_advance_page(true);
-            oled_advance_page(true);
-        }
+            if (leader_sequence_active()) {
+                oled_advance_page(true);
+                oled_write_P(PSTR("LEAD"), false);
+            } else {
+                oled_advance_page(true);
+                oled_advance_page(true);
+            }
 #endif // LEADER_ENABLE
-    } else {
-        /* render_mod_status(get_mods() | get_oneshot_mods()); */
-        oled_render_logo_r2g_jwe();
-        render_pet(0, 10);
-    }
+        } else {
+            /* render_mod_status(get_mods() | get_oneshot_mods()); */
+            oled_render_logo_r2g_jwe();
+            render_pet(0, 10);
+        }
+    /* } */
     return false;
 }
 #endif // OLED_ENABLE

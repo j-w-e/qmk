@@ -49,7 +49,7 @@
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-# 	define RGB_DISABLE_TIMEOUT 60000 // number of milliseconds to wait until rgb automatically turns off
+# 	define RGB_DISABLE_TIMEOUT 900000 // number of milliseconds to wait until rgb automatically turns off
 #	define RGB_MATRIX_KEYPRESSES
 #   define ENABLE_RGB_MATRIX_ALPHAS_MODS         // Static dual hue, speed is hue for secondary hue
 #   define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN    // Static gradient top to bottom, speed controls how much gradient changes
@@ -64,8 +64,8 @@
 #   undef ENABLE_RGB_MATRIX_CYCLE_ALL           // Full keyboard solid hue cycling through full gradient
 #   define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT    // Full gradient scrolling left to right
 #   undef ENABLE_RGB_MATRIX_CYCLE_UP_DOWN       // Full gradient scrolling top to bottom
-#   undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN        // Full gradient scrolling out to in
-#   undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL   // Full dual gradients scrolling out to in
+#   define ENABLE_RGB_MATRIX_CYCLE_OUT_IN        // Full gradient scrolling out to in
+#   define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL   // Full dual gradients scrolling out to in
 #   undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON  // Full gradient Chevron shapped scrolling left to right
 #   undef ENABLE_RGB_MATRIX_CYCLE_PINWHEEL      // Full gradient spinning pinwheel around center of keyboard
 #   undef ENABLE_RGB_MATRIX_CYCLE_SPIRAL        // Full gradient spinning spiral around center of keyboard
@@ -86,15 +86,15 @@
 #   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE   // Pulses keys hit to hue & value then fades value out
 #   define ENABLE_RGB_MATRIX_SOLID_REACTIVE      // Static single hue, pulses keys hit to shifted hue then fades to current hue
 #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE       // Hue & value pulse near a single key hit then fades value out
-#   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE  // Hue & value pulse near multiple key hits then fades value out
+#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE  // Hue & value pulse near multiple key hits then fades value out
 #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS      // Hue & value pulse the same column and row of a single key hit then fades value out
 #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS // Hue & value pulse the same column and row of multiple key hits then fades value out
 #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS      // Hue & value pulse away on the same column and row of a single key hit then fades value out
 #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS // Hue & value pulse away on the same column and row of multiple key hits then fades value out
 #   undef ENABLE_RGB_MATRIX_SPLASH              // Full gradient & value pulse away from a single key hit then fades value out
 #   undef ENABLE_RGB_MATRIX_MULTISPLASH         // Full gradient & value pulse away from multiple key hits then fades value out
-#   define ENABLE_RGB_MATRIX_SOLID_SPLASH        // Hue & value pulse away from a single key hit then fades value out
-#   undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH   // Hue & value pulse away from multiple key hits then fades value out
+#   undef ENABLE_RGB_MATRIX_SOLID_SPLASH        // Hue & value pulse away from a single key hit then fades value out
+#   define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH   // Hue & value pulse away from multiple key hits then fades value out
 #   define ENABLE_RGB_MATRIX_STARLIGHT           // LEDs turn on and off at random at varying brightness, maintaining user set color
 #   define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_HUE  // LEDs turn on and off at random at varying brightness, modifies user set hue by +- 30
 #   define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT  // LEDs turn on and off at random at varying brightness, modifies user set saturation by +- 30
@@ -129,14 +129,20 @@
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE
 #define RGB_MATRIX_DEFAULT_SPD 10
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+/* #define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL */
+#define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
+#define RGB_MATRIX_IDLE_TIME 10000
 #endif
 
 #ifdef OLED_ENABLE
 #define OLED_FONT_H "_jwe_font.c"
-#define OLED_SCROLL_TIMEOUT 30000
+/* #define OLED_SCROLL_TIMEOUT 30000 */
+/* #define OLED_SCROLL_TIMEOUT_RIGHT */
+/* #define OLED_FADE_OUT */
+/* #define OLED_FADE_OUT_INTERVAL 2 */
 #define OLED_BRIGHTNESS 128
-//#define OLED_SCROLL_TIMEOUT_RIGHT
-#define OLED_TIMEOUT 60000
+#define OLED_TIMEOUT 30000
+#define SPLIT_OLED_ENABLE
 #endif
 
 

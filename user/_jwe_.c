@@ -181,7 +181,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef LIATRIS
-void keyboard_pre_init_user(void) {
+void keyboard_post_init_user(void) {
     // Set our LED pin as output
     setPinOutput(24);
     // Turn the LED off
@@ -189,3 +189,47 @@ void keyboard_pre_init_user(void) {
     writePinHigh(24);
 }
 #endif /* ifdef LIATRIS */
+
+#ifdef RGB_MATRIX_ENABLE
+
+bool is_rgb_timeout = false;
+static uint32_t key_timer; 
+
+void housekeeping_task_user(void) {
+#ifdef RGB_MATRIX_IDLE_TIME
+    check_rgb_timeout();
+#endif
+}
+void refresh_rgb(void) {
+    key_timer = timer_read32(); // store time of last refresh
+    if (is_rgb_timeout)
+    {
+        is_rgb_timeout = false;
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_DEFAULT_MODE);
+    }
+}
+
+bool check_if_oled_should_be_on(void) {
+    return !(is_rgb_timeout && timer_elapsed32(key_timer) > RGB_MATRIX_IDLE_TIME);
+}
+
+void check_rgb_timeout(void) {
+    if (!is_rgb_timeout && timer_elapsed32(key_timer) > RGB_MATRIX_IDLE_TIME)
+    {
+        is_rgb_timeout = true;
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
+#ifdef OLED_ENABLE
+        oled_off();
+#endif
+    }
+}
+#ifdef RGB_MATRIX_IDLE_TIME
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef OLED_ENABLE
+        oled_on();
+#endif
+    if (record->event.pressed)
+        refresh_rgb();
+}
+#endif /* ifdef RGB_MATRIX_IDLE_TIME */
+#endif /* RGB_MATRIX_ENABLE */
