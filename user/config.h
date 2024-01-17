@@ -74,7 +74,7 @@
 #   undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS   // Full dual gradients spinning two halfs of keyboard
 #   undef ENABLE_RGB_MATRIX_FLOWER_BLOOMING     // Full tighter gradient of first half scrolling left to right and second half scrolling right to left
 #   define ENABLE_RGB_MATRIX_RAINDROPS           // Randomly changes a single key's hue
-#   undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS // Randomly changes a single key's hue and saturation
+#   define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS // Randomly changes a single key's hue and saturation
 #   undef ENABLE_RGB_MATRIX_HUE_BREATHING       // Hue shifts up a slight ammount at the same time, then shifts back
 #   undef ENABLE_RGB_MATRIX_HUE_PENDULUM        // Hue shifts up a slight ammount in a wave to the right, then back to the left
 #   undef ENABLE_RGB_MATRIX_HUE_WAVE            // Hue shifts up a slight ammount and then back down in a wave to the right
@@ -100,37 +100,12 @@
 #   define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT  // LEDs turn on and off at random at varying brightness, modifies user set saturation by +- 30
 #   define ENABLE_RGB_MATRIX_RIVERFLOW           // Modification to breathing animation, offset's animation depending on key location to simulate a river flowing
 
-/* #   define ENABLE_RGB_MATRIX_ALPHAS_MODS */
-/* #   define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN */
-/* #   undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT */
-/* #   undef ENABLE_RGB_MATRIX_BREATHING */
-/* #   undef ENABLE_RGB_MATRIX_BAND_SAT */
-/* #   undef ENABLE_RGB_MATRIX_BAND_VAL */
-/* #   define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT */
-/* #   undef ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL */
-/* #   define ENABLE_RGB_MATRIX_CYCLE_ALL */
-/* #   undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON */
-/* #   undef ENABLE_RGB_MATRIX_CYCLE_SPIRAL */
-/* #   undef ENABLE_RGB_MATRIX_RAINDROPS */
-/* #   undef ENABLE_RGB_MATRIX_HUE_BREATHING */
-/* #   undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL */
-/* #   undef ENABLE_RGB_MATRIX_TYPING_HEATMAP */
-/* #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE */
-/* #   define ENABLE_RGB_MATRIX_SOLID_REACTIVE */
-/* #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS */
-/* #   undef ENABLE_RGB_MATRIX_SPLASH */
-/* #   undef ENABLE_RGB_MATRIX_SOLID_SPLASH */
-/* #   define RGB_MATRIX_RIVERFLOW */
-/* #   define RGB_MATRIX_TYPING_HEATMAP */
-/* #   define RGB_MATRIX_PIXEL_RAIN */
-/* #   define RGB_MATRIX_HUE_WAVE */
-
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 100 out of 255. If not defined maximum brightness is set to 255
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE
 #define RGB_MATRIX_DEFAULT_SPD 10
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 /* #define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL */
-#define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
+#define RGB_MATRIX_REST_MODE RGB_MATRIX_RAINDROPS
 #endif
 
 #ifdef OLED_ENABLE
@@ -144,7 +119,8 @@
 #define SPLIT_OLED_ENABLE
 #endif
 
-#define KEYBOARD_IDLE_TIME 30000
+#define SPLIT_ACTIVITY_ENABLE
+#define KEYBOARD_IDLE_TIME 120000
 #define KEYBOARD_SLEEP_TIME 900000
 
 //#define SPLIT_LAYER_STATE_ENABLE

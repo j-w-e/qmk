@@ -171,11 +171,11 @@ enum userspace_custom_keycodes {
 #define __________________SYM_2_R3_________________       KC_NO,    KC_NO,      KC_CAPS,    JWE_PROJ,   KC_NO
 
 
-#define ___________________FUNC_L1_________________       QK_BOOT,  QK_REBOOT,  KC_NO,      KC_NO,      QK_REBOOT
+#define ___________________FUNC_L1_________________       QK_BOOT,  EE_CLR,     KC_NO,      KC_NO,      QK_REBOOT
 #define ___________________FUNC_L2_________________       ________________CALLUM_MODS_L______________,  SLEEP
 #define ___________________FUNC_L3_________________       KC_LEFT,  KC_UP,      KC_DOWN,    KC_RIGHT,   KC_NO
 
-#define ___________________FUNC_R1_________________       KC_NO,    KC_F7,      KC_F8,      KC_F9,      KC_F12
+#define ___________________FUNC_R1_________________       QK_REBOOT,KC_F7,      KC_F8,      KC_F9,      KC_F12
 #define ___________________FUNC_R2_________________       SLEEP,    KC_F4,      KC_F5,      KC_F6,      KC_F11
 #define ___________________FUNC_R3_________________       KC_NO,    KC_F1,      KC_F2,      KC_F3,      KC_F10
 
