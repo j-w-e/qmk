@@ -235,8 +235,21 @@ enum userspace_custom_keycodes {
 #define _LAYOUT_ADD_THeMBS(...) __VA_ARGS__, ________________aptmak_THUMBS______________
 #define LAYOUT_ADD_THeMBS(...) _LAYOUT_ADD_THeMBS(__VA_ARGS__)
 
-#define _LAYOUT_ADD_WYST_THeMBS(...) __VA_ARGS__, _________________wyst_THUMBS_______________
-#define LAYOUT_ADD_WYST_THeMBS(...) _LAYOUT_ADD_WYST_THeMBS(__VA_ARGS__)
+/* #define _LAYOUT_ADD_WYST_THeMBS(...) __VA_ARGS__, _________________wyst_THUMBS_______________ */
+/* #define LAYOUT_ADD_WYST_THeMBS(...) _LAYOUT_ADD_WYST_THeMBS(__VA_ARGS__) */
+
+#define _LAYOUT_WYST( \
+  k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, \
+  k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, \
+  k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, \
+                      k35, k36 \
+    ) \
+    k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, \
+    k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, \
+    k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, \
+    __TL1__, __TR1__, __TL2__, k35, k36, __TR2__, KC_E, __TR3__
+#define LAYOUT_WYST(...) _LAYOUT_wyst_custom(_LAYOUT_WYST(__VA_ARGS__))
+
 
 #define _LAYOUT_ergodox_wrapper( \
     k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, \

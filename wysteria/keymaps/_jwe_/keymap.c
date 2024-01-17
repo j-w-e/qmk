@@ -5,22 +5,31 @@
 #include "_jwe_.h"
 
 
-#define LAYOUT_WYST(...) _LAYOUT_WYST(__VA_ARGS__)
+/* #define LAYOUT_WYST(...) _LAYOUT_WYST(__VA_ARGS__) */
 #define _LAYOUT_wyst_custom(...) LAYOUT_wyst_custom(__VA_ARGS__)
-#define _LAYOUT_WYST(...) _LAYOUT_wyst_custom(LAYOUT_ADD_WYST_THeMBS(__VA_ARGS__))
+/* #define _LAYOUT_WYST(...) _LAYOUT_wyst_custom(LAYOUT_ADD_WYST_THeMBS(__VA_ARGS__)) */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/*     [0] = LAYOUT_wyst_custom( */
-/*         KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, */
-/*         KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, */
-/*         KC_Z, KC_X, KC_C, KC_V, KC_B, KC_M, KC_N, KC_COMM, KC_DOT, KC_SLSH, */
-/*         KC_LCTL, KC_LSFT, KC_SPC, KC_MUTE, KC_MUTE, KC_ENT, KC_LGUI, KC_LALT */
-/* )  */
-    [APTMAK] = LAYOUT_WYST(_ALPHAS_APTMAK),
-    [SYM] = LAYOUT_WYST(_ALPHAS_SYMBOLS),
-    [NAV] = LAYOUT_WYST(_ALPHAS_NAV),
-    [NUM] = LAYOUT_WYST(_ALPHAS_NUMBERS),
-    [MOUSE] = LAYOUT_WYST(_ALPHAS_MOUSE),
-    [SYM2] = LAYOUT_WYST(_ALPHAS_SYM2),
-    [FUNC] = LAYOUT_WYST(_ALPHAS_FUNC),
+    // the first entry is the wrapper, as per the defines. 
+    // the second and third are what I want the encoder presses to be (left, then right)
+    // the wrappers automatically set this to the right place in the layout function
+    [APTMAK] = LAYOUT_WYST(_ALPHAS_APTMAK, KC_MUTE, A(G(S(KC_M)))),
+    [SYM] = LAYOUT_WYST(_ALPHAS_SYMBOLS, _______, _______),
+    [NAV] = LAYOUT_WYST(_ALPHAS_NAV, _______, A(G(S(KC_C)))),
+    [NUM] = LAYOUT_WYST(_ALPHAS_NUMBERS, _______, A(G(S(KC_B)))),
+    [MOUSE] = LAYOUT_WYST(_ALPHAS_MOUSE, _______, _______),
+    [SYM2] = LAYOUT_WYST(_ALPHAS_SYM2, _______, _______),
+    [FUNC] = LAYOUT_WYST(_ALPHAS_FUNC, _______, _______),
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [APTMAK] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP) },
+    [SYM] =    { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP) },
+    [NAV] =    { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_PGUP, KC_PGDN) },
+    [NUM] =    { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP) },
+    [MOUSE] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP) },
+    [SYM2] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP) },
+    [FUNC] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP) },
+};
+#endif
