@@ -191,54 +191,54 @@ void keyboard_post_init_user(void) {
 #endif /* ifdef LIATRIS */
 
 
-bool is_keyboard_idle = false;
-static uint32_t key_timer;
-
-void housekeeping_task_user(void) {
-#ifdef KEYBOARD_IDLE_TIME
-    check_idle_timeout();
-#endif
-}
-void refresh_idle(void) {
-    key_timer = timer_read32(); // store time of last refresh
-    if (is_keyboard_idle)
-    {
-        is_keyboard_idle = false;
-#ifdef RGB_MATRIX_ENABLE
-        rgb_matrix_enable_noeeprom();
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_DEFAULT_MODE);
-#endif /* RGB_MATRIX_ENABLE */
-    }
-}
-
-bool check_if_oled_should_be_on(void) {
-    return !(is_keyboard_idle && timer_elapsed32(key_timer) > KEYBOARD_IDLE_TIME);
-}
-
-void check_idle_timeout(void) {
-    if (timer_elapsed32(key_timer) > KEYBOARD_SLEEP_TIME)
-    {
-#ifdef RGB_MATRIX_ENABLE
-        rgb_matrix_disable_noeeprom();
-#endif /* RGB_MATRIX_ENABLE */
-    }
-    else if (!is_keyboard_idle && timer_elapsed32(key_timer) > KEYBOARD_IDLE_TIME)
-    {
-        is_keyboard_idle = true;
-#ifdef RGB_MATRIX_ENABLE
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
-#endif /* RGB_MATRIX_ENABLE */
-#ifdef OLED_ENABLE
-        oled_off();
-#endif
-    }
-}
-#ifdef KEYBOARD_IDLE_TIME
-void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef OLED_ENABLE
-        oled_on();
-#endif
-    if (record->event.pressed)
-        refresh_idle();
-}
-#endif /* ifdef KEYBOARD_IDLE_TIME */
+/* bool is_keyboard_idle = false; */
+/* static uint32_t key_timer; */
+/**/
+/* void housekeeping_task_user(void) { */
+/* #ifdef KEYBOARD_IDLE_TIME */
+/*     check_idle_timeout(); */
+/* #endif */
+/* } */
+/* void refresh_idle(void) { */
+/*     key_timer = timer_read32(); // store time of last refresh */
+/*     if (is_keyboard_idle) */
+/*     { */
+/*         is_keyboard_idle = false; */
+/* #ifdef RGB_MATRIX_ENABLE */
+/*         rgb_matrix_enable_noeeprom(); */
+/*         rgb_matrix_mode_noeeprom(RGB_MATRIX_DEFAULT_MODE); */
+/* #endif // RGB_MATRIX_ENABLE */
+/*     } */
+/* } */
+/**/
+/* bool check_if_oled_should_be_on(void) { */
+/*     return !(is_keyboard_idle && timer_elapsed32(key_timer) > KEYBOARD_IDLE_TIME); */
+/* } */
+/**/
+/* void check_idle_timeout(void) { */
+/*     if (timer_elapsed32(key_timer) > KEYBOARD_SLEEP_TIME) */
+/*     { */
+/* #ifdef RGB_MATRIX_ENABLE */
+/*         rgb_matrix_disable_noeeprom(); */
+/* #endif // RGB_MATRIX_ENABLE */
+/*     } */
+/*     else if (!is_keyboard_idle && timer_elapsed32(key_timer) > KEYBOARD_IDLE_TIME) */
+/*     { */
+/*         is_keyboard_idle = true; */
+/* #ifdef RGB_MATRIX_ENABLE */
+/*         rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE); */
+/* #endif // RGB_MATRIX_ENABLE */
+/* #ifdef OLED_ENABLE */
+/*         oled_off(); */
+/* #endif */
+/*     } */
+/* } */
+/* #ifdef KEYBOARD_IDLE_TIME */
+/* void post_process_record_user(uint16_t keycode, keyrecord_t *record) { */
+/* #ifdef OLED_ENABLE */
+/*         oled_on(); */
+/* #endif */
+/*     if (record->event.pressed) */
+/*         refresh_idle(); */
+/* } */
+/* #endif // ifdef KEYBOARD_IDLE_TIME */

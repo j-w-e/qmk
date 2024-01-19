@@ -120,8 +120,8 @@
 #endif
 
 #define SPLIT_ACTIVITY_ENABLE
-#define KEYBOARD_IDLE_TIME 120000
-#define KEYBOARD_SLEEP_TIME 900000
+/* #define KEYBOARD_IDLE_TIME 120000 */
+/* #define KEYBOARD_SLEEP_TIME 900000 */
 
 //#define SPLIT_LAYER_STATE_ENABLE
 #define LAYER_STATE_8BIT // limit to fewer than 8 layers
