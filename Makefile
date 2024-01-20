@@ -13,9 +13,7 @@ all: $(KEYBOARDS)
 $(KEYBOARDS):
 	# init submodule
 	# git submodule update --init --recursive
-	cd qmk_firmware
-	git pull
-	cd ..
+	cd qmk_firmware; git pull; cd ..
 
 # cleanup old symlinks
 	for f in $(KEYBOARDS); do rm -rf qmk_firmware/keyboards/$@/keymaps/$(USER); done
@@ -37,9 +35,7 @@ $(KEYBOARDS):
 
 .PHONY: lbs
 lbs:
-	cd qmk_firmware
-	git pull
-	cd ..
+	cd qmk_firmware; git pull; cd ..
 
 # cleanup old symlinks
 	rm -rf qmk_firmware/keyboards/$(PATH_$@)/keymaps/$(USER)
@@ -67,9 +63,7 @@ eez_flash: ergodox_ez
 
 .PHONY: wysteria
 wysteria:
-	cd qmk_firmware
-	git pull
-	cd ..
+	cd qmk_firmware; git pull; cd ..
 
 # cleanup old symlinks
 	rm -rf qmk_firmware/keyboards/$@

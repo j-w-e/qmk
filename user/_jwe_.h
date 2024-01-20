@@ -20,8 +20,8 @@ bool override_shift(bool is_shifted,
     uint16_t shift_override,
     uint16_t keycode,
     keyrecord_t *record);
-/* void check_idle_timeout(void); */
-/* void refresh_idle(void); */
+void check_idle_timeout(void);
+void refresh_idle(void);
 /* bool check_if_oled_should_be_on(void); */
 
 #endif
