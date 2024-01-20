@@ -180,15 +180,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef LIATRIS
 void keyboard_post_init_user(void) {
+#ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_DEFAULT_MODE
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_DEFAULT_MODE);
+#endif /* ifdef RGB_MATRIX_DEFAULT_MODE */
+#endif /* ifdef RGB_MATRIX_ENABLE */
+#ifdef LIATRIS
     // Set our LED pin as output
     setPinOutput(24);
     // Turn the LED off
     // (Due to technical reasons, high is off and low is on)
     writePinHigh(24);
-}
 #endif /* ifdef LIATRIS */
+}
 
 
 /* bool is_keyboard_idle = false; */
