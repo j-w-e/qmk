@@ -40,7 +40,8 @@ void oled_render_layer_state_r2g_jwe(void) {
     }
     oled_advance_page(true);
 #ifdef CAPS_WORD_ENABLE
-    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)){
+    /* if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)){ */
+    if (host_keyboard_leds()){
 #ifdef SWAP_HANDS_ENABLE
         oled_write_P(PSTR("CAPLK"), swap_hands);
 #else
@@ -54,7 +55,8 @@ void oled_render_layer_state_r2g_jwe(void) {
         oled_advance_page(true);
     }
 #else
-    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)){
+    /* if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)){ */
+    if (host_keyboard_leds()){
 #ifdef SWAP_HANDS_ENABLE
         oled_write_P(PSTR("CAPLK"), swap_hands);
 #else

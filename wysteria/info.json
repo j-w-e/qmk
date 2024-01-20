@@ -30,7 +30,7 @@
         "vid": "0xFEED"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "ws2812": {
         "driver": "vendor",
