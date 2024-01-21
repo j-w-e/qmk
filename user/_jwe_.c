@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "_jwe_.h"
+#include "transactions.h"
 
 uint16_t sym_timer = ONESHOT_TIMEOUT + 1;
 bool sw_win_active = false;
@@ -180,10 +181,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void user_sync_rgb_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data);
+
 void keyboard_post_init_user(void) {
 #ifdef RGB_MATRIX_ENABLE
 #ifdef RGB_MATRIX_DEFAULT_MODE
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_DEFAULT_MODE);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_DEFAULT_MODE);
+    transaction_register_rpc(SYNC_RGB_STATE, user_sync_rgb_slave_handler);
 #endif /* ifdef RGB_MATRIX_DEFAULT_MODE */
 #endif /* ifdef RGB_MATRIX_ENABLE */
 #ifdef LIATRIS
@@ -216,10 +220,6 @@ void refresh_idle(void) {
     }
 }
 
-/* bool check_if_oled_should_be_on(void) { */
-/*     return !(is_keyboard_idle && timer_elapsed32(key_timer) > KEYBOARD_IDLE_TIME); */
-/* } */
-
 void check_idle_timeout(void) {
     if (sync_timer_elapsed32(key_timer) > KEYBOARD_SLEEP_TIME)
     {
@@ -246,4 +246,20 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed)
         refresh_idle();
 }
+
+void user_sync_rgb_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
+    is_keyboard_idle = *(bool*)in_data;
+    if (is_keyboard_idle)
+    {
+#ifdef RGB_MATRIX_ENABLE
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
+#endif // RGB_MATRIX_ENABLE
+    } else {
+#ifdef RGB_MATRIX_ENABLE
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
+#endif // RGB_MATRIX_ENABLE
+    }
+}
+
+
 #endif // ifdef KEYBOARD_IDLE_TIME
