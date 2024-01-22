@@ -17,6 +17,7 @@
 #include QMK_KEYBOARD_H
 #include "_jwe_.h"
 #include "transactions.h"
+#include "split_util.h"
 
 uint16_t sym_timer = ONESHOT_TIMEOUT + 1;
 bool sw_win_active = false;
@@ -187,7 +188,8 @@ void keyboard_post_init_user(void) {
 #ifdef RGB_MATRIX_ENABLE
 #ifdef RGB_MATRIX_DEFAULT_MODE
     rgb_matrix_mode_noeeprom(RGB_MATRIX_DEFAULT_MODE);
-    transaction_register_rpc(SYNC_RGB_STATE, user_sync_rgb_slave_handler);
+    /* transaction_register_rpc(SYNC_RGB_STATE, user_sync_rgb_slave_handler); */
+    theme_init();
 #endif /* ifdef RGB_MATRIX_DEFAULT_MODE */
 #endif /* ifdef RGB_MATRIX_ENABLE */
 #ifdef LIATRIS
@@ -202,7 +204,7 @@ void keyboard_post_init_user(void) {
 
 bool is_keyboard_idle = false;
 static uint32_t key_timer;
-
+/**/
 void housekeeping_task_user(void) {
 #ifdef KEYBOARD_IDLE_TIME
     check_idle_timeout();
@@ -220,12 +222,13 @@ void refresh_idle(void) {
     }
 }
 
-void check_idle_timeout(void) {
+bool check_idle_timeout(void) {
     if (sync_timer_elapsed32(key_timer) > KEYBOARD_SLEEP_TIME)
     {
 #ifdef RGB_MATRIX_ENABLE
         rgb_matrix_disable_noeeprom();
 #endif // RGB_MATRIX_ENABLE
+        return (true);
     }
     else if (!is_keyboard_idle && sync_timer_elapsed32(key_timer) > KEYBOARD_IDLE_TIME)
     {
@@ -236,7 +239,9 @@ void check_idle_timeout(void) {
 #ifdef OLED_ENABLE
         oled_off();
 #endif
+        return(true);
     }
+    return (false);
 }
 #ifdef KEYBOARD_IDLE_TIME
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -247,19 +252,77 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
         refresh_idle();
 }
 
-void user_sync_rgb_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
-    is_keyboard_idle = *(bool*)in_data;
-    if (is_keyboard_idle)
-    {
-#ifdef RGB_MATRIX_ENABLE
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
-#endif // RGB_MATRIX_ENABLE
-    } else {
-#ifdef RGB_MATRIX_ENABLE
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
-#endif // RGB_MATRIX_ENABLE
-    }
-}
+/* void user_sync_rgb_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) { */
+/*     is_keyboard_idle = *(bool*)in_data; */
+/*     if (is_keyboard_idle) */
+/*     { */
+/* #ifdef RGB_MATRIX_ENABLE */
+/*         rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE); */
+/* #endif // RGB_MATRIX_ENABLE */
+/*     } else { */
+/* #ifdef RGB_MATRIX_ENABLE */
+/*         rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE); */
+/* #endif // RGB_MATRIX_ENABLE */
+/*     } */
+/* } */
 
 
 #endif // ifdef KEYBOARD_IDLE_TIME
+
+
+//----------------------------------------------------------
+// Sync
+
+theme_runtime_config theme_state;
+
+void rpc_theme_sync_callback(uint8_t m2s_size, const void *m2s_buffer, uint8_t s2m_size, void *s2m_buffer) {
+    if (m2s_size == sizeof(theme_state)) {
+        memcpy(&theme_state, m2s_buffer, m2s_size);
+    }
+}
+
+void theme_init(void) {
+    // Register keyboard state sync split transaction
+    transaction_register_rpc(THEME_DATA_SYNC, rpc_theme_sync_callback);
+
+    // Reset the initial shared data value between master and slave
+    memset(&theme_state, 0, sizeof(theme_state));
+}
+
+void theme_state_update(void) {
+    if (is_keyboard_master()) {
+        // Keep the scan rate in sync
+        theme_state.scan_rate = is_keyboard_idle;
+    }
+}
+
+void theme_state_sync(void) {
+    if (!is_transport_connected()) return;
+
+    if (is_keyboard_master()) {
+        // Keep track of the last state, so that we can tell if we need to propagate to slave
+        static theme_runtime_config last_theme_state;
+        static uint32_t             last_sync;
+        bool                        needs_sync = false;
+
+        // Check if the state values are different
+        if (memcmp(&theme_state, &last_theme_state, sizeof(theme_runtime_config))) {
+            needs_sync = true;
+            memcpy(&last_theme_state, &theme_state, sizeof(theme_runtime_config));
+        }
+
+        // Send to slave every 125ms regardless of state change
+        if (timer_elapsed32(last_sync) > 125) {
+            needs_sync = true;
+        }
+
+        // Perform the sync if requested
+        if (needs_sync) {
+            if (transaction_rpc_send(THEME_DATA_SYNC, sizeof(theme_runtime_config), &theme_state)) {
+                last_sync = timer_read32();
+            } else {
+                dprint("Failed to perform rpc call\n");
+            }
+        }
+    }
+}
