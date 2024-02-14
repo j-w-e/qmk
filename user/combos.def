@@ -30,3 +30,7 @@ SUBS(HR_H2R,                         "H2R",                              KC_H, K
 COMB(en_hyphen,         A(KC_MINUS),        KC_MINUS, KC_DOT)
 COMB(ent_r,            KC_ENT,              KC_J, KC_L)
 COMB(bspc_l,           KC_BSPC,             KC_P, KC_B)
+
+
+
+SUBS(DS_SR,                         "DS/SR",                              KC_D, KC_S)

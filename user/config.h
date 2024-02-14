@@ -115,7 +115,7 @@
 /* #define OLED_FADE_OUT */
 /* #define OLED_FADE_OUT_INTERVAL 2 */
 #define OLED_BRIGHTNESS 128
-#define OLED_TIMEOUT 15000
+#define OLED_TIMEOUT 60000
 #define SPLIT_OLED_ENABLE
 #endif
 
