@@ -1,4 +1,5 @@
 #include "oled.h"
+#include "graph.h"
 
 #ifdef OLED_ENABLE
 
@@ -80,13 +81,6 @@ void render_bootmagic_status_r2g_jwe(void) {
         oled_advance_char();
         oled_write_P(logo[1][1], false);
     oled_advance_page(true);
-#ifdef WPM_ENABLE
-    oled_advance_page(true);
-    oled_write_P(PSTR("WPM: "), false);
-    oled_write(get_u8_str(get_current_wpm(), ' '), false);
-    oled_advance_page(true);
-#endif // WPM_ENABLE
-
     oled_advance_page(true);
 }
 
@@ -322,8 +316,16 @@ bool oled_task_user(void) {
 #endif // LEADER_ENABLE
         } else {
             /* render_mod_status(get_mods() | get_oneshot_mods()); */
-            oled_render_logo_r2g_jwe();
-            render_pet(0, 10);
+#ifdef WPM_ENABLE
+        oled_advance_page(true);
+        oled_write_P(PSTR("WPM: "), false);
+        oled_write(get_u8_str(get_current_wpm(), ' '), false);
+        oled_advance_page(true);
+#endif // WPM_ENABLE
+
+            render_wpm_graph();
+            /* oled_render_logo_r2g_jwe(); */
+            render_pet(0, 5);
         }
     /* } */
     return false;
