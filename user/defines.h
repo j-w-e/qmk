@@ -74,7 +74,7 @@ enum userspace_custom_keycodes {
 #define Y_APPWIN C(KC_DOWN)
 #define Y_M_CTL C(KC_UP)
 #define Y_SPC_R C(KC_RIGHT)
-#define Y_CENTRE C(A(G(KC_H)))
+#define Y_CENTRE C(A(G(KC_Z)))
 #define Y_WIN_L C(A(G(KC_J)))
 #define Y_WIN_D C(A(G(KC_K)))
 #define Y_WIN_U C(A(G(KC_L)))

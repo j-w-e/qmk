@@ -31,6 +31,9 @@ COMB(en_hyphen,         A(KC_MINUS),        KC_MINUS, KC_DOT)
 COMB(ent_r,            KC_ENT,              KC_J, KC_L)
 COMB(bspc_l,           KC_BSPC,             KC_P, KC_B)
 
-
+COMB(paren_l,       S(KC_9),         KC_F, KC_T)
+COMB(paren_r,       S(KC_0),         KC_U, KC_A)
+COMB(brack_l,       KC_LBRC,         KC_P, KC_H)
+COMB(brack_r,        KC_RBRC,        KC_L, KC_N)
 
 SUBS(DS_SR,                         "DS/SR",                              KC_D, KC_S)
