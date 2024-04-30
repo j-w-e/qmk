@@ -88,6 +88,15 @@ enum userspace_custom_keycodes {
 #define __TR2__ OS_SYM
 #define __TR3__ LA_MOUSE
 
+#define MT_R LCTL_T(KC_R)
+#define MT_S LALT_T(KC_S)
+#define MT_T LCMD_T(KC_T)
+#define MT_H LSFT_T(KC_H)
+#define MT_O LCTL_T(KC_O)
+#define MT_I LALT_T(KC_I)
+#define MT_A LCMD_T(KC_A)
+#define MT_N LSFT_T(KC_N)
+
 #define ________________CALLUM_THUMBS______________       __TL1__,  __TL3__,    __TL2__,    __TR2__,    __TR1__,    __TR3__
 #define ________________aptmak_THUMBS______________       __TL1__,  __TR1__,    __TL2__,    __TR2__,       KC_E,    __TR3__
 #define _________________wyst_THUMBS_______________       __TL1__,  __TR1__,    __TL2__, KC_MUTE, KC_MUTE,  __TR2__,  KC_E,  __TR3__
@@ -99,11 +108,11 @@ enum userspace_custom_keycodes {
 
 
 #define __________________APTMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
-#define __________________APTMAK_R2________________       KC_BSPC,  KC_N,    KC_A,    KC_I,    KC_O
+#define __________________APTMAK_R2________________       KC_BSPC,  MT_N,    MT_A,    MT_I,    MT_O
 #define __________________APTMAK_R3________________       KC_V,    KC_M,    KC_COMM, KC_DOT,  KC_MINUS
 
 #define __________________APTMAK_L1________________       QK_REP,  KC_W,    KC_F,    KC_P,    KC_B
-#define __________________APTMAK_L2________________       KC_R,    KC_S,    KC_T,    KC_H,    KC_ENT
+#define __________________APTMAK_L2________________       MT_R,    MT_S,    MT_T,    MT_H,    KC_ENT
 #define __________________APTMAK_L3________________       KC_SLASH,KC_C,    KC_G,    KC_D,    KC_K
 
 #define __________________ENGRAM_L1________________       KC_B,    KC_Y,    KC_O,    KC_U,    KC_COMM
