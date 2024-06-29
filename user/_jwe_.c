@@ -77,6 +77,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     return keycode;  // Defer to default definitions.
 }
 
+static fast_timer_t tap_timer = 0;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CAPS_WORD_ENABLE
     if(keycode == OSM(MOD_LSFT) && is_caps_word_on()) {
@@ -84,6 +86,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 #endif
+    if (record->event.pressed) {
+        tap_timer = timer_read_fast();
+    }
     update_swapper(
             &sw_win_active, KC_LGUI, KC_TAB, SW_WIN,
             keycode, record
@@ -179,6 +184,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+#ifdef TAPPING_TERM_PER_KEY
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    // Increase tapping term for the home row mod-tap while typing
+    if (timer_elapsed_fast(tap_timer) < TAPPING_TERM * 3) {
+        return TAPPING_TERM * 3;
+    }
+    return TAPPING_TERM;
+}
+#endif
 
 void keyboard_post_init_user(void) {
 #ifdef RGB_MATRIX_ENABLE

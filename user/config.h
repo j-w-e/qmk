@@ -133,6 +133,7 @@
 /* #define NO_ACTION_ONESHOT */
 /* #define NO_ACTION_TAPPING */
 #define TAPPING_TERM 250
+#define TAPPING_TERM_PER_KEY
 
 #define COMBO_VARIABLE_LEN
 #define COMBO_TERM 25
