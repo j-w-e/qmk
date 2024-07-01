@@ -102,6 +102,7 @@
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 100 out of 255. If not defined maximum brightness is set to 255
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE
+#undef RGB_MATRIX_DEFAULT_SPD
 #define RGB_MATRIX_DEFAULT_SPD 10
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 /* #define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL */

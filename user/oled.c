@@ -1,7 +1,7 @@
+#ifdef OLED_ENABLE
+
 #include "oled.h"
 #include "graph.h"
-
-#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     kittoken = defer_exec(3000, pet_animation_phases, NULL);

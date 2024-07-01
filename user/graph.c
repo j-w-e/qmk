@@ -1,3 +1,4 @@
+#ifdef OLED_ENABLE
 #include "quantum.h"
 #include "graph.h"
 
@@ -73,3 +74,4 @@ void render_wpm_graph(void) {
     update_wpm_history(get_current_wpm());
     draw_wpm_graph(true);
 }
+#endif // OLED_ENABLE

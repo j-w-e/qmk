@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "_jwe_.h"
+#include "action_util.h"
 
 uint16_t sym_timer = ONESHOT_TIMEOUT + 1;
 bool sw_win_active = false;
@@ -30,6 +31,12 @@ oneshot_state os_sym_state = os_up_unqueued;
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, SYM, NAV, SYM2);
     state = update_tri_layer_state(state, NUM, MOUSE, FUNC);
+
+#ifdef POINTING_DEVICE_ENABLE
+#    ifdef CHARYBDIS_AUTO_SNIPING_ON_LAYER
+    charybdis_set_pointer_sniping_enabled(layer_state_cmp(state, CHARYBDIS_AUTO_SNIPING_ON_LAYER));
+#    endif // CHARYBDIS_AUTO_SNIPING_ON_LAYER
+#endif // POINTING_DEVICE_ENABLE
 
     return state;
 };
@@ -65,6 +72,18 @@ void matrix_scan_user (void) {
             os_sym_state = os_up_unqueued;
         }
     }
+#ifdef POINTING_DEVICE_ENABLE
+#    ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
+    if (auto_pointer_layer_timer != 0 && TIMER_DIFF_16(timer_read(), auto_pointer_layer_timer) >= CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS) {
+        auto_pointer_layer_timer = 0;
+        layer_off(LAYER_POINTER);
+#        ifdef RGB_MATRIX_ENABLE
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_DEFAULT_MODE);
+#        endif // RGB_MATRIX_ENABLE
+    }
+#    endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
+#endif // POINTING_DEVICE_ENABLE
+
 }
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
@@ -123,8 +142,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool is_shifted =
         (get_mods() & MOD_MASK_SHIFT) ||
         (get_oneshot_mods() & MOD_MASK_SHIFT);
+    /*bool is_shifted = (get_mods() & MOD_MASK_SHIFT);*/
 
     switch(keycode) {
+#ifdef DRGSCRL
+        case LT(0, KC_MINUS):
+        case LT(0, KC_SLASH):
+          if (!record->tap.count) {
+                charybdis_set_pointer_dragscroll_enabled(record->event.pressed);
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+        case LT(0, KC_C):
+        case LT(0, KC_DOT):
+          if (!record->tap.count) {
+                charybdis_set_pointer_sniping_enabled(record->event.pressed);
+                return false;
+            }
+            return true;             // Return true for normal processing of tap keycode
+#endif // DRGSCRL
         case KC_COMMA:
             return override_shift(is_shifted, KC_SCLN, keycode, record);
         case KC_DOT:
