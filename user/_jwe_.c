@@ -96,6 +96,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     return keycode;  // Defer to default definitions.
 }
 
+// This comes from https://github.com/filterpaper/qmk_userspace?tab=readme-ov-file#hold-delay
+// It means that when typing, the TAPPING_TERM is increased, so slow released keys don't trigger the hold function
 static fast_timer_t tap_timer = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -105,6 +107,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 #endif
+// Again, this is for increasing the TAPPING_TERM
     if (record->event.pressed) {
         tap_timer = timer_read_fast();
     }
