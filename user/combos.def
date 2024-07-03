@@ -27,7 +27,11 @@ SUBS(HR_H2R,                         "H2R",                              MT_H, M
 
 
 //COMB(ZERO,        KC_0,    KC_SPC, MT_N)
+#ifndef POINTING_DEVICE_ENABLE
 COMB(en_hyphen,         A(KC_MINUS),        KC_MINUS, KC_DOT)
+#else
+COMB(en_hyphen,         A(KC_MINUS),        LT(0, KC_MINUS), KC_DOT)
+#endif // POINTING_DEVICE_ENABLE
 COMB(ent_r,            KC_ENT,              KC_J, KC_L)
 COMB(bspc_l,           KC_BSPC,             KC_P, KC_B)
 

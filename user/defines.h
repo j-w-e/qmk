@@ -4,15 +4,15 @@
 
 enum userspace_layers {
     APTMAK = 0,
+#ifdef POINTING_DEVICE_ENABLE
+    POINT,
+#endif // POINTING_DEVICE_ENABLE
     NAV,
     NUM,
     MOUSE,
     SYM,
     SYM2,
     FUNC,
-#ifdef POINTING_DEVICE_ENABLELE
-    POINT,
-#endif // POINTING_DEVICE_ENABLE
 };
 
 enum userspace_custom_keycodes {
