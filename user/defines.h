@@ -243,9 +243,9 @@ enum userspace_custom_keycodes {
   k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, \
   k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A \
     ) \
-    KC_Q,    k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, KC_X, \
-    KC_NO,   k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, KC_NO, \
-    DRGSCRL, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, KC_NO
+    KC_LBRC, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, KC_RBRC, \
+    KC_Q,    k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, KC_X, \
+    KC_Z,    k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, KC_NO
 #define LAYOUT_5x3_TO_6x3(...) _LAYOUT_5x3_TO_6x3(__VA_ARGS__)
 
 #define _LAYOUT_ADD_THUMBS(...) __VA_ARGS__, ________________CALLUM_THUMBS______________
@@ -297,5 +297,5 @@ enum userspace_custom_keycodes {
       k02,    k12,  k13,  k14,  k15,  k16,      k17,  k18,  k19,  k1A,  k1B,  k0B,     \
       k21,    k22,  k23,  k24,  k25,  k26,      k27,  k28,  k29,  k2A,  k2B,  k2C,     \
                            k31, k32,  k33,      k34,  k35,                             \
-                                KC_NO,KC_NO,    k36
+                                KC_BTN1,KC_BTN2,    k36
 #define LAYOUT_charybdis_wrapper(...) _LAYOUT_charybdis_wrapper(__VA_ARGS__)
