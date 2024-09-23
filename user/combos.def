@@ -40,4 +40,6 @@ COMB(paren_r,       S(KC_0),         KC_U, MT_A)
 COMB(brack_l,       KC_LBRC,         KC_P, MT_H)
 COMB(brack_r,        KC_RBRC,        KC_L, MT_N)
 
-SUBS(DS_SR,                         "DS/SR",                              KC_D, MT_S)
+SUBS(DS_SR,                         "SR/DS",                              KC_D, MT_S)
+COMB(thumb_shift, OSM(MOD_LSFT), OS_SYM, LA_MOUSE)
+SUBS(proj_code,                         "NOUA0007",                              KC_0, KC_7)

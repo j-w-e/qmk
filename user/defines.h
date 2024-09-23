@@ -34,7 +34,7 @@ enum userspace_custom_keycodes {
     JWE_MNE,
     JWE_NRC,
     SLEEP,
-
+    /*YOU_MACRO,*/
 };
 
 #define JWE_NXTAB   C(KC_TAB)
@@ -117,7 +117,7 @@ enum userspace_custom_keycodes {
 #define __________________APTMAK_R3________________       KC_V,    KC_M,    KC_COMM, LT(0,KC_DOT),  KC_MINUS
 #endif // DRGSCRL
 
-#define __________________APTMAK_L1________________       QK_REP,  KC_W,    KC_F,    KC_P,    KC_B
+#define __________________APTMAK_L1________________       QK_REP, KC_W,    KC_F,    KC_P,    KC_B
 #define __________________APTMAK_L2________________       MT_R,    MT_S,    MT_T,    MT_H,    KC_ENT
 #ifdef DRGSCRL
 #define __________________APTMAK_L3________________       LT(0, KC_SLASH), LT(0, KC_C),    KC_G,    KC_D,    KC_K
@@ -152,11 +152,7 @@ enum userspace_custom_keycodes {
 #define ___________________NAV_R3__________________       _______,  SK_LINEBEG, SK_DOCEND,  SK_DOCBEG,  SK_LINEEND
 
 
-#ifdef ERGODOX
-#define _________________NUMBERS_L1________________       KC_E,     KC_W,       KC_VOLD,    KC_VOLU,    KC_MUTE
-#else
-#define _________________NUMBERS_L1________________       KC_E,     KC_W,       KC_NO,      SECTION,    KC_SPACE
-#endif // ERGODOX
+#define _________________NUMBERS_L1________________       KC_E,     KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_SPACE
 #define _________________NUMBERS_L2________________       OSM(MOD_LCTL),  OSM(MOD_LALT),    OSM(MOD_LGUI),    OSM(MOD_LSFT),    KC_ENT
 /* #define _________________NUMBERS_L2________________       KC_LCTL,  KC_LALT,    KC_LGUI,    KC_LSFT,    KC_BSPC */
 /* #define _________________NUMBERS_L2________________       ________________CALLUM_MODS_L______________,  KC_BSPC */
@@ -245,7 +241,7 @@ enum userspace_custom_keycodes {
     ) \
     KC_LBRC, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, KC_RBRC, \
     KC_Q,    k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, KC_X, \
-    KC_Z,    k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, KC_NO
+    KC_Z,    k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, KC_BTN1
 #define LAYOUT_5x3_TO_6x3(...) _LAYOUT_5x3_TO_6x3(__VA_ARGS__)
 
 #define _LAYOUT_ADD_THUMBS(...) __VA_ARGS__, ________________CALLUM_THUMBS______________
