@@ -1,0 +1,9 @@
+{
+    "userspace_version": "1.1",
+    "build_targets": [
+        ["crkbd/r2g", "_jwe_"],
+        ["ergodox_ez/shine", "_jwe_"],
+        ["bastardkb/charybdis/4x6/v2/splinky_3", "_jwe_"],
+        ["wysteria", "_jwe_"]
+    ]
+}

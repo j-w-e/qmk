@@ -6,6 +6,4 @@ z. older configs
 *.map
 *.tmp
 *.uf2
-user/secrets.h
-qmk_firmware
 error_occurred

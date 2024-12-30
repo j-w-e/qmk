@@ -1,102 +1,46 @@
-# NOTE TODO I have not added my charybdis yet to this workflow
-# Currently, it needs the following command run in qmk folder
-	# make bastardkb/charybdis/4x6/v2/splinky_3:_jwe_:flash
+# This Makefile adds the right wysteria keyboard files to the main QMK folder
+# Because external userspace does not currently allow building of out-of-tree
+# keyboards.
 #
-#
-# this method comes from https://medium.com/@patrick.elmquist/separate-keymap-repo-for-qmk-136ff5a419bd
-# usage: make all, or make lbs, or make crkbd, or make ergodox_ez
-USER = _jwe_
+# `make` works, and cleans up after itself in the main QMK_FIRMWARE_ROOT directory
+# but doesn't currently leave the build filse available, for some reason
+# 
+# TODO add in the ability to call make and have it flash the keyboard 
+# automatically
+.SILENT:
 
-KEYBOARDS = crkbd ergodox_ez
-PATH_crkbd = r2g
-PATH_ergodox_ez = shine
-PATH_lbs = tweetydabird/lbs4
+MAKEFLAGS += --no-print-directory
 
-all: $(KEYBOARDS)
+QMK_USERSPACE := $(patsubst %/,%,$(dir $(shell realpath "$(lastword $(MAKEFILE_LIST))")))
+ifeq ($(QMK_USERSPACE),)
+    QMK_USERSPACE := $(shell pwd)
+endif
 
-.PHONY: $(KEYBOARDS)
-$(KEYBOARDS):
-	# init submodule
-	# git submodule update --init --recursive
-	# cd qmk_firmware
-	# git pull
-	# cd ..
+QMK_FIRMWARE_ROOT = $(shell qmk config -ro user.qmk_home | cut -d= -f2 | sed -e 's@^None$$@@g')
+ifeq ($(QMK_FIRMWARE_ROOT),)
+    $(error Cannot determine qmk_firmware location. `qmk config -ro user.qmk_home` is not set)
+endif
 
-# cleanup old symlinks
-	for f in $(KEYBOARDS); do rm -rf qmk_firmware/keyboards/$@/keymaps/$(USER); done
-	rm -rf qmk_firmware/users/$(USER)
+FILES := $(shell find $(QMK_USERSPACE)/keyboards/wysteria -type f -maxdepth 1)
 
-# add new symlinks
-	ln -s $(shell pwd)/user qmk_firmware/users/$(USER)
-	ln -s $(shell pwd)/$@ qmk_firmware/keyboards/$@/keymaps/$(USER)
+.PHONY: all wysteria_prep compile wysteria_clean
 
-# run lint check
-	cd qmk_firmware; qmk lint -km $(USER) -kb $@/$(PATH_$@) --strict
+all: wysteria_prep compile wysteria_clean
 
-# run build
-	make BUILD_DIR=$(shell pwd) -j1 -C qmk_firmware $@/$(PATH_$@):$(USER)
+wysteria_prep:
+	echo "prepping"
+	mkdir -p $(QMK_FIRMWARE_ROOT)/keyboards/wysteria
+	for file in $(FILES); do \
+		cp "$$file" $(QMK_FIRMWARE_ROOT)/keyboards/wysteria; \
+	done
 
-# cleanup symlinks
-	for f in $(KEYBOARDS); do rm -rf qmk_firmware/keyboards/$@/keymaps/$(USER); done
-	rm -rf qmk_firmware/users/$(USER)
+compile:
+	echo "compiling"
+	qmk userspace-compile
 
-.PHONY: lbs
-lbs:
-	# cd qmk_firmware
-	# git pull
-	# cd ..
-
-# cleanup old symlinks
-	rm -rf qmk_firmware/keyboards/$(PATH_$@)/keymaps/$(USER)
-	rm -rf qmk_firmware/users/$(USER)
-
-# add new symlinks
-	ln -s $(shell pwd)/$@ qmk_firmware/keyboards/$(PATH_$@)/keymaps/$(USER)
-
-# run lint check
-	cd qmk_firmware; qmk lint -km $(USER) -kb $(PATH_$@) --strict
-
-# run build
-	make BUILD_DIR=$(shell pwd) -j1 -C qmk_firmware $(PATH_$@):$(USER)
-
-# cleanup symlinks
-	rm -rf qmk_firmware/keyboards/$(PATH_$@)/keymaps/$(USER)
-
-.PHONY: ck_flash
-ck_flash: crkbd
-	cd qmk_firmware; qmk flash ../crkbd_r2g__jwe_.hex
-
-.PHONY: eez_flash
-eez_flash: ergodox_ez
-	cd qmk_firmware; qmk flash --mcu atmega32u4 ../ergodox_ez_shine__jwe_.hex
-
-.PHONY: wysteria
-wysteria:
-	# cd qmk_firmware
-	# git pull
-	# cd ..
-
-# cleanup old symlinks
-	rm -rf qmk_firmware/keyboards/$@
-	rm -rf qmk_firmware/users/$(USER)
-
-# add new symlinks
-	ln -s $(shell pwd)/$@ qmk_firmware/keyboards/$@
-	ln -s $(shell pwd)/user qmk_firmware/users/$(USER)
-
-# run lint check
-	# cd qmk_firmware; qmk lint -km $(USER) -kb $@ --strict
-
-# run build
-	make BUILD_DIR=$(shell pwd) -j1 -C qmk_firmware $@:_jwe_
-
-# cleanup symlinks
-	rm -rf qmk_firmware/keyboards/$@
-
-
-.PHONY: flash_wyst
-flash_wyst: wysteria
-	cp ./wysteria__jwe_.uf2 /Volumes/RPI-RP2/wyst.uf2
+wysteria_clean:
+	echo "cleaning"
+	rm -rf $(QMK_FIRMWARE_ROOT)/keyboards/wysteria
 
 
 clean:
@@ -106,3 +50,7 @@ clean:
 	rm -f *.hex
 	rm -f *.tmp
 	rm -f *.uf2
+
+
+# %:
+# 	+$(MAKE) -C $(QMK_FIRMWARE_ROOT) $(MAKECMDGOALS) QMK_USERSPACE=$(QMK_USERSPACE)
