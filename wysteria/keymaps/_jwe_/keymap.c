@@ -10,12 +10,12 @@
 /* #define _LAYOUT_WYST(...) _LAYOUT_wyst_custom(LAYOUT_ADD_WYST_THeMBS(__VA_ARGS__)) */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // the first entry is the wrapper, as per the defines. 
+    // the first entry is the wrapper, as per the defines.
     // the second and third are what I want the encoder presses to be (left, then right)
     // the wrappers automatically set this to the right place in the layout function
-    [APTMAK] = LAYOUT_WYST(_ALPHAS_APTMAK, KC_MUTE, A(G(S(KC_M)))),
+    [APTMAK] = LAYOUT_WYST(_ALPHAS_APTMAK, KC_MUTE, JWE_MUTE),
     [SYM] = LAYOUT_WYST(_ALPHAS_SYMBOLS, _______, _______),
-    [NAV] = LAYOUT_WYST(_ALPHAS_NAV, _______, A(G(S(KC_C)))),
+    [NAV] = LAYOUT_WYST(_ALPHAS_NAV, _______, JWE_CMUTE),
     [NUM] = LAYOUT_WYST(_ALPHAS_NUMBERS, _______, A(G(S(KC_B)))),
     [MOUSE] = LAYOUT_WYST(_ALPHAS_MOUSE, _______, _______),
     [SYM2] = LAYOUT_WYST(_ALPHAS_SYM2, _______, _______),

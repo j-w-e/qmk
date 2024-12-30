@@ -39,6 +39,8 @@ enum userspace_custom_keycodes {
 
 #define JWE_NXTAB   C(KC_TAB)
 #define JWE_PRVTAB  C(S(KC_TAB))
+#define JWE_MUTE A(G(S(KC_M)))
+#define JWE_CMUTE A(G(S(KC_C)))
 
 #define BCKTICK     KC_GRV
 #define SECTION     KC_NUBS
@@ -288,7 +290,7 @@ enum userspace_custom_keycodes {
     k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, \
                    k31, k32, k33, k34, k35, k36                 \
   ) \
-      KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5,     KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, \
+      JWE_MUTE,KC_1,KC_2, KC_3, KC_4, KC_5,     KC_6, KC_7, KC_8, KC_9, KC_0, JWE_CMUTE,\
       k01,    k11,  k03,  k04,  k05,  k06,      k07,  k08,  k09,  k0A,  k1C,  k0C,     \
       k02,    k12,  k13,  k14,  k15,  k16,      k17,  k18,  k19,  k1A,  k1B,  k0B,     \
       k21,    k22,  k23,  k24,  k25,  k26,      k27,  k28,  k29,  k2A,  k2B,  k2C,     \
