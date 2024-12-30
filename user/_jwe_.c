@@ -74,16 +74,25 @@ void matrix_scan_user (void) {
     }
 
 }
-
-uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
+                            uint8_t* remembered_mods) {
     switch (keycode) {
-        case KC_C: return KC_K;  // In place of alt-fingering ck
-        case KC_H: return KC_T;  // To ease the ght trigram
-    //  case KC_Y: return 'OU' to allow typing you easily
+        case KC_BSPC:
+            return false;  // Ignore backspace.
     }
 
-    return keycode;  // Defer to default definitions.
+    return true;  // Other keys can be repeated.
 }
+
+/*uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {*/
+/*    switch (keycode) {*/
+/*        // case KC_C: return KC_K;  // In place of alt-fingering ck*/
+/*        case KC_H: return KC_T;  // To ease the ght trigram*/
+/*        case KC_Y: return YOU_MACRO; // to allow typing you easily*/
+/*    }*/
+/**/
+/*    return KC_TRNS;  // Defer to default definitions.*/
+/*}*/
 
 // This comes from https://github.com/filterpaper/qmk_userspace?tab=readme-ov-file#hold-delay
 // It means that when typing, the TAPPING_TERM is increased, so slow released keys don't trigger the hold function
@@ -176,6 +185,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("NOUA0007");
             }
             return false;
+        /*case YOU_MACRO:*/
+        /*    if (record->event.pressed) {*/
+        /*        SEND_STRING("ou");*/
+        /*    }*/
+        /*    return false;*/
         case LA_NAV:
             if (record->event.pressed) {
                 if(os_sym_state == os_up_queued_used) {
