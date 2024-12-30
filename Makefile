@@ -24,22 +24,21 @@ endif
 FILES := $(shell find $(QMK_USERSPACE)/keyboards/wysteria -type f -maxdepth 1)
 
 .PHONY: all wysteria_prep compile wysteria_clean
+.IGNORE: compile
 
 all: wysteria_prep compile wysteria_clean
 
 wysteria_prep:
-	echo "prepping"
+	git submodule update --init --recursive
 	mkdir -p $(QMK_FIRMWARE_ROOT)/keyboards/wysteria
 	for file in $(FILES); do \
 		cp "$$file" $(QMK_FIRMWARE_ROOT)/keyboards/wysteria; \
 	done
 
 compile:
-	echo "compiling"
 	qmk userspace-compile
 
 wysteria_clean:
-	echo "cleaning"
 	rm -rf $(QMK_FIRMWARE_ROOT)/keyboards/wysteria
 
 
