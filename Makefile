@@ -1,3 +1,8 @@
+# NOTE TODO I have not added my charybdis yet to this workflow
+# Currently, it needs the following command run in qmk folder
+	# make bastardkb/charybdis/4x6/v2/splinky_3:_jwe_:flash
+#
+#
 # this method comes from https://medium.com/@patrick.elmquist/separate-keymap-repo-for-qmk-136ff5a419bd
 # usage: make all, or make lbs, or make crkbd, or make ergodox_ez
 USER = _jwe_
